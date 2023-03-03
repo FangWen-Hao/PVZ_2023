@@ -33,7 +33,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 {
 	if (character.Top() + character.Height() >= chest_and_key.Top()
 		&& character.Left() + character.Width() >= chest_and_key.Left()
-		&& chest_and_key.GetSelectShowBitmap() == 0)
+		&& chest_and_key.GetSelectShowBitmap() == 0
+		&& chest_and_key.getIsVisible())
 	{
 		chest_and_key.SelectShowBitmap(1);
 		chest_and_key.SetFilterColor(RGB(255, 255, 255));
@@ -42,7 +43,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 
 	if (character.Top() + character.Height() >= door[0].Top()
 		&& character.Left() + character.Width() >= door[0].Left()
-		&& door[0].GetSelectShowBitmap() == 0)
+		&& door[0].GetSelectShowBitmap() == 0
+		&& door[0].getIsVisible())
 	{
 		door[0].SelectShowBitmap(1);
 		return;
@@ -50,7 +52,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 
 	if (character.Top() + character.Height() >= door[1].Top()
 		&& character.Left() + character.Width() >= door[1].Left()
-		&& door[1].GetSelectShowBitmap() == 0)
+		&& door[1].GetSelectShowBitmap() == 0
+		&& door[1].getIsVisible())
 	{
 		door[1].SelectShowBitmap(1);
 		return;
@@ -58,7 +61,8 @@ void CGameStateRun::OnMove()							// 移動遊戲元素
 
 	if (character.Top() + character.Height() >= door[2].Top()
 		&& character.Left() + character.Width() >= door[2].Left()
-		&& door[2].GetSelectShowBitmap() == 0)
+		&& door[2].GetSelectShowBitmap() == 0
+		&& door[2].getIsVisible())
 	{
 		door[2].SelectShowBitmap(1);
 		return;

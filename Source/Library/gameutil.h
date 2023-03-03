@@ -98,6 +98,7 @@ namespace game_framework {
 		void  ToggleAnimation();
 		int   Top();						// 取得圖形的左上角的 y 座標
 		int   Width();						// 取得圖形的寬度
+		bool  getIsVisible();
 		bool  IsAnimationDone();
 		bool  IsAnimation();
 		int   GetMovingBitmapFrame();
@@ -111,6 +112,7 @@ namespace game_framework {
 		bool isAnimation = false;
 		bool isAnimationDone = true;
 		bool once = false;
+		bool isVisible = false;
 		vector<unsigned> SurfaceID;
 		COLORREF filter_color;
 		bool     isBitmapLoaded = false;	// whether a bitmap has been loaded
