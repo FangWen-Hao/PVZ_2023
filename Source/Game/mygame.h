@@ -65,7 +65,9 @@ namespace game_framework {
 	protected:
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
-		CMovingBitmap logo;								// csie的logo
+		void load_background();
+		void draw_text();
+		CMovingBitmap background;
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -89,6 +91,23 @@ namespace game_framework {
 	protected:
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
+	private:
+		int phase = 1;
+		int sub_phase = 1;
+		CMovingBitmap background;
+		CMovingBitmap character;
+		CMovingBitmap chest_and_key;
+		CMovingBitmap bee;
+		CMovingBitmap ball;
+		CMovingBitmap door[3];
+		void show_image_by_phase();
+		void show_text_by_phase();
+		bool validate_phase_1();
+		bool validate_phase_2();
+		bool validate_phase_3();
+		bool validate_phase_4();
+		bool validate_phase_5();
+		bool validate_phase_6();
 	};
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -101,11 +120,13 @@ namespace game_framework {
 		CGameStateOver(CGame *g);
 		void OnBeginState();							// 設定每次重玩所需的變數
 		void OnInit();
+		void OnKeyDown(UINT, UINT, UINT);
 	protected:
 		void OnMove();									// 移動遊戲元素
 		void OnShow();									// 顯示這個狀態的遊戲畫面
 	private:
-		int counter;	// 倒數之計數器
+		CMovingBitmap background;
+		void load_background();
 	};
 
 }

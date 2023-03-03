@@ -93,12 +93,17 @@ namespace game_framework {
 		void  ShowBitmap();					// 將圖貼到螢幕
 		void  ShowBitmap(double factor);	// 將圖貼到螢幕 factor < 1時縮小，>1時放大。注意：需要VGA卡硬體的支援，否則會很慢
 		void  SelectShowBitmap(int select);
+		void  SetFilterColor(COLORREF color);
 		int   GetSelectShowBitmap();
 		void  ToggleAnimation();
 		int   Top();						// 取得圖形的左上角的 y 座標
 		int   Width();						// 取得圖形的寬度
+		bool  getIsVisible();
 		bool  IsAnimationDone();
+		bool  IsAnimation();
 		int   GetMovingBitmapFrame();
+		string GetImageFilename();
+		COLORREF GetFilterColor();
 	protected:
 		int selector = 0;
 		int delayCount = 10;
@@ -107,15 +112,19 @@ namespace game_framework {
 		bool isAnimation = false;
 		bool isAnimationDone = true;
 		bool once = false;
+		bool isVisible = false;
 		vector<unsigned> SurfaceID;
+		COLORREF filter_color;
 		bool     isBitmapLoaded = false;	// whether a bitmap has been loaded
 		CRect    location;			// location of the bitmap
+	private:
+		string image_filename;
 	};
 
 	class CTextDraw {
 	public:
 		void static Print(CDC *pDC, int x, int y, string str);
-		void static ChangeFontLog(CDC* pDC, CFont* &fp, int size, string fontName, int weight = 500);
+		void static ChangeFontLog(CDC* pDC, CFont* &fp, int size, string fontName, COLORREF color, int weight = 500);
 	};
 
 }
