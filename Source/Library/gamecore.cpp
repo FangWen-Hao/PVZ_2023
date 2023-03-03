@@ -960,7 +960,7 @@ namespace game_framework {
 		pDC->SelectObject(pb);						// 釋放 brush
 
 		CFont *fp;
-		CTextDraw::ChangeFontLog(pDC, fp, 30, "微軟正黑體", RGB(255, 255, 255));
+		CTextDraw::ChangeFontLog(pDC, fp, 30, "微軟正黑體");
 
 		CTextDraw::Print(pDC, x1, (int)(SIZE_Y * 0.40), message.c_str());
 
