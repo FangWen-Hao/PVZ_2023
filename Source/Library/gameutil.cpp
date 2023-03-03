@@ -65,7 +65,7 @@ namespace game_framework {
 		const int nx = 0;
 		const int ny = 0;
 
-		GAME_ASSERT(!isBitmapLoaded, "A bitmap has been loaded. You can not load another bitmap !!!");
+		//GAME_ASSERT(!isBitmapLoaded, "A bitmap has been loaded. You can not load another bitmap !!!");
 
 		HBITMAP hbitmap = (HBITMAP)LoadImage(NULL, filename, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
 		if (hbitmap == NULL) {
@@ -80,6 +80,8 @@ namespace game_framework {
 		location.right = nx + bitmapSize.bmWidth;
 		location.bottom = ny + bitmapSize.bmHeight;
 		SurfaceID.push_back(CDDraw::RegisterBitmap(filename, color));
+		image_filename = string(filename);
+		filter_color = color;
 		isBitmapLoaded = true;
 
 		bmp->DeleteObject();
@@ -169,6 +171,10 @@ namespace game_framework {
 		selector = _select;
 	}
 
+	void  CMovingBitmap::SetFilterColor(COLORREF color) {
+		filter_color = color;
+	}
+
 	int CMovingBitmap::GetSelectShowBitmap() {
 		return selector;
 	}
@@ -199,6 +205,18 @@ namespace game_framework {
 		return (int) SurfaceID.size();
 	}
 
+	string CMovingBitmap::GetImageFilename() {
+		return image_filename;
+	}
+
+	COLORREF CMovingBitmap::GetFilterColor() {
+		return filter_color;
+	}
+
+	bool CMovingBitmap::IsAnimation() {
+		return isAnimation;
+	}
+
 	/////////////////////////////////////////////////////////////////////////////
 	// CTextDraw: The class provide the ability to draw the text.
 	// 這個 class 提供文字的呈現
@@ -211,13 +229,13 @@ namespace game_framework {
 		pDC->TextOut(x, y, str.c_str());
 	}
 
-	void CTextDraw::ChangeFontLog(CDC* pDC, CFont* &fp, int size, string fontName, int weight) {
+	void CTextDraw::ChangeFontLog(CDC* pDC, CFont* &fp, int size, string fontName, COLORREF color, int weight) {
 		pDC->SetBkMode(TRANSPARENT);
-		pDC->SetTextColor(RGB(255, 255, 255));
+		pDC->SetTextColor(color);
 		LOGFONT lf;
 		CFont f;
 		memset(&lf, 0, sizeof(lf));
-		lf.lfHeight = size;
+		lf.lfHeight = -MulDiv(size, GetDeviceCaps(pDC->GetSafeHdc(), LOGPIXELSY), 96);
 		lf.lfWeight = weight;
 		strcpy(lf.lfFaceName, fontName.c_str());
 		f.CreateFontIndirect(&lf);
