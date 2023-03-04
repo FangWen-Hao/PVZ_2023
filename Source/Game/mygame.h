@@ -38,7 +38,6 @@
  *      3. Use ShowInitProgress(percent) to display loading progress.
 */
 
-
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// Constants
@@ -95,11 +94,11 @@ namespace game_framework {
 		int phase = 1;
 		int sub_phase = 1;
 		CMovingBitmap background;
-		CMovingBitmap character;
-		CMovingBitmap chest_and_key;
-		CMovingBitmap bee;
-		CMovingBitmap ball;
-		CMovingBitmap door[3];
+		Entity character;
+		Entity chest_and_key;
+		Entity bee;
+		Entity ball;
+		Entity door[3];
 		void show_image_by_phase();
 		void show_text_by_phase();
 		bool validate_phase_1();

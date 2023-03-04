@@ -107,7 +107,6 @@ namespace game_framework {
 		GAME_ASSERT(isBitmapLoaded, "A bitmap must be loaded before SetTopLeft() is called !!!");
 		isAnimation = false;
 		this->ShowBitmap(0);
-		isVisible = false;
 	}
 
 	void CMovingBitmap::SetTopLeft(int x, int y)
@@ -131,7 +130,6 @@ namespace game_framework {
 	{
 		GAME_ASSERT(isBitmapLoaded, "A bitmap must be loaded before ShowBitmap() is called !!!");
 		CDDraw::BltBitmapToBack(SurfaceID[selector], location.left, location.top);
-		isVisible = true;
 		if (isAnimation == true && clock() - last_time >= delayCount) {
 			selector += 1;
 			last_time = clock();
@@ -173,10 +171,6 @@ namespace game_framework {
 		selector = _select;
 	}
 
-	void  CMovingBitmap::SetFilterColor(COLORREF color) {
-		filter_color = color;
-	}
-
 	int CMovingBitmap::GetSelectShowBitmap() {
 		return selector;
 	}
@@ -191,11 +185,6 @@ namespace game_framework {
 	{
 		GAME_ASSERT(isBitmapLoaded, "A bitmap must be loaded before Width() is called !!!");
 		return location.right - location.left;
-	}
-
-	bool CMovingBitmap::getIsVisible()
-	{
-		return isVisible;
 	}
 
 	void CMovingBitmap::ToggleAnimation() {
