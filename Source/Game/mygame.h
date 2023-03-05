@@ -38,6 +38,8 @@
  *      3. Use ShowInitProgress(percent) to display loading progress.
 */
 
+#include "entity.h"
+
 namespace game_framework {
 	/////////////////////////////////////////////////////////////////////////////
 	// Constants

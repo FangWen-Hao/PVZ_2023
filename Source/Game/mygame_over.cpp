@@ -43,6 +43,6 @@ void CGameStateOver::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 
 void CGameStateOver::load_background() {
-	background.LoadBitmapByString({ "resources/over_background.bmp" });
+	background.LoadBitmapByString({ "resources/practice/over_background.bmp" });
 	background.SetTopLeft(0, 0);
 }
