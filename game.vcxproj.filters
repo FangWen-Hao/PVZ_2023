@@ -93,7 +93,7 @@
       <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\Library\My_VK_Consts.h">
-      <Filter>GameLibrary</Filter>
+      <Filter>MyGame</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\entity.h">
       <Filter>MyGame</Filter>

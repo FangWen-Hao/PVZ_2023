@@ -14,7 +14,7 @@ using namespace game_framework;
 
 CGameStateInit::CGameStateInit(CGame *g) : CGameState(g)
 {
-	
+
 }
 
 void CGameStateInit::OnInit()
@@ -37,7 +37,7 @@ void CGameStateInit::OnInit()
 
 void CGameStateInit::OnBeginState()
 {
-	
+
 }
 
 void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
@@ -65,11 +65,11 @@ void CGameStateInit::draw_text() {
 	CFont* fp;
 
 	/* Print title */
-	CTextDraw::ChangeFontLog(pDC, fp, 36, "微軟正黑體", RGB(255, 255, 255));
+	CTextDraw::ChangeFontLog(pDC, 36, "微軟正黑體", RGB(255, 255, 255));
 	CTextDraw::Print(pDC, 79, 228, "Game Framework Practice");
 
 	/* Print info */
-	CTextDraw::ChangeFontLog(pDC, fp, 24, "微軟正黑體", RGB(255, 255, 255));
+	CTextDraw::ChangeFontLog(pDC, 24, "微軟正黑體", RGB(255, 255, 255));
 	CTextDraw::Print(pDC, 182, 431, "Press any key to start");
 
 	CDDraw::ReleaseBackCDC();
