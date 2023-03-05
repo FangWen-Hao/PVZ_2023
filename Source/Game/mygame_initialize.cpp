@@ -62,7 +62,6 @@ void CGameStateInit::load_background() {
 
 void CGameStateInit::draw_text() {
 	CDC *pDC = CDDraw::GetBackCDC();
-	CFont* fp;
 
 	/* Print title */
 	CTextDraw::ChangeFontLog(pDC, 36, "·L³n¥¿¶ÂÅé", RGB(255, 255, 255));
