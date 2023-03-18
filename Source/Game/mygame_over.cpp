@@ -10,7 +10,7 @@
 using namespace game_framework;
 
 /////////////////////////////////////////////////////////////////////////////
-// 這個class為遊戲的結束狀態(Game Over)
+// ?�個class?��??��?結�??�??Game Over)
 /////////////////////////////////////////////////////////////////////////////
 
 CGameStateOver::CGameStateOver(CGame *g): CGameState(g)
@@ -29,16 +29,16 @@ void CGameStateOver::OnBeginState()
 void CGameStateOver::OnInit()
 {
 	//
-	// 當圖很多時，OnInit載入所有的圖要花很多時間。為避免玩遊戲的人
-	//     等的不耐煩，遊戲會出現「Loading ...」，顯示Loading的進度。
+	// ?��?很�??��?OnInit載入?�?��??��??��?多�??�。為?��??��??��?�?
+	//     等�?不耐煩，�??��??�現?�Loading ...?��?顯示Loading?�進度??
 	//
-	ShowInitProgress(66, "Initialize...");	// 接個前一個狀態的進度，此處進度視為66%
+	ShowInitProgress(66, "Initialize...");	// ?�個�?一?��??��??�度，此?�進度視為66%
 	//
-	// 開始載入資料
+	// ?��?載入資�?
 	//
-	Sleep(1000);				// 放慢，以便看清楚進度，實際遊戲請刪除此Sleep
+	Sleep(1000);				// ?�慢，以便�?清�??�度，實?��??��??�除此Sleep
 	//
-	// 最終進度為100%
+	// ?�終進度??00%
 	//
 	ShowInitProgress(100, "OK!");
 
@@ -48,4 +48,15 @@ void CGameStateOver::OnInit()
 void CGameStateOver::OnShow()
 {
 
+}
+
+void CGameStateOver::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	
+}
+
+
+void CGameStateOver::load_background() {
+	background.LoadBitmapByString({ "resources/practice/over_background.bmp" });
+	background.SetTopLeft(0, 0);
 }
