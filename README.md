@@ -3,7 +3,7 @@
 ## By 方文昊 & 鄭琳玲  
 
 ### 2023-OOPL  
-### LGF Version: [1.1.2](https://github.com/ntut-xuan/LeistungsstarkesGameFramework/releases/tag/v1.1.2)  
+### LGF Version: [1.1.3](https://github.com/ntut-xuan/LeistungsstarkesGameFramework/releases/tag/v1.1.3)  
 
 
 #### Links  
