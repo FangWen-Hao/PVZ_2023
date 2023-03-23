@@ -14,6 +14,27 @@
     <Filter Include="MyGame">
       <UniqueIdentifier>{0c798913-b7d2-4e26-8241-0f83266cd626}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MyGame\Backgrounds">
+      <UniqueIdentifier>{3b7ac869-0019-4483-93d5-4d527da33b69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyGame\GameMode">
+      <UniqueIdentifier>{4339cd92-04d0-4e10-8361-8f8c99eb1eca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyGame\GameMode\Maps">
+      <UniqueIdentifier>{ef86ad2b-421a-4f3b-bf98-0f9950b3a4c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyGame\Plants">
+      <UniqueIdentifier>{04a3ad0d-9518-4b2f-bbeb-acb688cbe5b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyGame\Zombies">
+      <UniqueIdentifier>{943b5e67-37db-405e-9404-f55f9c39db77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyGame\Terrain">
+      <UniqueIdentifier>{1aebc53d-3561-46b7-86a4-cb0079c21ebd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MyGame\Misc">
+      <UniqueIdentifier>{a69233cc-2992-41c9-86ee-09a24dd51446}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="RES\GAME.RC2">
@@ -54,6 +75,42 @@
     <ClCompile Include="Source\Game\mygame_run.cpp">
       <Filter>MyGame</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Background\Background.cpp">
+      <Filter>MyGame\Backgrounds</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Background\Button.cpp">
+      <Filter>MyGame\Backgrounds</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\GameMode\Main_Menu.cpp">
+      <Filter>MyGame\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\GameMode\Almanac.cpp">
+      <Filter>MyGame\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\GameMode\Map.cpp">
+      <Filter>MyGame\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\GameMode\LoadingScreen.cpp">
+      <Filter>MyGame\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Background\ProgressBar.cpp">
+      <Filter>MyGame\Backgrounds</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Background\GameMenu.cpp">
+      <Filter>MyGame\Backgrounds</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Background\SeedCard.cpp">
+      <Filter>MyGame\Backgrounds</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Background\CardPicker.cpp">
+      <Filter>MyGame\Backgrounds</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Background\GameBar.cpp">
+      <Filter>MyGame\Backgrounds</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Misc\Cooldown.cpp">
+      <Filter>MyGame\Misc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Library\audio.h">
@@ -88,6 +145,60 @@
     </ClInclude>
     <ClInclude Include="Source\Game\config.h">
       <Filter>MyGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Background\Background.h">
+      <Filter>MyGame\Backgrounds</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Background\Button.h">
+      <Filter>MyGame\Backgrounds</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameMode\Main_Menu.h">
+      <Filter>MyGame\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameMode\GameMode.h">
+      <Filter>MyGame\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameMode\GameModeUtils.h">
+      <Filter>MyGame\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameMode\Almanac.h">
+      <Filter>MyGame\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameMode\Map.h">
+      <Filter>MyGame\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameMode\LoadingScreen.h">
+      <Filter>MyGame\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Zombies\Zombie.h">
+      <Filter>MyGame\Zombies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Plants\Plant.h">
+      <Filter>MyGame\Plants</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Background\ProgressBar.h">
+      <Filter>MyGame\Backgrounds</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Background\GameMenu.h">
+      <Filter>MyGame\Backgrounds</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Background\SeedCard.h">
+      <Filter>MyGame\Backgrounds</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Background\CardPicker.h">
+      <Filter>MyGame\Backgrounds</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Background\GameBar.h">
+      <Filter>MyGame\Backgrounds</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Misc\Cooldown.h">
+      <Filter>MyGame\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Plants\GrassPlant.cpp">
+      <Filter>MyGame\Plants</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Plants\WaterPlant.cpp">
+      <Filter>MyGame\Plants</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

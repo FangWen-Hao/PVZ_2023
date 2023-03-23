@@ -67,6 +67,7 @@
 // Header for STL (Standard Template Library)
 /////////////////////////////////////////////////////////////////////////////
 
+#pragma once
 #include <list>
 #include <vector>
 #include <map>
