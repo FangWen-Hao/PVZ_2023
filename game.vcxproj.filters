@@ -111,6 +111,9 @@
     <ClCompile Include="Source\Game\Misc\Cooldown.cpp">
       <Filter>MyGame\Misc</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Terrain\Lane.cpp">
+      <Filter>MyGame\Terrain</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Library\audio.h">
@@ -173,13 +176,7 @@
     <ClInclude Include="Source\Game\Zombies\Zombie.h">
       <Filter>MyGame\Zombies</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\Plants\GrassPlant.h">
-      <Filter>MyGame\Plants</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Game\Plants\Plant.h">
-      <Filter>MyGame\Plants</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Plants\WaterPlant.h">
       <Filter>MyGame\Plants</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Background\ProgressBar.h">
@@ -199,6 +196,18 @@
     </ClInclude>
     <ClInclude Include="Source\Game\Misc\Cooldown.h">
       <Filter>MyGame\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Plants\GrassPlant.cpp">
+      <Filter>MyGame\Plants</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Plants\WaterPlant.cpp">
+      <Filter>MyGame\Plants</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Terrain\Lane.h">
+      <Filter>MyGame\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Terrain\Tile.h">
+      <Filter>MyGame\Terrain</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

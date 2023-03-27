@@ -89,7 +89,7 @@ SeedCard* CardPicker::OnClick(CPoint coords)
 			&& coords.y < (cards.at(i).GetTop() + cards.at(i).GetHeight()) && coords.y > cards.at(i).GetTop())
 		{
 			// card was selected
-			if (cards.at(i).clicked() != SEED_CARD_REFUSED)
+			if (cards.at(i).clicked() != SEED_CARD::REFUSED)
 			{
 				return &(cards.at(i));
 			}

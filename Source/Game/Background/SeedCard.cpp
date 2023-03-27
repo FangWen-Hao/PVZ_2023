@@ -93,7 +93,7 @@ void SeedCard::setCardPos(int x, int y)
 
 void SeedCard::invalidateCard()
 {
-	_name = SEED_CARD_REFUSED;
+	_name = SEED_CARD::REFUSED;
 }
 
 int SeedCard::getName()

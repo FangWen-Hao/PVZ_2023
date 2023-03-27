@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../Zombies/Zombie.h"
+
 using namespace std;
 namespace game_framework {
 	class Lane
@@ -17,6 +19,6 @@ namespace game_framework {
 	private:
 		vector<Tile*> _tiles;
 		vector<Zombie*> _zombies;
-		Lawnmowner* _lawnMowner;
+		// Lawnmowner* _lawnMowner;
 	};
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../Plants/Plant.h"
+
 namespace game_framework {
 	class Tile
 	{
@@ -14,5 +16,7 @@ namespace game_framework {
 		virtual void setPlant(Plant* plant) = 0;
 
 	private:
+		CPoint _Pos;
+		Plant * _plant;
 	};
 }

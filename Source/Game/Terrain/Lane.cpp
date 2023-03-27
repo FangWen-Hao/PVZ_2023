@@ -14,11 +14,11 @@ namespace game_framework {
 
 	void Lane::setTiles(vector<Tile*> tiles)
 	{
-		for (int i = 0; i < tiles.size(); i++)
-		{
-			_tiles.push_back(tiles.at(i));
-			_tiles.at(i).init(i, )
-		}
+		//for (int i = 0; i < tiles.size(); i++)
+		//{
+		//	_tiles.push_back(tiles.at(i));
+		//	_tiles.at(i).init(i, )
+		//}
 	}
 
 	void Lane::addZombie(Zombie * zombie)
