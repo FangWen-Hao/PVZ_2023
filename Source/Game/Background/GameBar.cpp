@@ -48,12 +48,7 @@ namespace game_framework
 			startGameButton.show();
 		} else { // else show the selected cards on the bar
 
-			// the below for loop should be wrapped into a function;
-			for (unsigned int i = 0; i < cards.size(); i++)
-			{
-				cards.at(i).SetTopLeft(80 + i*55, 10);	// set the card position to the bar
-				cards.at(i).show();						// show the card.
-			}
+			setSelectedCards();
 		}
 	}
 
@@ -62,16 +57,16 @@ namespace game_framework
 		if (!gameStarted)
 		{
 			//if (cards.size() == _maxNumberOfCards
-			if (cards.size() > 0
-				&& coords.x < (startGameButton.GetLeft() + startGameButton.GetWidth()) && coords.x > startGameButton.GetLeft()
-				&& coords.y < (startGameButton.GetTop() + startGameButton.GetHeight()) && coords.y > startGameButton.GetTop())
+			if (_selectedCards >= _maxNumberOfCards)
 			{
-				startGameButton.SetFrameIndexOfBitmap(2);
+				if (coords.x < (startGameButton.GetLeft() + startGameButton.GetWidth()) && coords.x > startGameButton.GetLeft()
+					&& coords.y < (startGameButton.GetTop() + startGameButton.GetHeight()) && coords.y > startGameButton.GetTop())
+					startGameButton.SetFrameIndexOfBitmap(1);
+
+				else
+					startGameButton.SetFrameIndexOfBitmap(0);
 			}
-			else
-			{
-				startGameButton.SetFrameIndexOfBitmap(1);
-			}
+			
 		}
 	}
 
@@ -81,8 +76,7 @@ namespace game_framework
 		// WIP
 		if (!gameStarted)
 		{
-			// if (cards.size() == _maxNumberOfCards
-			if (cards.size() > 0
+			if (_selectedCards >= _maxNumberOfCards
 				&& coords.x < (startGameButton.GetLeft() + startGameButton.GetWidth()) && coords.x > startGameButton.GetLeft()
 				&& coords.y < (startGameButton.GetTop() + startGameButton.GetHeight()) && coords.y > startGameButton.GetTop())
 			{
@@ -90,6 +84,7 @@ namespace game_framework
 				background.UnshowBitmap();
 				picker.unshow();
 				startGameButton.UnshowBitmap();
+				return 0; // tmp
 			}
 
 			if (coords.x < (picker.GetLeft() + picker.GetWidth()) && coords.x > picker.GetLeft()
@@ -98,7 +93,31 @@ namespace game_framework
 				SeedCard* card = picker.OnClick(coords);
 
 				if (card != nullptr)
-					addCard(card);
+				{
+					bool cardIsAlreadySelected = checkIfCardIsAlreadySelected(card);
+					if (_selectedCards >= _maxNumberOfCards && !cardIsAlreadySelected)
+						// if the user already selected the max number of cards
+						// and the card they clicked wasnt previously selected, then invalidate the click.
+						card->resetCardPos();
+
+					else
+					{
+						if (checkIfCardIsAlreadySelected(card))
+							removeCard(card);
+
+						else
+							addCard(card);
+
+
+						if (_selectedCards >= _maxNumberOfCards)
+							startGameButton.SetFrameIndexOfBitmap(0);
+
+						else
+							startGameButton.SetFrameIndexOfBitmap(2);
+					}
+					
+				}
+					
 			}
 		}
 
@@ -130,8 +149,64 @@ namespace game_framework
 
 		CDDraw::ReleaseBackCDC();
 	}
-	void GameBar::addCard(SeedCard * card)
+
+	void GameBar::setSelectedCards()
 	{
-		cards.push_back(*card);
+		// the below for loop should be wrapped into a function;
+		for (unsigned int i = 0; i < cards.size(); i++)
+		{
+			cards.at(i).setCardPos(80 + i * 55, 10);	// set the card position to the bar
+			cards.at(i).show();						// show the card.
+		}
+	}
+
+	bool GameBar::checkIfCardIsAlreadySelected(SeedCard *card)
+	{
+		for (unsigned int i = 0; i < cards.size(); i++)
+		{
+			if (cards.at(i).getName() == card->getName())
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+
+	void GameBar::addCard(SeedCard *card)
+	{
+		// there are cards selected.
+		if (cards.size() > 0)
+		{
+			for (unsigned int i = 0; i < cards.size(); i++)
+			{
+				// check for invalid cards and replace them.
+				if (cards.at(i).getName() == SEED_CARD_REFUSED)
+				{
+					cards.at(i) = SeedCard(card);
+					_selectedCards += 1;
+					return;
+				}
+			}
+		}
+
+		// no invalid card was found so just push back or the selection is empty.
+
+		cards.push_back(SeedCard(card));
+		_selectedCards += 1;
+		return;
+	}
+
+	void GameBar::removeCard(SeedCard *card)
+	{
+		for (unsigned int i = 0; i < cards.size(); i++)
+		{
+			if (cards.at(i).getName() == card->getName())
+			{
+				cards.at(i).invalidateCard();
+				_selectedCards -= 1;
+			}
+		}
 	}
 }

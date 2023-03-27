@@ -91,13 +91,8 @@ SeedCard* CardPicker::OnClick(CPoint coords)
 			// card was selected
 			if (cards.at(i).clicked() != SEED_CARD_REFUSED)
 			{
-				selectedCards += 1;
 				return &(cards.at(i));
 			}
-
-			// card was unselected
-			selectedCards -= 1;
-			return nullptr;
 		}
 	}
 

@@ -173,7 +173,13 @@
     <ClInclude Include="Source\Game\Zombies\Zombie.h">
       <Filter>MyGame\Zombies</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\Plants\GrassPlant.h">
+      <Filter>MyGame\Plants</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Game\Plants\Plant.h">
+      <Filter>MyGame\Plants</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Plants\WaterPlant.h">
       <Filter>MyGame\Plants</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Background\ProgressBar.h">
@@ -193,12 +199,6 @@
     </ClInclude>
     <ClInclude Include="Source\Game\Misc\Cooldown.h">
       <Filter>MyGame\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Plants\GrassPlant.cpp">
-      <Filter>MyGame\Plants</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Plants\WaterPlant.cpp">
-      <Filter>MyGame\Plants</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

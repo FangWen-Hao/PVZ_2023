@@ -3,14 +3,12 @@
 #include <atltypes.h>
 
 namespace game_framework {
-	enum MENU_BTN_STATE {
-		MENU_NO_BTN_ACTION_REJECTED = -1,
-		MENU_NO_BTN_ACTION_ACCEPTED,
-		ADVENTURE_MODE_BTN,
-		ALMANAC_BTN,
-		MENU_BTN,
-		LOADING = 12,
-	};
+	const int MENU_NO_BTN_ACTION_REJECTED = -1;
+	const int MENU_NO_BTN_ACTION_ACCEPTED = 0;
+	const int ADVENTURE_MODE_BTN = 1;
+	const int ALMANAC_BTN = 2;
+	const int MENU_BTN = 3;
+	const int LOADING = 12;
 
 	class GameMode
 	{

@@ -287,9 +287,9 @@
     <ClInclude Include="Source\Game\GameMode\Map.h" />
     <ClInclude Include="Source\Game\Misc\Cooldown.h" />
     <ClInclude Include="Source\Game\mygame.h" />
-    <ClInclude Include="Source\Game\Plants\GrassPlant.cpp" />
+    <ClInclude Include="Source\Game\Plants\GrassPlant.h" />
     <ClInclude Include="Source\Game\Plants\Plant.h" />
-    <ClInclude Include="Source\Game\Plants\WaterPlant.cpp" />
+    <ClInclude Include="Source\Game\Plants\WaterPlant.h" />
     <ClInclude Include="Source\Game\Zombies\Zombie.h" />
     <ClInclude Include="Source\Library\audio.h" />
     <ClInclude Include="Source\Library\gamecore.h" />

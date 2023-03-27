@@ -24,7 +24,10 @@ namespace game_framework
 
 	private:
 		void drawSun();
-		void addCard(SeedCard* card);
+		void setSelectedCards();
+		bool checkIfCardIsAlreadySelected(SeedCard *card);
+		void addCard(SeedCard *card);
+		void removeCard(SeedCard *card);
 
 		const int _maxNumberOfCards = 8;
 
@@ -32,6 +35,7 @@ namespace game_framework
 		const vector<string> START_GAME_BMP_FILEPATH = {"Resources/Misc/Plant Slot/BMP/startDark.bmp", "Resources/Misc/Plant Slot/BMP/startLight.bmp", "Resources/Misc/Plant Slot/BMP/startUnableToStart.bmp" };
 
 		int _suns;
+		int _selectedCards = 0;
 		bool gameStarted = false;
 
 		CMovingBitmap background;
