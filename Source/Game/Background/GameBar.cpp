@@ -164,7 +164,7 @@ namespace game_framework
 	{
 		for (unsigned int i = 0; i < cards.size(); i++)
 		{
-			if (cards.at(i).getName() == card->getName())
+			if (cards.at(i).getType() == card->getType())
 			{
 				return true;
 			}
@@ -182,7 +182,7 @@ namespace game_framework
 			for (unsigned int i = 0; i < cards.size(); i++)
 			{
 				// check for invalid cards and replace them.
-				if (cards.at(i).getName() == SEED_CARD::REFUSED)
+				if (cards.at(i).getType() == SEED_CARD::REFUSED)
 				{
 					cards.at(i) = SeedCard(card);
 					_selectedCards += 1;
@@ -202,7 +202,7 @@ namespace game_framework
 	{
 		for (unsigned int i = 0; i < cards.size(); i++)
 		{
-			if (cards.at(i).getName() == card->getName())
+			if (cards.at(i).getType() == card->getType())
 			{
 				cards.at(i).invalidateCard();
 				_selectedCards -= 1;

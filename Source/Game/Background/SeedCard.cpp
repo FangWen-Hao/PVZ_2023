@@ -18,18 +18,18 @@ SeedCard::~SeedCard()
 
 SeedCard::SeedCard(SeedCard *other)
 {
-	this->_name = other->_name;
+	this->_type = other->_type;
 	this->_price = other->_price;
 	this->_cooldown.setCooldown(other->_cooldown.getCooldown());
 	this->_filePath = other->_filePath;
 	this->LoadBitmapByString(_filePath);
 }
 
-void SeedCard::init(vector<string> filePath, int offsetX, int offsetY, string price, string cooldown, int name)
+void SeedCard::init(vector<string> filePath, int offsetX, int offsetY, int price, int cooldown, SEED_CARD type)
 {
-	_name = name;
-	_price = stoi(price);
-	_cooldown.setCooldown(stoi(cooldown));
+	_type = type;
+	_price = price;
+	_cooldown.setCooldown(cooldown);
 	_filePath = filePath;
 	LoadBitmapByString(_filePath);
 	setCardPos(offsetX, offsetY);
@@ -46,7 +46,7 @@ void SeedCard::unshow()
 	UnshowBitmap();
 }
 
-int SeedCard::clicked()
+SEED_CARD SeedCard::clicked()
 {
 	// if it wasnt clicked before, put it up
 	if (!_cooldown.isOnCooldown() && GetTop() == _posY && GetLeft() == _posX)
@@ -59,7 +59,7 @@ int SeedCard::clicked()
 		resetCardPos();
 	}
 
-	return _name;
+	return _type;
 }
 
 void SeedCard::resetCardPos()
@@ -93,12 +93,12 @@ void SeedCard::setCardPos(int x, int y)
 
 void SeedCard::invalidateCard()
 {
-	_name = SEED_CARD::REFUSED;
+	_type = SEED_CARD::REFUSED;
 }
 
-int SeedCard::getName()
+SEED_CARD SeedCard::getType()
 {
-	return _name;
+	return _type;
 }
 
 int SeedCard::getPrice()
