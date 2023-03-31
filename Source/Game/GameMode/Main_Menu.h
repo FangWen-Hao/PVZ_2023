@@ -12,6 +12,7 @@ namespace game_framework{
 		MainMenu();
 		~MainMenu();
 		void init();
+		void move() {}
 		void show();
 		void OnHover(CPoint coords);
 		int OnClick(CPoint coords);

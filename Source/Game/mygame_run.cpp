@@ -31,7 +31,7 @@ void CGameStateRun::OnBeginState()
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
 {
-	
+	mode->move();
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定

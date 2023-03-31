@@ -21,6 +21,7 @@ namespace game_framework
 		void addSuns(int suns);
 		void setSuns(int suns);
 		int getSuns(void);
+		bool isGameStarted() { return gameStarted; }
 
 	private:
 		void drawSun();

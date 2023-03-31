@@ -1,6 +1,8 @@
 #pragma once
 #include "GameMode.h"
 #include "../Background/GameBar.h"
+#include "../Plants/Plant.h"
+#include "../Zombies/Zombie.h"
 
 using namespace std;
 namespace game_framework {
@@ -14,6 +16,7 @@ namespace game_framework {
 		~Map();
 
 		void init();
+		void move();
 		void show();
 		void OnHover(CPoint coords);
 		int OnClick(CPoint coords);
@@ -26,10 +29,15 @@ namespace game_framework {
 		int sunsAmount = 50;
 		bool isDay;
 		GameBar bar;
+		
+		bool isStarted = bar.isGameStarted();
+		bool isSelectedPlant;
+		PLANT plantsMap[9][5];	// the grid for the plants place on the map, not sure where to define this so I put it here first
+
 		// GameMenu menu;
 		// ProgressBar progress;
 		// vector<Lane> lanes;
-		// vecctor<Zombies> zombs;
+		vector<Zombie> zombies;
 
 	};
 

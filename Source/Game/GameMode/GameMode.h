@@ -18,6 +18,7 @@ namespace game_framework {
 		GameMode() {};
 		~GameMode() {};
 		virtual void init() = 0;
+		virtual void move() = 0;
 		virtual void show() = 0;
 		virtual void OnHover(CPoint coords) = 0;
 		virtual int OnClick(CPoint coords) = 0;
