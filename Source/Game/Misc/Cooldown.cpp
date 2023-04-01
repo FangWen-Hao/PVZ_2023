@@ -1,11 +1,13 @@
 #include "stdafx.h"
-#include <ctime>
 #include "Cooldown.h"
 
 namespace game_framework
 {
+	time_t Cooldown::gameClock;
+
 	Cooldown::Cooldown()
 	{
+		gameClock = time(0);
 	}
 
 	Cooldown::~Cooldown()
@@ -20,6 +22,16 @@ namespace game_framework
 	void Cooldown::overrideCooldownStatus(bool status)
 	{
 		_onCooldown = status; // is this gonna even useful?
+	}
+
+	time_t Cooldown::getGameClock()
+	{
+		return gameClock;
+	}
+
+	unsigned int Cooldown::getGameClockForPRNGSeed()
+	{
+		return ((unsigned int)gameClock);
 	}
 
 	int Cooldown::getCooldown()
@@ -37,6 +49,11 @@ namespace game_framework
 		return _onCooldown;
 	}
 
+	void Cooldown::updateGameClock()
+	{
+		gameClock = time(0);
+	}
+
 	void Cooldown::startCooldown()
 	{
 		if (!_onCooldown)
@@ -49,7 +66,7 @@ namespace game_framework
 	void Cooldown::updateCooldown()
 	{
 		// https://www.codespeedy.com/how-to-create-a-timer-in-cpp/
-		if ((time(0) - _lastUse) >= _cooldown)
+		if ((gameClock - _lastUse) >= _cooldown)
 			_onCooldown = false;
 	}
 }

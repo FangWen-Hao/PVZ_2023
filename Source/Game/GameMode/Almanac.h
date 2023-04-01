@@ -12,8 +12,8 @@ namespace game_framework {
 		~Almanac();
 
 		void init();
-		void move() {}
 		void show();
+		void OnMove();
 		void OnHover(CPoint coords);
 		int OnClick(CPoint coords);
 	};

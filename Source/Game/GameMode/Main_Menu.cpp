@@ -36,6 +36,13 @@ void MainMenu::show()
 	}
 }
 
+void MainMenu::OnMove()
+{
+	// runtime function of the main menu.
+	// implemented due to GameMode.h defining it and the usage in mygame_run
+	// however I don't think we need to do anything for main menu.cpp, do we?
+}
+
 void MainMenu::OnHover(CPoint coords)
 {
 	for (unsigned int i = 0; i < MenuButtons.size(); i++)

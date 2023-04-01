@@ -3,6 +3,7 @@
 #include "Map.h"
 #include "Almanac.h"
 #include "LoadingScreen.h"
+#include "../Misc/Cooldown.h"
 
 using namespace std;
 namespace game_framework {
@@ -40,4 +41,14 @@ namespace game_framework {
 		GameModePtr->init();
 		GameModePtr->show();
 	}
+
+	static int integerPRNG(int min, int max)
+	{
+		// https://www.geeksforgeeks.org/pseudo-random-number-generator-prng/
+		srand(Cooldown::getGameClockForPRNGSeed()); // we use the game clock instead of calling "time(NULL)".
+
+		// https://cplusplus.com/reference/cstdlib/rand/
+		return (rand() % max + min);
+	}
 }
+

@@ -5,6 +5,8 @@
 // #include "ProgressBar.h"
 // #include "Lanes.h"
 // #include "Zombies.h"
+#include "../Misc/NormalSun.h"
+#include "GameModeUtils.h"
 #include "Map.h"
 #include "../Plants/Plant.h"
 
@@ -21,6 +23,10 @@ namespace game_framework {
 
 	Map::~Map()
 	{
+		for (unsigned int i = 0; i < displayedSuns.size(); i++)
+		{
+			delete displayedSuns.at(i);
+		}
 	}
 
 	void Map::init()
@@ -28,59 +34,75 @@ namespace game_framework {
 		isDay = true;
 		background.init(MAP_BG_DAY);
 		bar.init(50);
-<<<<<<< HEAD
-	}
 
-	void Map::move()
-	{
-		isStarted = bar.isGameStarted();
-
-		if (isStarted)
-		{
-			for (auto z : zombies) {
-				z.onMove();
-			}
-		}
-=======
->>>>>>> parent of d82ec6e (Implemented falling-suns logic)
+		// Sun is obtained from [...] and falls from the sky approximately every 10 seconds when it is daytime. -> https://plantsvszombies.fandom.com/wiki/Sun
+		sunProductionCooldown.setCooldown(10);
 	}
 
 	void Map::show()
 	{
 		background.show();
 		bar.show();
-<<<<<<< HEAD
 
-		if (isStarted)
+		if (bar.hasGameStarted())
 		{
 			for (auto z : zombies) {
-				z.onShow();
+				z->onShow();
 			}
 		}
-=======
->>>>>>> parent of d82ec6e (Implemented falling-suns logic)
+
+		if (displayedSuns.size() != 0)
+			for (unsigned int i = 0; i < displayedSuns.size(); i++)
+			{
+				displayedSuns.at(i)->show();
+			}
 	}
 
 	void Map::OnHover(CPoint coords)
 	{
 	}
 
+	void Map::OnMove()
+	{
+		// On Move is performed aprox 30 times per second.
+
+		Cooldown::updateGameClock(); // update the universal clock the game uses to check all cooldowns.
+		
+		if (bar.hasGameStarted())
+		{
+			sunFactoryLogic();
+
+			for (auto z : zombies) {
+				z->onMove();
+			}
+		}
+		
+
+	}
+
 	int Map::OnClick(CPoint coords)
 	{
 		bar.onClick(coords);
-<<<<<<< HEAD
 
-		if (isStarted)
+		if (bar.hasGameStarted())
 		{
-			// Test zombie
-			TestZombie tz = TestZombie();
-			tz.onInit();
-
+			if (displayedSuns.size() != 0)
+				for (unsigned int i = 0; i < displayedSuns.size(); i++)
+				{
+					if (coords.x < (displayedSuns.at(i)->GetLeft() + displayedSuns.at(i)->GetWidth()) && coords.x > displayedSuns.at(i)->GetLeft()
+						&& coords.y < (displayedSuns.at(i)->GetTop() + displayedSuns.at(i)->GetHeight()) && coords.y > displayedSuns.at(i)->GetTop())
+					{
+						bar.addSuns(displayedSuns.at(i)->getValue());
+						removeSunFromVector(i);
+					}
+				}
+			
+			// temp code
+			TestZombie *tz = new TestZombie();
+			tz->onInit();
 			zombies.push_back(tz);
 		}
 
-=======
->>>>>>> parent of d82ec6e (Implemented falling-suns logic)
 		return 0;
 	}
 
@@ -104,5 +126,39 @@ namespace game_framework {
 	bool Map::getIsDay()
 	{
 		return isDay;
+	}
+	void Map::sunFactoryLogic()
+	{
+		sunProductionCooldown.updateCooldown();
+
+		if (displayedSuns.size() != 0)
+		{
+			for (unsigned int i = 0; i < displayedSuns.size(); i++)
+			{
+
+				if (displayedSuns.at(i)->update() == Sun_status::INVALID)
+				{
+					removeSunFromVector(i);
+				}
+					
+			}
+		}
+
+		if (!sunProductionCooldown.isOnCooldown()
+			&& displayedSuns.size() <= MAX_SUNS_FALLEN)
+		{
+			displayedSuns.push_back(new NormalSun());
+			displayedSuns.at(displayedSuns.size() - 1)
+				->init(TILES_POSITION_ON_MAP.at(integerPRNG(0, 8)),
+					LANE_POSITION_ON_SCREEN_MAP.at(integerPRNG(0, 4)));
+
+			sunProductionCooldown.startCooldown();
+		}
+	}
+	void Map::removeSunFromVector(unsigned int index)
+	{
+		displayedSuns.at(index)->unshow();
+		delete displayedSuns.at(index);
+		displayedSuns.erase(displayedSuns.begin() + index);
 	}
 }

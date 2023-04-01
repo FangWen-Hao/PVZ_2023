@@ -42,7 +42,7 @@ namespace game_framework {
 		}
 		virtual void onMove() { 
 			// This is not working
-			_pos.x -= 50;
+			_pos.x -= _speed;
 		}
 		virtual void onShow() {
 			SetTopLeft(_pos.x, _pos.y);
@@ -58,7 +58,7 @@ namespace game_framework {
 		int _lane;
 		int _hp;
 		int _damage;
-		int _speed = 10;
+		int _speed = 3;
 	};
 
 	class TestZombie : public Zombie {

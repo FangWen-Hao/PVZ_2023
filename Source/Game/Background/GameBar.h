@@ -21,10 +21,7 @@ namespace game_framework
 		void addSuns(int suns);
 		void setSuns(int suns);
 		int getSuns(void);
-<<<<<<< HEAD
-		bool isGameStarted() { return gameStarted; }
-=======
->>>>>>> parent of d82ec6e (Implemented falling-suns logic)
+		bool hasGameStarted(void);
 
 	private:
 		void drawSun();

@@ -20,6 +20,11 @@ namespace game_framework {
 		background.show();
 	}
 
+	void Almanac::OnMove()
+	{
+
+	}
+
 	void Almanac::OnHover(CPoint coords)
 	{
 	}

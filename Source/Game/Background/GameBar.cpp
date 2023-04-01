@@ -139,6 +139,11 @@ namespace game_framework
 		return _suns;
 	}
 
+	bool GameBar::hasGameStarted(void)
+	{
+		return gameStarted;
+	}
+
 	void GameBar::drawSun()
 	{
 		CDC *pDC = CDDraw::GetBackCDC();

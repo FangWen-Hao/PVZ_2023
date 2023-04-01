@@ -15,8 +15,13 @@ namespace game_framework {
 	void LoadingScreen::show()
 	{
 		background.show();
-		// Animation logic here.
 	}
+
+	void LoadingScreen::OnMove()
+	{
+		// Animation logic here?
+	}
+
 	void LoadingScreen::OnHover(CPoint coords)
 	{
 	}
