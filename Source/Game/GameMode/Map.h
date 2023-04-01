@@ -1,8 +1,11 @@
 #pragma once
 #include "GameMode.h"
 #include "../Background/GameBar.h"
+<<<<<<< HEAD
 #include "../Plants/Plant.h"
 #include "../Zombies/Zombie.h"
+=======
+>>>>>>> parent of d82ec6e (Implemented falling-suns logic)
 
 using namespace std;
 namespace game_framework {

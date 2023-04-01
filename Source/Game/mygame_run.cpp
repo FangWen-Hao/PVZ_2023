@@ -31,7 +31,11 @@ void CGameStateRun::OnBeginState()
 
 void CGameStateRun::OnMove()							// 移動遊戲元素
 {
+<<<<<<< HEAD
 	mode->move();
+=======
+	
+>>>>>>> parent of d82ec6e (Implemented falling-suns logic)
 }
 
 void CGameStateRun::OnInit()  								// 遊戲的初值及圖形設定

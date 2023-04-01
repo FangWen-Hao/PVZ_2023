@@ -28,6 +28,7 @@ namespace game_framework {
 		isDay = true;
 		background.init(MAP_BG_DAY);
 		bar.init(50);
+<<<<<<< HEAD
 	}
 
 	void Map::move()
@@ -40,12 +41,15 @@ namespace game_framework {
 				z.onMove();
 			}
 		}
+=======
+>>>>>>> parent of d82ec6e (Implemented falling-suns logic)
 	}
 
 	void Map::show()
 	{
 		background.show();
 		bar.show();
+<<<<<<< HEAD
 
 		if (isStarted)
 		{
@@ -53,6 +57,8 @@ namespace game_framework {
 				z.onShow();
 			}
 		}
+=======
+>>>>>>> parent of d82ec6e (Implemented falling-suns logic)
 	}
 
 	void Map::OnHover(CPoint coords)
@@ -62,6 +68,7 @@ namespace game_framework {
 	int Map::OnClick(CPoint coords)
 	{
 		bar.onClick(coords);
+<<<<<<< HEAD
 
 		if (isStarted)
 		{
@@ -72,6 +79,8 @@ namespace game_framework {
 			zombies.push_back(tz);
 		}
 
+=======
+>>>>>>> parent of d82ec6e (Implemented falling-suns logic)
 		return 0;
 	}
 
