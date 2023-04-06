@@ -9,26 +9,27 @@ using namespace std;
 namespace game_framework {
 	const enum class PLANT {
 		EMPTY,
-		PEA_SHOOTER,
-		SUN_FLOWER,
 		CHERRY_BOMB,
-		WALL_NUT,
-		POTATO_MINE,
-		SNOW_PEA,
 		CHOMPER,
-		REPEATER_PEA,
-		PUFF_SHROOM,
 		HYPNO_SHROOM,
-		SCAREDY_SHROOM,
 		ICE_SHROOM,
-		SQUASH,
-		THREE_PEATER,
 		JALAPENO,
-		SPIKE_WEED
+		PEA_SHOOTER,
+		POTATO_MINE,
+		PUFF_SHROOM,
+		REPEATER_PEA,
+		SCAREDY_SHROOM,
+		SNOW_PEA,
+		SPIKE_WEED,
+		SQUASH,
+		SUN_FLOWER,
+		SUN_SHROOM,
+		THREE_PEATER,
+		WALL_NUT,
 	};
 
 	// base class
-	class Plant : CMovingBitmap
+	class Plant
 	{
 	public:
 		Plant() {};
@@ -51,20 +52,120 @@ namespace game_framework {
 		int _hp;
 		int _damage;
 		int _attackSpeed;
+
+		CMovingBitmap animate;
 	};
 
 	// inheritance class
-	class GrassPlant : private Plant
+	class CherryBomb : public Plant
 	{
 	public:
-		GrassPlant();
-		~GrassPlant();
+		CherryBomb();
+		~CherryBomb();
 	};
 
-	class WaterPlant : private Plant
+	class Chomper : private Plant
 	{
 	public:
-		WaterPlant();
-		~WaterPlant();
+		Chomper();
+		~Chomper();
+	};
+
+	class HypnoShroom : private Plant
+	{
+	public:
+		HypnoShroom();
+		~HypnoShroom();
+	};
+
+	class IceShroom : private Plant
+	{
+	public:
+		IceShroom();
+		~IceShroom();
+	};
+
+	class Jalapeno : private Plant
+	{
+	public:
+		Jalapeno();
+		~Jalapeno();
+	};
+
+	class PeaShooter : private Plant
+	{
+	public:
+		PeaShooter();
+		~PeaShooter();
+	};
+
+	class PotatoMine : private Plant
+	{
+	public:
+		PotatoMine();
+		~PotatoMine();
+	};
+
+	class PuffShroom : private Plant
+	{
+	public:
+		PuffShroom();
+		~PuffShroom();
+	};
+
+	class RepeaterPea : private Plant
+	{
+	public:
+		RepeaterPea();
+		~RepeaterPea();
+	};
+
+	class ScaredyShroom : private Plant
+	{
+	public:
+		ScaredyShroom();
+		~ScaredyShroom();
+	};
+
+	class SnowPea : private Plant
+	{
+	public:
+		SnowPea();
+		~SnowPea();
+	};
+
+	class Spikeweed : private Plant
+	{
+	public:
+		Spikeweed();
+		~Spikeweed();
+	};
+
+	class Squash : private Plant
+	{
+	public:
+		Squash();
+		~Squash();
+	};
+
+	class SunFlower : private Plant
+	{
+	public:
+		SunFlower();
+		~SunFlower();
+	};
+
+	class Threepeater : private Plant
+	{
+	public:
+		Threepeater();
+		~Threepeater();
+	};
+
+	class WallNut : private Plant
+	{
+	public:
+		WallNut();
+		~WallNut();
 	};
 }

@@ -3,17 +3,11 @@
 
 
 using namespace game_framework;
-void NormalSun::initiateBitMap()
+void NormalSun::init(int finalPosX, int finalPosY)
 {
 	LoadBitmapByString(BITMAP_FILE_PATHS);
-}
-
-void NormalSun::initiateSunValue()
-{
+	_finalPosX = finalPosX;
+	_finalPosY = finalPosY;
 	_value = NORMAL_SUN_VALUE;
-}
-
-int NormalSun::getLifeSpan()
-{
-	return LIFESPAN;
+	SetTopLeft(_finalPosX, 50);
 }

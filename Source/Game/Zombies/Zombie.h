@@ -1,27 +1,34 @@
 #pragma once
 
 #include "../../Library/gameutil.h"
-#include "../GameMode/Maps/Tile_Positions.h"
 #include <time.h>
 
 using namespace std;
 
 namespace game_framework {
-	enum ZOMBIE_TYPE {
+	enum class ZOMBIE_TYPE
+	{
 		EMPTY,
+		NORMAL,
+		BUCKETHEAD,
+		CONEHEAD,
+		FLAG,
+		NEWSPAPER,
+		NEWSPAPERNOPAPER,
 	};
 
-	class Zombie : CMovingBitmap
+	class Zombie
 	{
 	public:
 
 		// virtual Lane getLane() { return _currentLane; }
-		virtual CPoint getPos() { return _pos; }
-		virtual int getType() { return _type; }
+		virtual ZOMBIE_TYPE getType() { return _type; }
+		virtual int getPosX() { return _posX; }
+		virtual int getPosY() { return _posY; }
 		virtual int getCurrentHp() { return _hp; }
 		virtual int getDamage() { return _damage; }
 		virtual int getSpeed() { return _speed; }
-		
+
 		// virtual void setLane(Lane* lane) { _currentLane = lane; }
 		virtual void setHp(int hp) { _hp = hp; }
 		virtual void setDamage(int damage) { _damage = damage; }
@@ -30,42 +37,107 @@ namespace game_framework {
 		virtual void attack() {}
 		virtual void onInit() {
 			// The follow code is just for testing
-			LoadBitmapByString({ "Resources/Zombies/BMP/Normal State/Zombie/Zombie_0.bmp" });
-			//srand(time(nullptr));
+			_posX = 700;
 			int _lane = rand() % 5;
 
-			_pos.SetPoint(RIGHT_TILES_POSITION_ON_MAP.at(8),
-				(BOTTOM_LANE_POSITION_ON_SCREEN_MAP.at(_lane) - GetHeight()));
+			if (_lane == 0) _posY = 128;
+			else if (_lane == 1) _posY = 228;
+			else if (_lane == 2) _posY = 328;
+			else if (_lane == 3) _posY = 428;
+			else if (_lane == 4) _posY = 528;
+		}
 
-		//	if (_lane == 0) _pos.y = 100;
-		//	else if (_lane == 1) _pos.y = 200;
-		//	else if (_lane == 2) _pos.y = 300;
-		//	else if (_lane == 3) _pos.y = 400;
-		//	else if (_lane == 4) _pos.y = 500;
+		virtual void onMove() {
+
+			if (_hp <= 0) _isDead = true;
+
+			if (_isAttacking) {
+				_ttlAttack = ++_ttlAttack % _attackFrequency;
+
+				if (_ttlAttack == 0) attack();
+			}
+			else if (!_isDead) {
+				_ttlMove = ++_ttlMove % _moveFrequency;
+
+				if (_ttlMove == 0) _posX -= _speed;
+			}
 		}
-		virtual void onMove() { 
-			// This is not working
-			_pos.x -= _speed;
-		}
+
 		virtual void onShow() {
-			SetTopLeft(_pos.x, _pos.y);
-			ShowBitmap();
+			if (_isAttacking)
+			{
+				attackAnimate.SetTopLeft(_posX, _posY - attackAnimate.GetHeight());
+				attackAnimate.ShowBitmap();
+			}
+			else if (_isDead)
+			{
+				deadAnimate.SetTopLeft(_posX, _posY - deadAnimate.GetHeight());
+				deadAnimate.ShowBitmap();
+			}
+			else
+			{
+				normalAnimate.SetTopLeft(_posX, _posY - normalAnimate.GetHeight());
+				normalAnimate.ShowBitmap();
+			}
 		}
-		
+
 	protected:
 		//Lane *_currentLane;
-		time_t lastAttackTime;
-		CPoint _pos;
-		int _type;
-		int _secondsCoolDown;
+		ZOMBIE_TYPE _type;
+
+		int _posX;
+		int _posY;
 		int _lane;
+
+		int _ttlMove = 0;
+		int _ttlAttack = 0;
+
 		int _hp;
+		int _speed = 1;
 		int _damage;
-		int _speed = 3;
+		int _moveFrequency = 10;
+		int _attackFrequency;
+
+		bool _isAttacking = false;
+		bool _isDead = false;
+
+		time_t lastAttackTime;
+
+		CMovingBitmap normalAnimate;
+		CMovingBitmap deadAnimate;
+		CMovingBitmap attackAnimate;
 	};
 
-	class TestZombie : public Zombie {
+	class NormalZombie : public Zombie {
 	public:
-		TestZombie() { }
+		NormalZombie();
+		~NormalZombie();
+	};
+
+	class BucketheadZombie : public Zombie {
+	public:
+		BucketheadZombie();
+		~BucketheadZombie();
+	};
+
+	class ConeheadZombie : public Zombie {
+	public:
+		ConeheadZombie();
+		~ConeheadZombie();
+	};
+
+	class FlagZombie : public Zombie {
+		FlagZombie();
+		~FlagZombie();
+	};
+
+	class NewspaperZombie : public Zombie {
+		NewspaperZombie();
+		~NewspaperZombie();
+	};
+
+	class NewpaperZombieNoPaper : public Zombie {
+		NewpaperZombieNoPaper();
+		~NewpaperZombieNoPaper();
 	};
 }

@@ -18,16 +18,10 @@ namespace game_framework
 	};
 
 	const int NORMAL_SUN_VALUE = 25;
-	const int LIFESPAN = 30; 
 
 	class NormalSun : public Sun
 	{
 	public:
-		NormalSun() : Sun() {};
-
-	private:
-		void initiateBitMap();
-		void initiateSunValue();
-		int getLifeSpan();
+		void init(int finalPosX, int finalPosY);
 	};
 }

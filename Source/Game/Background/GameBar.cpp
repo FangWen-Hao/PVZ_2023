@@ -26,7 +26,7 @@ namespace game_framework
 	void GameBar::init(int initialSuns)
 	{
 		_suns = initialSuns;
-		background.LoadBitmapByString({BACKGROUND_BMP_FILEPATH});
+		background.LoadBitmapByString({BACKGROUND_BMP_FILEPATH}, RGB(255, 255, 255));
 		background.SetTopLeft(0, 0);
 
 		picker.init();

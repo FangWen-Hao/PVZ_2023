@@ -261,6 +261,12 @@
     <ClCompile Include="Source\Game\mygame_over.cpp" />
     <ClCompile Include="Source\Game\mygame_run.cpp" />
     <ClCompile Include="Source\Game\Terrain\Lane.cpp" />
+    <ClCompile Include="Source\Game\Zombies\BucketheadZombie.cpp" />
+    <ClCompile Include="Source\Game\Zombies\ConeheadZombie.cpp" />
+    <ClCompile Include="Source\Game\Zombies\FlagZombie.cpp" />
+    <ClCompile Include="Source\Game\Zombies\NewPaperZombie.cpp" />
+    <ClCompile Include="Source\Game\Zombies\NewpaperZombieNoPaper.cpp" />
+    <ClCompile Include="Source\Game\Zombies\NormalZombie.cpp" />
     <ClCompile Include="Source\Library\audio.cpp" />
     <ClCompile Include="Source\Library\gamecore.cpp" />
     <ClCompile Include="Source\Library\gameutil.cpp">
@@ -288,14 +294,11 @@
     <ClInclude Include="Source\Game\GameMode\LoadingScreen.h" />
     <ClInclude Include="Source\Game\GameMode\Main_Menu.h" />
     <ClInclude Include="Source\Game\GameMode\Map.h" />
-    <ClInclude Include="Source\Game\GameMode\Maps\Tile_Positions.h" />
     <ClInclude Include="Source\Game\Misc\Cooldown.h" />
     <ClInclude Include="Source\Game\Misc\NormalSun.h" />
     <ClInclude Include="Source\Game\Misc\Sun.h" />
     <ClInclude Include="Source\Game\mygame.h" />
-    <ClInclude Include="Source\Game\Plants\GrassPlant.cpp" />
     <ClInclude Include="Source\Game\Plants\Plant.h" />
-    <ClInclude Include="Source\Game\Plants\WaterPlant.cpp" />
     <ClInclude Include="Source\Game\Terrain\Lane.h" />
     <ClInclude Include="Source\Game\Terrain\Tile.h" />
     <ClInclude Include="Source\Game\Zombies\Zombie.h" />

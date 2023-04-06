@@ -120,6 +120,24 @@
     <ClCompile Include="Source\Game\Misc\NormalSun.cpp">
       <Filter>MyGame\Misc</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Zombies\NormalZombie.cpp">
+      <Filter>MyGame\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Zombies\BucketheadZombie.cpp">
+      <Filter>MyGame\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Zombies\ConeheadZombie.cpp">
+      <Filter>MyGame\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Zombies\NewPaperZombie.cpp">
+      <Filter>MyGame\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Zombies\FlagZombie.cpp">
+      <Filter>MyGame\Zombies</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Zombies\NewpaperZombieNoPaper.cpp">
+      <Filter>MyGame\Zombies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Library\audio.h">
@@ -203,12 +221,6 @@
     <ClInclude Include="Source\Game\Misc\Cooldown.h">
       <Filter>MyGame\Misc</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\Plants\GrassPlant.cpp">
-      <Filter>MyGame\Plants</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Plants\WaterPlant.cpp">
-      <Filter>MyGame\Plants</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Game\Terrain\Lane.h">
       <Filter>MyGame\Terrain</Filter>
     </ClInclude>
@@ -220,9 +232,6 @@
     </ClInclude>
     <ClInclude Include="Source\Game\Misc\NormalSun.h">
       <Filter>MyGame\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\GameMode\Maps\Tile_Positions.h">
-      <Filter>MyGame\GameMode\Maps</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

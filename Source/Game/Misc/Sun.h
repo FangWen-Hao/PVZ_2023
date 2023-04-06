@@ -13,10 +13,10 @@ namespace game_framework
 	class Sun : public CMovingBitmap
 	{
 	public:
-		Sun();
+		Sun() { lifespan.setCooldown(disappearAfterXSeconds); };
 		~Sun() {};
 
-		virtual void init(int posX, int startingPosY, int finalPosY);
+		virtual void init(int finalPosX, int finalPosY) = 0;
 		virtual void show();
 		virtual void unshow();
 		virtual int update();
@@ -26,14 +26,11 @@ namespace game_framework
 	protected:
 		static const int TOP_SPAWN_LOCATION = 50; // WIP
 		int _value;
-		int dropRatePerUpdate;
-		int _posX;
+		int _finalPosX;
 		int _finalPosY;
 		Cooldown lifespan;
 
 	private:
-		virtual void initiateBitMap() = 0;
-		virtual void initiateSunValue() = 0;
-		virtual int getLifeSpan() = 0;
+		static const int disappearAfterXSeconds = 30;
 	};
 }
