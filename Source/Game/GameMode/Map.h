@@ -22,7 +22,6 @@ namespace game_framework {
 		~Map();
 
 		void init();
-		void OnMove();
 		void show();
 		void OnMove();
 		void OnHover(CPoint coords);

@@ -288,6 +288,7 @@
     <ClInclude Include="Source\Game\GameMode\LoadingScreen.h" />
     <ClInclude Include="Source\Game\GameMode\Main_Menu.h" />
     <ClInclude Include="Source\Game\GameMode\Map.h" />
+    <ClInclude Include="Source\Game\GameMode\Maps\Tile_Positions.h" />
     <ClInclude Include="Source\Game\Misc\Cooldown.h" />
     <ClInclude Include="Source\Game\Misc\NormalSun.h" />
     <ClInclude Include="Source\Game\Misc\Sun.h" />

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../Library/gameutil.h"
+#include "../GameMode/Maps/Tile_Positions.h"
 #include <time.h>
 
 using namespace std;
@@ -29,16 +30,18 @@ namespace game_framework {
 		virtual void attack() {}
 		virtual void onInit() {
 			// The follow code is just for testing
-			LoadBitmapByString({ "Resources/Plants/Cards/BMP/card_peashooter_alive.bmp" });
-			_pos.x = 700;
+			LoadBitmapByString({ "Resources/Zombies/BMP/Normal State/Zombie/Zombie_0.bmp" });
 			//srand(time(nullptr));
 			int _lane = rand() % 5;
 
-			if (_lane == 0) _pos.y = 100;
-			else if (_lane == 1) _pos.y = 200;
-			else if (_lane == 2) _pos.y = 300;
-			else if (_lane == 3) _pos.y = 400;
-			else if (_lane == 4) _pos.y = 500;
+			_pos.SetPoint(RIGHT_TILES_POSITION_ON_MAP.at(8),
+				(BOTTOM_LANE_POSITION_ON_SCREEN_MAP.at(_lane) - GetHeight()));
+
+		//	if (_lane == 0) _pos.y = 100;
+		//	else if (_lane == 1) _pos.y = 200;
+		//	else if (_lane == 2) _pos.y = 300;
+		//	else if (_lane == 3) _pos.y = 400;
+		//	else if (_lane == 4) _pos.y = 500;
 		}
 		virtual void onMove() { 
 			// This is not working
