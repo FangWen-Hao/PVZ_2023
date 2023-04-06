@@ -233,6 +233,9 @@
     <ClInclude Include="Source\Game\Misc\NormalSun.h">
       <Filter>MyGame\Misc</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\GameMode\Maps\Tile_Positions.h">
+      <Filter>MyGame\GameMode\Maps</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\Core\game.rc">

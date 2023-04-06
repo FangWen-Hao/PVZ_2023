@@ -7,7 +7,7 @@
 // #include "Zombies.h"
 #include "../Misc/NormalSun.h"
 #include "GameModeUtils.h"
-#include "Map.h"
+#include "Maps/Tile_Positions.h"
 #include "../Plants/Plant.h"
 
 namespace game_framework {
@@ -149,8 +149,9 @@ namespace game_framework {
 		{
 			displayedSuns.push_back(new NormalSun());
 			displayedSuns.at(displayedSuns.size() - 1)
-				->init(TILES_POSITION_ON_MAP.at(integerPRNG(0, 8)),
-					LANE_POSITION_ON_SCREEN_MAP.at(integerPRNG(0, 4)));
+				->init(MIDDLE_TILES_POSITION_ON_MAP.at(integerPRNG(0, 8)),
+					FALLING_SUN_INITIAL_POSITION,
+					MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(integerPRNG(0, 4)));
 
 			sunProductionCooldown.startCooldown();
 		}

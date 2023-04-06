@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../Library/gameutil.h"
+#include "../GameMode/Maps/Tile_Positions.h"
 #include <time.h>
 
 using namespace std;
@@ -36,15 +37,10 @@ namespace game_framework {
 
 		virtual void attack() {}
 		virtual void onInit() {
-			// The follow code is just for testing
-			_posX = 700;
 			int _lane = rand() % 5;
 
-			if (_lane == 0) _posY = 128;
-			else if (_lane == 1) _posY = 228;
-			else if (_lane == 2) _posY = 328;
-			else if (_lane == 3) _posY = 428;
-			else if (_lane == 4) _posY = 528;
+			_posX = RIGHT_TILES_POSITION_ON_MAP.at(8);
+			_posY = BOTTOM_LANE_POSITION_ON_SCREEN_MAP.at(_lane);
 		}
 
 		virtual void onMove() {
