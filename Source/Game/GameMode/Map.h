@@ -11,27 +11,9 @@ namespace game_framework {
 	const string MAP_BG_NIGHT = "Resources/Background/GAME/NIGHT/BMP/Background.bmp";
 	const int SUN_PRODUCTION_COOLDOWN = 10;
 	const unsigned int MAX_SUNS_FALLEN = 10;
+	const int FALLING_SUN_INITIAL_POSITION = 50;
 
 	// temporary put it here: do we want to migrate these 2 const?
-	const map<int, int> LANE_POSITION_ON_SCREEN_MAP = {
-		{0, 128},
-		{1, 228},
-		{2, 328},
-		{3, 428},
-		{4, 528},
-	};
-
-	const map<int, int> TILES_POSITION_ON_MAP = {
-		{0, 90},
-		{1, 168},
-		{2, 250},
-		{3, 330},
-		{4, 410},
-		{5, 490},
-		{6, 570},
-		{7, 650},
-		{8, 740},
-	};
 
 	class Map : public GameMode
 	{
@@ -40,7 +22,7 @@ namespace game_framework {
 		~Map();
 
 		void init();
-		void move();
+		void OnMove();
 		void show();
 		void OnMove();
 		void OnHover(CPoint coords);
