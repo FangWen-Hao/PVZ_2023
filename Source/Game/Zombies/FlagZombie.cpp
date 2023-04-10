@@ -20,22 +20,20 @@ FlagZombie::FlagZombie()
 		"Resources/Zombies/BMP/NormalState/FlagZombie/FlagZombie_9.bmp",
 	}, RGB(255, 255, 255));
 
-	/* images are missing
 	deadAnimate.LoadBitmapByString({
-		"Resources/Zombies/BMP/DeadState/FlagZombieDie/FlagZombieDie_0.bmp",
-		"Resources/Zombies/BMP/DeadState/FlagZombieDie/FlagZombieDie_1.bmp",
-		"Resources/Zombies/BMP/DeadState/FlagZombieDie/FlagZombieDie_2.bmp",
-		"Resources/Zombies/BMP/DeadState/FlagZombieDie/FlagZombieDie_3.bmp",
-		"Resources/Zombies/BMP/DeadState/FlagZombieDie/FlagZombieDie_4.bmp",
-		"Resources/Zombies/BMP/DeadState/FlagZombieDie/FlagZombieDie_5.bmp",
-		"Resources/Zombies/BMP/DeadState/FlagZombieDie/FlagZombieDie_6.bmp",
-		"Resources/Zombies/BMP/DeadState/FlagZombieDie/FlagZombieDie_7.bmp",
-		"Resources/Zombies/BMP/DeadState/FlagZombieDie/FlagZombieDie_8.bmp",
-		"Resources/Zombies/BMP/DeadState/FlagZombieDie/FlagZombieDie_9.bmp",
-		"Resources/Zombies/BMP/DeadState/FlagZombieDie/FlagZombieDie_10.bmp",
-		"Resources/Zombies/BMP/DeadState/FlagZombieDie/FlagZombieDie_11.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_0.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_1.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_2.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_3.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_4.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_5.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_6.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_7.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_8.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_9.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_10.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_11.bmp",
 	}, RGB(255, 255, 255));
-	*/
 
 	attackAnimate.LoadBitmapByString({
 		"Resources/Zombies/BMP/AttackState/FlagZombieAttack/FlagZombieAttack_0.bmp",

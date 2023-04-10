@@ -20,22 +20,20 @@ BucketheadZombie::BucketheadZombie()
 		"Resources/Zombies/BMP/NormalState/BucketheadZombie/BucketheadZombie_9.bmp",
 	}, RGB(255, 255, 255));
 
-	/* images are missing
 	deadAnimate.LoadBitmapByString({
-		"Resources/Zombies/BMP/DeadState/BucketheadZombieDie/BucketheadZombieDie_0.bmp",
-		"Resources/Zombies/BMP/DeadState/BucketheadZombieDie/BucketheadZombieDie_1.bmp",
-		"Resources/Zombies/BMP/DeadState/BucketheadZombieDie/BucketheadZombieDie_2.bmp",
-		"Resources/Zombies/BMP/DeadState/BucketheadZombieDie/BucketheadZombieDie_3.bmp",
-		"Resources/Zombies/BMP/DeadState/BucketheadZombieDie/BucketheadZombieDie_4.bmp",
-		"Resources/Zombies/BMP/DeadState/BucketheadZombieDie/BucketheadZombieDie_5.bmp",
-		"Resources/Zombies/BMP/DeadState/BucketheadZombieDie/BucketheadZombieDie_6.bmp",
-		"Resources/Zombies/BMP/DeadState/BucketheadZombieDie/BucketheadZombieDie_7.bmp",
-		"Resources/Zombies/BMP/DeadState/BucketheadZombieDie/BucketheadZombieDie_8.bmp",
-		"Resources/Zombies/BMP/DeadState/BucketheadZombieDie/BucketheadZombieDie_9.bmp",
-		"Resources/Zombies/BMP/DeadState/BucketheadZombieDie/BucketheadZombieDie_10.bmp",
-		"Resources/Zombies/BMP/DeadState/BucketheadZombieDie/BucketheadZombieDie_11.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_0.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_1.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_2.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_3.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_4.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_5.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_6.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_7.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_8.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_9.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_10.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_11.bmp",
 	}, RGB(255, 255, 255));
-	*/
 
 	attackAnimate.LoadBitmapByString({
 		"Resources/Zombies/BMP/AttackState/BucketheadZombieAttack/BucketheadZombieAttack_0.bmp",

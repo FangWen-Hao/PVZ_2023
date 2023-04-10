@@ -20,22 +20,20 @@ ConeheadZombie::ConeheadZombie()
 		"Resources/Zombies/BMP/NormalState/ConeheadZombie/ConeheadZombie_9.bmp",
 	}, RGB(255, 255, 255));
 
-	/* images are missing
 	deadAnimate.LoadBitmapByString({
-		"Resources/Zombies/BMP/DeadState/ConeheadZombieDie/ConeheadZombieDie_0.bmp",
-		"Resources/Zombies/BMP/DeadState/ConeheadZombieDie/ConeheadZombieDie_1.bmp",
-		"Resources/Zombies/BMP/DeadState/ConeheadZombieDie/ConeheadZombieDie_2.bmp",
-		"Resources/Zombies/BMP/DeadState/ConeheadZombieDie/ConeheadZombieDie_3.bmp",
-		"Resources/Zombies/BMP/DeadState/ConeheadZombieDie/ConeheadZombieDie_4.bmp",
-		"Resources/Zombies/BMP/DeadState/ConeheadZombieDie/ConeheadZombieDie_5.bmp",
-		"Resources/Zombies/BMP/DeadState/ConeheadZombieDie/ConeheadZombieDie_6.bmp",
-		"Resources/Zombies/BMP/DeadState/ConeheadZombieDie/ConeheadZombieDie_7.bmp",
-		"Resources/Zombies/BMP/DeadState/ConeheadZombieDie/ConeheadZombieDie_8.bmp",
-		"Resources/Zombies/BMP/DeadState/ConeheadZombieDie/ConeheadZombieDie_9.bmp",
-		"Resources/Zombies/BMP/DeadState/ConeheadZombieDie/ConeheadZombieDie_10.bmp",
-		"Resources/Zombies/BMP/DeadState/ConeheadZombieDie/ConeheadZombieDie_11.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_0.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_1.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_2.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_3.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_4.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_5.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_6.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_7.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_8.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_9.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_10.bmp",
+		"Resources/Zombies/BMP/DeadState/ZombieDie/ZombieDie_11.bmp",
 	}, RGB(255, 255, 255));
-	*/
 
 	attackAnimate.LoadBitmapByString({
 		"Resources/Zombies/BMP/AttackState/ConeheadZombieAttack/ConeheadZombieAttack_0.bmp",

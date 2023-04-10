@@ -20,22 +20,19 @@ NewpaperZombieNoPaper::NewpaperZombieNoPaper()
 		"Resources/Zombies/BMP/NormalState/NewspaperZombieNoPaper/NewspaperZombieNoPaper_9.bmp",
 	}, RGB(255, 255, 255));
 
-	/* images are missing
 	deadAnimate.LoadBitmapByString({
-		"Resources/Zombies/BMP/DeadState/NewspaperZombieNoPaperDie/ZombieDie_0.bmp",
-		"Resources/Zombies/BMP/DeadState/NewspaperZombieNoPaperDie/ZombieDie_1.bmp",
-		"Resources/Zombies/BMP/DeadState/NewspaperZombieNoPaperDie/ZombieDie_2.bmp",
-		"Resources/Zombies/BMP/DeadState/NewspaperZombieNoPaperDie/ZombieDie_3.bmp",
-		"Resources/Zombies/BMP/DeadState/NewspaperZombieNoPaperDie/ZombieDie_4.bmp",
-		"Resources/Zombies/BMP/DeadState/NewspaperZombieNoPaperDie/ZombieDie_5.bmp",
-		"Resources/Zombies/BMP/DeadState/NewspaperZombieNoPaperDie/ZombieDie_6.bmp",
-		"Resources/Zombies/BMP/DeadState/NewspaperZombieNoPaperDie/ZombieDie_7.bmp",
-		"Resources/Zombies/BMP/DeadState/NewspaperZombieNoPaperDie/ZombieDie_8.bmp",
-		"Resources/Zombies/BMP/DeadState/NewspaperZombieNoPaperDie/ZombieDie_9.bmp",
-		"Resources/Zombies/BMP/DeadState/NewspaperZombieNoPaperDie/ZombieDie_10.bmp",
-		"Resources/Zombies/BMP/DeadState/NewspaperZombieNoPaperDie/ZombieDie_11.bmp",
+		"Resources/Zombies/BMP/DeadState/NewspaperZombieDie/NewspaperZombieDie_0.bmp",
+		"Resources/Zombies/BMP/DeadState/NewspaperZombieDie/NewspaperZombieDie_1.bmp",
+		"Resources/Zombies/BMP/DeadState/NewspaperZombieDie/NewspaperZombieDie_2.bmp",
+		"Resources/Zombies/BMP/DeadState/NewspaperZombieDie/NewspaperZombieDie_3.bmp",
+		"Resources/Zombies/BMP/DeadState/NewspaperZombieDie/NewspaperZombieDie_4.bmp",
+		"Resources/Zombies/BMP/DeadState/NewspaperZombieDie/NewspaperZombieDie_5.bmp",
+		"Resources/Zombies/BMP/DeadState/NewspaperZombieDie/NewspaperZombieDie_6.bmp",
+		"Resources/Zombies/BMP/DeadState/NewspaperZombieDie/NewspaperZombieDie_7.bmp",
+		"Resources/Zombies/BMP/DeadState/NewspaperZombieDie/NewspaperZombieDie_8.bmp",
+		"Resources/Zombies/BMP/DeadState/NewspaperZombieDie/NewspaperZombieDie_9.bmp",
+		"Resources/Zombies/BMP/DeadState/NewspaperZombieDie/NewspaperZombieDie_10.bmp",
 	}, RGB(255, 255, 255));
-	*/
 
 	attackAnimate.LoadBitmapByString({
 		"Resources/Zombies/BMP/AttackState/NewspaperZombieNoPaperAttack/NewspaperZombieNoPaperAttack_0.bmp",
