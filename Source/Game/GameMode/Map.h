@@ -39,17 +39,19 @@ namespace game_framework {
 		int sunsAmount = 50;
 		bool isDay;
 		GameBar bar;
-	
-		bool isSelectedPlant;
-		PLANT plantsMap[9][5];	// the grid for the plants place on the map, not sure where to define this so I put it here first
 
 		// GameMenu menu;
 		// ProgressBar progress;
 		// vector<Lane> lanes;
-		vector<Zombie*> zombies;
-
 		Cooldown sunProductionCooldown;
+
 		vector<Sun*> displayedSuns;
+		vector<Zombie*> zombies;
+		vector<Plant*> plants;
+		Plant* currentSelectPlant = nullptr;
+		PLANT plantsMap[5][9];
+
+		CPoint _mousePos2TilePos(CPoint);
 	};
 
 }

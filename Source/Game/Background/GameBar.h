@@ -16,7 +16,7 @@ namespace game_framework
 		void GameBar::init(int initialSuns);
 		void show();
 		void onHover(CPoint coords);
-		int onClick(CPoint coords);
+		SEED_CARD onClick(CPoint coords);
 		
 		void addSuns(int suns);
 		void setSuns(int suns);

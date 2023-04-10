@@ -71,7 +71,7 @@ namespace game_framework
 	}
 
 
-	int GameBar::onClick(CPoint coords)
+	SEED_CARD GameBar::onClick(CPoint coords)
 	{
 		// WIP
 		if (!gameStarted)
@@ -84,7 +84,7 @@ namespace game_framework
 				background.UnshowBitmap();
 				picker.unshow();
 				startGameButton.UnshowBitmap();
-				return 0; // tmp
+				return SEED_CARD::REFUSED; // tmp
 			}
 
 			if (coords.x < (picker.GetLeft() + picker.GetWidth()) && coords.x > picker.GetLeft()
@@ -120,8 +120,18 @@ namespace game_framework
 					
 			}
 		}
-
-		return 0;
+		else
+		{
+			for (SeedCard card : cards)
+			{
+				if (coords.x < (card.GetLeft() + card.GetWidth()) && coords.x > card.GetLeft()
+					&& coords.y < (card.GetTop() + card.GetHeight()) && coords.y > card.GetTop())
+				{
+					return card.getType();
+				}
+			}
+		}
+		return SEED_CARD::REFUSED;
 	}
 
 	void GameBar::addSuns(int suns)

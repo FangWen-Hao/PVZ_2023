@@ -4,7 +4,6 @@
 // #include "GameMenu.h"
 // #include "ProgressBar.h"
 // #include "Lanes.h"
-// #include "Zombies.h"
 #include "../Misc/NormalSun.h"
 #include "GameModeUtils.h"
 #include "Maps/Tile_Positions.h"
@@ -13,10 +12,9 @@
 namespace game_framework {
 	Map::Map()
 	{
-		isSelectedPlant = false;
 		for (int y = 0; y < 5; y++) {
 			for (int x = 0; x < 9; x++) {
-				plantsMap[x][y] = PLANT::EMPTY;
+				plantsMap[y][x] = PLANT::EMPTY;
 			}
 		}
 	}
@@ -46,8 +44,16 @@ namespace game_framework {
 
 		if (bar.hasGameStarted())
 		{
-			for (auto z : zombies) {
-				z->onShow();
+			for (Zombie* zombie : zombies) {
+				zombie->onShow();
+			}
+
+			for (Plant* plant : plants) {
+				plant->onShow();
+			}
+
+			if (currentSelectPlant != nullptr) {
+				currentSelectPlant->onShow();
 			}
 		}
 
@@ -60,6 +66,13 @@ namespace game_framework {
 
 	void Map::OnHover(CPoint coords)
 	{
+		if (bar.hasGameStarted())
+		{
+			if (currentSelectPlant != nullptr)
+			{
+				currentSelectPlant->SetTopLeft(coords);
+			}
+		}
 	}
 
 	void Map::OnMove()
@@ -72,8 +85,12 @@ namespace game_framework {
 		{
 			sunFactoryLogic();
 
-			for (auto z : zombies) {
-				z->onMove();
+			for (Zombie* zombie : zombies) {
+				zombie->onMove();
+			}
+
+			for (Plant* plant : plants) {
+				plant->onMove();
 			}
 		}
 		
@@ -82,7 +99,7 @@ namespace game_framework {
 
 	int Map::OnClick(CPoint coords)
 	{
-		bar.onClick(coords);
+		SEED_CARD card = bar.onClick(coords);
 
 		if (bar.hasGameStarted())
 		{
@@ -97,6 +114,26 @@ namespace game_framework {
 					}
 				}
 			
+			CPoint pos = _mousePos2TilePos(coords);
+			switch (card)
+			{
+			case SEED_CARD::PEA_SHOOTER:
+				currentSelectPlant = new PeaShooter(coords);
+				break;
+
+			case SEED_CARD::REFUSED:
+				if (currentSelectPlant == nullptr) break;
+				if (pos.x == -1 || pos.y == -1) break;
+				if (plantsMap[pos.y][pos.x] != PLANT::EMPTY) break;
+				
+				plantsMap[pos.y][pos.x] = currentSelectPlant->getType();
+				currentSelectPlant->SetTopLeft(LEFT_TILES_POSITION_ON_MAP.at(pos.x), TOP_LANE_POSITION_ON_SCREEN_MAP.at(pos.y));
+				plants.push_back(currentSelectPlant);
+				currentSelectPlant = nullptr;
+
+			default: break;
+			}
+
 			// temp code
 			NormalZombie *nz = new NormalZombie();
 			nz->onInit();
@@ -161,5 +198,34 @@ namespace game_framework {
 		displayedSuns.at(index)->unshow();
 		delete displayedSuns.at(index);
 		displayedSuns.erase(displayedSuns.begin() + index);
+	}
+
+	CPoint Map::_mousePos2TilePos(CPoint coords)
+	{
+		CPoint res = CPoint(-1, -1);
+
+		// search the Y-axis
+		for (int i = 0; i < 5; ++i)
+		{
+			if (coords.y >= TOP_LANE_POSITION_ON_SCREEN_MAP.at(i) &&
+				coords.y <= BOTTOM_LANE_POSITION_ON_SCREEN_MAP.at(i))
+			{
+				res.y = i;
+				break;
+			}
+		}
+
+		// search the X-axis
+		for (int i = 0; i < 9; ++i)
+		{
+			if (coords.x >= LEFT_TILES_POSITION_ON_MAP.at(i) &&
+				coords.x <= RIGHT_TILES_POSITION_ON_MAP.at(i))
+			{
+				res.x = i;
+				break;
+			}
+		}
+
+		return res;
 	}
 }

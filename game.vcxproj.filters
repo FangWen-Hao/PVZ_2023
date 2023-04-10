@@ -138,6 +138,9 @@
     <ClCompile Include="Source\Game\Zombies\NewpaperZombieNoPaper.cpp">
       <Filter>MyGame\Zombies</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Plants\PeaShooter.cpp">
+      <Filter>MyGame\Plants</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Library\audio.h">
