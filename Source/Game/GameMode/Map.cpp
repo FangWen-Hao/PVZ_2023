@@ -127,7 +127,9 @@ namespace game_framework {
 				if (plantsMap[pos.y][pos.x] != PLANT::EMPTY) break;
 				
 				plantsMap[pos.y][pos.x] = currentSelectPlant->getType();
-				currentSelectPlant->SetTopLeft(LEFT_TILES_POSITION_ON_MAP.at(pos.x), TOP_LANE_POSITION_ON_SCREEN_MAP.at(pos.y));
+				currentSelectPlant->SetTopLeft(
+					MIDDLE_TILES_POSITION_ON_MAP.at(pos.x) - currentSelectPlant->width() / 2,
+					MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(pos.y) - currentSelectPlant->height() / 2);
 				plants.push_back(currentSelectPlant);
 				currentSelectPlant = nullptr;
 

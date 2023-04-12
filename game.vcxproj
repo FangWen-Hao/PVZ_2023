@@ -254,6 +254,7 @@
     <ClCompile Include="Source\Game\GameMode\LoadingScreen.cpp" />
     <ClCompile Include="Source\Game\GameMode\Main_Menu.cpp" />
     <ClCompile Include="Source\Game\GameMode\Map.cpp" />
+    <ClCompile Include="Source\Game\Misc\Bullet\PeaShooterBullet.cpp" />
     <ClCompile Include="Source\Game\Misc\Cooldown.cpp" />
     <ClCompile Include="Source\Game\Misc\NormalSun.cpp" />
     <ClCompile Include="Source\Game\Misc\Sun.cpp" />
@@ -296,6 +297,7 @@
     <ClInclude Include="Source\Game\GameMode\Main_Menu.h" />
     <ClInclude Include="Source\Game\GameMode\Map.h" />
     <ClInclude Include="Source\Game\GameMode\Maps\Tile_Positions.h" />
+    <ClInclude Include="Source\Game\Misc\Bullet\Bullet.h" />
     <ClInclude Include="Source\Game\Misc\Cooldown.h" />
     <ClInclude Include="Source\Game\Misc\NormalSun.h" />
     <ClInclude Include="Source\Game\Misc\Sun.h" />
