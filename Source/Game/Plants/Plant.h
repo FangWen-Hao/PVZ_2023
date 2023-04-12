@@ -43,7 +43,7 @@ namespace game_framework {
 		virtual int getDamage() { return _damage; }
 		virtual int getAttackSpeed() { return _attackSpeed; }
 
-		virtual void attack() {};
+		virtual void attack(vector<Bullet*>*) {};
 		virtual void SetTopLeft(CPoint pos) {
 			animate.SetTopLeft(pos.x, pos.y);
 		}
@@ -53,12 +53,12 @@ namespace game_framework {
 		virtual void onShow() {
 			animate.ShowBitmap();
 		}
-		virtual void onMove() {
+		virtual void onMove(vector<Bullet*>* bullets) {
 			++_ttlAttack %= _attackSpeed;
 
 			if (_ttlAttack == 0)
 			{
-				attack();
+				attack(bullets);
 			}
 		}
 
@@ -125,12 +125,7 @@ namespace game_framework {
 		PeaShooter(CPoint);
 		~PeaShooter();
 
-		void onMove() override;
-		void onShow() override;
-		void attack();
-
-	private:
-		vector<Bullet*> bullets;
+		void attack(vector<Bullet*>*);
 	};
 
 	class PotatoMine : public Plant

@@ -48,12 +48,12 @@ namespace game_framework {
 			if (_hp <= 0) _isDead = true;
 
 			if (_isAttacking) {
-				_ttlAttack = ++_ttlAttack % _attackFrequency;
+				++_ttlAttack %= _attackFrequency;
 
 				if (_ttlAttack == 0) attack();
 			}
 			else if (!_isDead) {
-				_ttlMove = ++_ttlMove % _moveFrequency;
+				++_ttlMove %= _moveFrequency;
 
 				if (_ttlMove == 0) _posX -= _speed;
 			}

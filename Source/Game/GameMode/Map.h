@@ -48,6 +48,8 @@ namespace game_framework {
 		vector<Sun*> displayedSuns;
 		vector<Zombie*> zombies;
 		vector<Plant*> plants;
+		vector<Bullet*> bullets;
+
 		Plant* currentSelectPlant = nullptr;
 		PLANT plantsMap[5][9];
 

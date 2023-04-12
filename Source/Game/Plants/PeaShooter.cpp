@@ -22,31 +22,10 @@ PeaShooter::PeaShooter(CPoint pos)
 
 PeaShooter::~PeaShooter()
 {
-
 }
 
-void PeaShooter::onMove()
+void PeaShooter::attack(vector<Bullet*>* bullets)
 {
-	Plant::onMove();
-
-	for (Bullet* bullet : bullets)
-	{
-		bullet->onMove();
-	}
-}
-
-void PeaShooter::onShow()
-{
-	Plant::onShow();
-
-	for (Bullet* bullet : bullets)
-	{
-		bullet->ShowBitmap();
-	}
-}
-
-void PeaShooter::attack()
-{
-	bullets.push_back(new PeaShooterBullet(
-		animate.GetLeft() + animate.GetWidth(), animate.GetTop()));
+	bullets->push_back(
+		new PeaShooterBullet(animate.GetLeft() + animate.GetWidth(), animate.GetTop(), _damage));
 }

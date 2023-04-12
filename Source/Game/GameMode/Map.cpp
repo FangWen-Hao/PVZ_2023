@@ -52,6 +52,10 @@ namespace game_framework {
 				plant->onShow();
 			}
 
+			for (Bullet* bullet : bullets) {
+				bullet->onShow();
+			}
+
 			if (currentSelectPlant != nullptr) {
 				currentSelectPlant->onShow();
 			}
@@ -90,7 +94,21 @@ namespace game_framework {
 			}
 
 			for (Plant* plant : plants) {
-				plant->onMove();
+				plant->onMove(&bullets);
+			}
+
+			/*
+			for (Bullet* bullet : bullets) {
+				bullet->onMove();
+			}
+			*/
+			for (unsigned int i = 0; i < bullets.size(); ++i)
+			{
+				bullets.at(i)->onMove();
+				if (bullets.at(i)->GetLeft() > 900) {
+					delete bullets.at(i);
+					bullets.erase(bullets.begin() + i);
+				}
 			}
 		}
 		

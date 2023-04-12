@@ -15,12 +15,18 @@ namespace game_framework
 		{
 			SetTopLeft(GetLeft() + 2, GetTop());
 		}
+		virtual void onShow(double factor = 1)
+		{
+			ShowBitmap(factor);
+		}
+	protected:
+		int _damage = 0;
 	};
 
 	class PeaShooterBullet : public Bullet
 	{
 	public:
-		PeaShooterBullet(int, int);
+		PeaShooterBullet(int, int, int);
 		~PeaShooterBullet();
 	};
 }
