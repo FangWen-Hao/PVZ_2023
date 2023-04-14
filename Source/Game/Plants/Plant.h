@@ -42,6 +42,7 @@ namespace game_framework {
 		virtual int getCurrentHp() { return _hp; }
 		virtual int getDamage() { return _damage; }
 		virtual int getAttackSpeed() { return _attackSpeed; }
+		virtual int getPrice() { return _price; }
 
 		virtual void attack(vector<Bullet*>*) {};
 		virtual void SetTopLeft(CPoint pos) {
@@ -79,6 +80,7 @@ namespace game_framework {
 		int _damage;
 		int _attackSpeed;
 		int _ttlAttack = 0;
+		int _price;
 
 		CMovingBitmap animate;
 	};
