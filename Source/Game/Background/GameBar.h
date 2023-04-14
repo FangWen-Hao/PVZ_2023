@@ -29,6 +29,7 @@ namespace game_framework
 		bool checkIfCardIsAlreadySelected(SeedCard *card);
 		void addCard(SeedCard *card);
 		void removeCard(SeedCard *card);
+		void updateCardsFrames();
 
 		const int _maxNumberOfCards = 8;
 

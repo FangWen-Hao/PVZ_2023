@@ -84,6 +84,7 @@ namespace game_framework
 				background.UnshowBitmap();
 				picker.unshow();
 				startGameButton.UnshowBitmap();
+				updateCardsFrames();
 				return SEED_CARD::REFUSED; // tmp
 			}
 
@@ -137,11 +138,13 @@ namespace game_framework
 	void GameBar::addSuns(int suns)
 	{
 		_suns += suns;
+		updateCardsFrames();
 	}
 
 	void GameBar::setSuns(int suns)
 	{
 		_suns = suns;
+		updateCardsFrames();
 	}
 
 	int GameBar::getSuns(void)
@@ -221,6 +224,19 @@ namespace game_framework
 			{
 				cards.at(i).invalidateCard();
 				_selectedCards -= 1;
+			}
+		}
+	}
+	void GameBar::updateCardsFrames()
+	{
+		if (gameStarted)
+		{
+			for (unsigned int i = 0; i < cards.size(); i++)
+			{
+				if (_suns < cards.at(i).getPrice())
+					cards.at(i).SetFrameIndexOfBitmap(1);
+				else
+					cards.at(i).SetFrameIndexOfBitmap(0);
 			}
 		}
 	}
