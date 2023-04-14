@@ -52,10 +52,6 @@ namespace game_framework {
 				plant->onShow();
 			}
 
-			for (Bullet* bullet : bullets) {
-				bullet->onShow();
-			}
-
 			if (currentSelectPlant != nullptr) {
 				currentSelectPlant->onShow();
 			}
@@ -94,21 +90,7 @@ namespace game_framework {
 			}
 
 			for (Plant* plant : plants) {
-				plant->onMove(&bullets);
-			}
-
-			/*
-			for (Bullet* bullet : bullets) {
-				bullet->onMove();
-			}
-			*/
-			for (unsigned int i = 0; i < bullets.size(); ++i)
-			{
-				bullets.at(i)->onMove();
-				if (bullets.at(i)->GetLeft() > 900) {
-					delete bullets.at(i);
-					bullets.erase(bullets.begin() + i);
-				}
+				plant->onMove();
 			}
 		}
 		
@@ -152,9 +134,7 @@ namespace game_framework {
 				// if (plantsMap[pos.y][pos.x] != PLANT::EMPTY) break;
 				
 				plantsMap[pos.y][pos.x] = currentSelectPlant->getType();
-				currentSelectPlant->SetTopLeft(
-					MIDDLE_TILES_POSITION_ON_MAP.at(pos.x) - currentSelectPlant->width() / 2,
-					MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(pos.y) - currentSelectPlant->height() / 2);
+				currentSelectPlant->SetTopLeft(LEFT_TILES_POSITION_ON_MAP.at(pos.x), TOP_LANE_POSITION_ON_SCREEN_MAP.at(pos.y));
 				plants.push_back(currentSelectPlant);
 				bar.addSuns(-1 * currentSelectPlant->getPrice());
 				currentSelectPlant = nullptr;
