@@ -45,14 +45,14 @@ namespace game_framework
 			{"Resources/Plants/Cards/BMP/card_repeaterpea_alive.bmp", "Resources/Plants/Cards/BMP/card_repeaterpea_die.bmp"},
 			{"Resources/Plants/Cards/BMP/card_snowpea_alive.bmp", "Resources/Plants/Cards/BMP/card_snowpea_die.bmp"},
 			{"Resources/Plants/Cards/BMP/card_puffshroom_alive.bmp", "Resources/Plants/Cards/BMP/card_puffshroom_die.bmp"},
-			{"Resources/Plants/Cards/BMP/card_place_holder_alive.bmp", "Resources/Plants/Cards/BMP/card_place_holder_die.bmp"}, // sun_shroom
-			{"Resources/Plants/Cards/BMP/card_place_holder_alive.bmp", "Resources/Plants/Cards/BMP/card_place_holder_die.bmp"}, // hypno-shroom
-			{"Resources/Plants/Cards/BMP/card_place_holder_alive.bmp", "Resources/Plants/Cards/BMP/card_place_holder_die.bmp"}, // scaredy-shroom
-			{"Resources/Plants/Cards/BMP/card_place_holder_alive.bmp", "Resources/Plants/Cards/BMP/card_place_holder_die.bmp"}, // ice-shroom
+			{"Resources/Plants/Cards/BMP/card_sunshroom_alive.bmp", "Resources/Plants/Cards/BMP/card_sunshroom_die.bmp"}, // sun_shroom
+			{"Resources/Plants/Cards/BMP/card_hypnoshroom_alive.bmp", "Resources/Plants/Cards/BMP/card_hypnoshroom_die.bmp"}, // hypno-shroom
+			{"Resources/Plants/Cards/BMP/card_scaredyshroom_alive.bmp", "Resources/Plants/Cards/BMP/card_scaredyshroom_die.bmp"}, // scaredy-shroom
+			{"Resources/Plants/Cards/BMP/card_iceshroom_alive.bmp", "Resources/Plants/Cards/BMP/card_iceshroom_die.bmp"}, // ice-shroom
 			{"Resources/Plants/Cards/BMP/card_squash_alive.bmp", "Resources/Plants/Cards/BMP/card_squash_die.bmp"}, // squasher
-			{"Resources/Plants/Cards/BMP/card_place_holder_alive.bmp", "Resources/Plants/Cards/BMP/card_place_holder_die.bmp"}, // Three-peater
-			{"Resources/Plants/Cards/BMP/card_place_holder_alive.bmp", "Resources/Plants/Cards/BMP/card_place_holder_die.bmp"}, // Jalapeno
-			{"Resources/Plants/Cards/BMP/card_place_holder_alive.bmp", "Resources/Plants/Cards/BMP/card_place_holder_die.bmp"}, // spike_weed
+			{"Resources/Plants/Cards/BMP/card_threepeashooter_alive.bmp", "Resources/Plants/Cards/BMP/card_threepeashooter_die.bmp"}, // Three-peater
+			{"Resources/Plants/Cards/BMP/card_jalapeno_alive.bmp", "Resources/Plants/Cards/BMP/card_jalapeno_die.bmp"}, // Jalapeno
+			{"Resources/Plants/Cards/BMP/card_spikeweed_alive.bmp", "Resources/Plants/Cards/BMP/card_spikeweed_die.bmp"}, // spike_weed
 		};
 		const vector<vector<int>> CARDS_DATA {
 		//  {price, cooldown, type} Price is by order off and can be found in the consts above
