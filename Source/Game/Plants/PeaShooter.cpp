@@ -23,5 +23,10 @@ PeaShooter::PeaShooter(CPoint pos)
 
 PeaShooter::~PeaShooter()
 {
+}
 
+void PeaShooter::attack(vector<Bullet*>* bullets)
+{
+	bullets->push_back(
+		new PeaShooterBullet(animate.GetLeft() + animate.GetWidth(), animate.GetTop(), _damage));
 }

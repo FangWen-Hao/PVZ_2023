@@ -52,6 +52,10 @@ namespace game_framework {
 				plant->onShow();
 			}
 
+			for (Bullet* bullet : bullets) {
+				bullet->onShow();
+			}
+
 			if (currentSelectPlant != nullptr) {
 				currentSelectPlant->onShow();
 			}
@@ -85,12 +89,29 @@ namespace game_framework {
 		{
 			sunFactoryLogic();
 
-			for (Zombie* zombie : zombies) {
-				zombie->onMove();
+			for (Plant* plant : plants) {
+				plant->onMove(&bullets);
 			}
 
-			for (Plant* plant : plants) {
-				plant->onMove();
+			for (unsigned int i = 0; i < zombies.size(); ++i)
+			{
+				zombies.at(i)->onMove();
+				if (zombies.at(i)->isDead() && zombies.at(i)->isDeadDone())
+				{
+					delete zombies.at(i);
+					zombies.erase(zombies.begin() + i);
+				}
+			}	
+
+			for (unsigned int i = 0; i < bullets.size(); ++i)
+			{
+				bullets.at(i)->onMove();
+
+				if (bullets.at(i)->detectCollison(&zombies) || bullets.at(i)->GetLeft() > 900)
+				{
+					delete bullets.at(i);
+					bullets.erase(bullets.begin() + i);
+				}
 			}
 		}
 		
@@ -134,7 +155,9 @@ namespace game_framework {
 				// if (plantsMap[pos.y][pos.x] != PLANT::EMPTY) break;
 				
 				plantsMap[pos.y][pos.x] = currentSelectPlant->getType();
-				currentSelectPlant->SetTopLeft(LEFT_TILES_POSITION_ON_MAP.at(pos.x), TOP_LANE_POSITION_ON_SCREEN_MAP.at(pos.y));
+				currentSelectPlant->SetTopLeft(
+					MIDDLE_TILES_POSITION_ON_MAP.at(pos.x) - currentSelectPlant->width() / 2,
+					MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(pos.y) - currentSelectPlant->height() / 2);
 				plants.push_back(currentSelectPlant);
 				bar.addSuns(-1 * currentSelectPlant->getPrice());
 				currentSelectPlant = nullptr;

@@ -2,6 +2,7 @@
 
 // #include "../Terrain/Lane.h"
 #include "../../Library/gameutil.h"
+#include "../Misc/Bullet/Bullet.h"
 #include <string>
 #include <ctime>
 
@@ -43,7 +44,7 @@ namespace game_framework {
 		virtual int getAttackSpeed() { return _attackSpeed; }
 		virtual int getPrice() { return _price; }
 
-		virtual void attack() {};
+		virtual void attack(vector<Bullet*>*) {};
 		virtual void SetTopLeft(CPoint pos) {
 			animate.SetTopLeft(pos.x, pos.y);
 		}
@@ -53,8 +54,20 @@ namespace game_framework {
 		virtual void onShow() {
 			animate.ShowBitmap();
 		}
-		virtual void onMove() {
+		virtual void onMove(vector<Bullet*>* bullets) {
+			++_ttlAttack %= _attackSpeed;
 
+			if (_ttlAttack == 0)
+			{
+				attack(bullets);
+			}
+		}
+		int width() {
+			return animate.GetWidth();
+		}
+
+		int height() {
+			return animate.GetHeight();
 		}
 
 	protected:
@@ -112,6 +125,8 @@ namespace game_framework {
 	public:
 		PeaShooter(CPoint);
 		~PeaShooter();
+
+		void attack(vector<Bullet*>*);
 	};
 
 	class PotatoMine : public Plant

@@ -35,6 +35,9 @@
     <Filter Include="MyGame\Misc">
       <UniqueIdentifier>{a69233cc-2992-41c9-86ee-09a24dd51446}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MyGame\Misc\Bullet">
+      <UniqueIdentifier>{eebe3294-67c3-489d-b9fc-4fe38b89698e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="RES\GAME.RC2">
@@ -141,6 +144,9 @@
     <ClCompile Include="Source\Game\Plants\PeaShooter.cpp">
       <Filter>MyGame\Plants</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Misc\Bullet\PeaShooterBullet.cpp">
+      <Filter>MyGame\Misc\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Library\audio.h">
@@ -238,6 +244,9 @@
     </ClInclude>
     <ClInclude Include="Source\Game\GameMode\Maps\Tile_Positions.h">
       <Filter>MyGame\GameMode\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Misc\Bullet\Bullet.h">
+      <Filter>MyGame\Misc\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
