@@ -16,6 +16,9 @@ PeaShooter::PeaShooter(CPoint pos)
 
 	animate.SetAnimation(100, false);
 	animate.SetTopLeft(pos.x, pos.y);
+
+	_attackSpeed = 100;
+	_price = 100;
 }
 
 PeaShooter::~PeaShooter()

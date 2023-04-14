@@ -118,17 +118,25 @@ namespace game_framework {
 			switch (card)
 			{
 			case SEED_CARD::PEA_SHOOTER:
-				currentSelectPlant = new PeaShooter(coords);
+				if (bar.getSuns() >= 100)
+					currentSelectPlant = new PeaShooter(coords);
 				break;
 
 			case SEED_CARD::REFUSED:
-				if (currentSelectPlant == nullptr) break;
-				if (pos.x == -1 || pos.y == -1) break;
-				if (plantsMap[pos.y][pos.x] != PLANT::EMPTY) break;
+				if (currentSelectPlant == nullptr
+					|| pos.x == -1 || pos.y == -1
+					|| plantsMap[pos.y][pos.x] != PLANT::EMPTY)
+				{
+					break;
+				}
+					
+				// if (pos.x == -1 || pos.y == -1) break;
+				// if (plantsMap[pos.y][pos.x] != PLANT::EMPTY) break;
 				
 				plantsMap[pos.y][pos.x] = currentSelectPlant->getType();
 				currentSelectPlant->SetTopLeft(LEFT_TILES_POSITION_ON_MAP.at(pos.x), TOP_LANE_POSITION_ON_SCREEN_MAP.at(pos.y));
 				plants.push_back(currentSelectPlant);
+				bar.addSuns(-1 * currentSelectPlant->getPrice());
 				currentSelectPlant = nullptr;
 
 			default: break;
