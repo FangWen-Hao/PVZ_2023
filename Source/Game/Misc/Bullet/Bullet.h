@@ -42,4 +42,11 @@ namespace game_framework
 		PeaShooterBullet(int, int, int);
 		~PeaShooterBullet();
 	};
+
+	class SnowPeaBullet : public Bullet
+	{
+	public:
+		SnowPeaBullet(int, int, int);
+		~SnowPeaBullet();
+	};
 }

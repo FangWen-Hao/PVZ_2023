@@ -3,6 +3,7 @@
 // #include "../Terrain/Lane.h"
 #include "../../Library/gameutil.h"
 #include "../Misc/Bullet/Bullet.h"
+#include "../Misc/Sun.h"
 #include <string>
 #include <ctime>
 
@@ -35,9 +36,9 @@ namespace game_framework {
 	public:
 		Plant() {};
 		~Plant() {};
+		
 
 		// virtual void setLane(Lane* lane) { _currentLane = lane; }
-
 		virtual PLANT getType() { return _type; }
 		virtual int getCurrentHp() { return _hp; }
 		virtual int getDamage() { return _damage; }
@@ -45,6 +46,7 @@ namespace game_framework {
 		virtual int getPrice() { return _price; }
 
 		virtual void attack(vector<Bullet*>*) {};
+		virtual void generateSun(vector<Sun*>*) {};
 		virtual void SetTopLeft(CPoint pos) {
 			animate.SetTopLeft(pos.x, pos.y);
 		}
@@ -60,6 +62,15 @@ namespace game_framework {
 			if (_ttlAttack == 0)
 			{
 				attack(bullets);
+			}
+		}
+		virtual void onMove(vector<Sun*>* suns) {
+			++_ttlAttack %= _attackSpeed;
+
+			if (_ttlAttack == 0)
+			{
+				
+				generateSun(suns);
 			}
 		}
 		int width() {
@@ -126,7 +137,9 @@ namespace game_framework {
 		PeaShooter(CPoint);
 		~PeaShooter();
 
-		void attack(vector<Bullet*>*);
+		static const int price = 100;
+
+		void attack(vector<Bullet*>*) override;		
 	};
 
 	class PotatoMine : public Plant
@@ -160,8 +173,12 @@ namespace game_framework {
 	class SnowPea : public Plant
 	{
 	public:
-		SnowPea();
+		SnowPea(CPoint);
 		~SnowPea();
+
+		static const int price = 175;
+
+		void attack(vector<Bullet*>*) override;
 	};
 
 	class Spikeweed : public Plant
@@ -181,8 +198,12 @@ namespace game_framework {
 	class SunFlower : public Plant
 	{
 	public:
-		SunFlower();
+		SunFlower(CPoint);
 		~SunFlower();
+
+		static const int price = 50;
+
+		void generateSun(vector<Sun*>*) override;
 	};
 
 	class Threepeater : public Plant
@@ -199,3 +220,5 @@ namespace game_framework {
 		~WallNut();
 	};
 }
+
+

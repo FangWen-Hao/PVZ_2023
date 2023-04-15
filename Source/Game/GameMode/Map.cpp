@@ -8,6 +8,8 @@
 #include "GameModeUtils.h"
 #include "Maps/Tile_Positions.h"
 #include "../Plants/Plant.h"
+#include "../Zombies/Zombie.h"
+#include <algorithm>
 
 namespace game_framework {
 	Map::Map()
@@ -56,16 +58,14 @@ namespace game_framework {
 				bullet->onShow();
 			}
 
+			for (Sun* sun : displayedSuns) {
+				sun->show();
+			}
+
 			if (currentSelectPlant != nullptr) {
 				currentSelectPlant->onShow();
 			}
 		}
-
-		if (displayedSuns.size() != 0)
-			for (unsigned int i = 0; i < displayedSuns.size(); i++)
-			{
-				displayedSuns.at(i)->show();
-			}
 	}
 
 	void Map::OnHover(CPoint coords)
@@ -90,27 +90,27 @@ namespace game_framework {
 			sunFactoryLogic();
 
 			for (Plant* plant : plants) {
-				plant->onMove(&bullets);
+				if (plant->getType() == PLANT::SUN_FLOWER) plant->onMove(&displayedSuns);
+				else plant->onMove(&bullets);
 			}
 
-			for (unsigned int i = 0; i < zombies.size(); ++i)
+			for (Zombie* zombie : zombies)
 			{
-				zombies.at(i)->onMove();
-				if (zombies.at(i)->isDead() && zombies.at(i)->isDeadDone())
+				zombie->onMove();
+				if (zombie->isDead() && zombie->isDeadDone())
 				{
-					delete zombies.at(i);
-					zombies.erase(zombies.begin() + i);
+					delete zombie;
+					zombies.erase(remove(zombies.begin(), zombies.end(), zombie), zombies.end());
 				}
-			}	
+			}
 
-			for (unsigned int i = 0; i < bullets.size(); ++i)
+			for (Bullet* bullet : bullets)
 			{
-				bullets.at(i)->onMove();
-
-				if (bullets.at(i)->detectCollison(&zombies) || bullets.at(i)->GetLeft() > 900)
+				bullet->onMove();
+				if (bullet->detectCollison(&zombies) || bullet->GetLeft() > 900)
 				{
-					delete bullets.at(i);
-					bullets.erase(bullets.begin() + i);
+					delete bullet;
+					bullets.erase(remove(bullets.begin(), bullets.end(), bullet), bullets.end());
 				}
 			}
 		}
@@ -132,6 +132,7 @@ namespace game_framework {
 					{
 						bar.addSuns(displayedSuns.at(i)->getValue());
 						removeSunFromVector(i);
+						break;
 					}
 				}
 			
@@ -139,10 +140,18 @@ namespace game_framework {
 			switch (card)
 			{
 			case SEED_CARD::PEA_SHOOTER:
-				if (bar.getSuns() >= 100)
+				if (bar.getSuns() >= PeaShooter::price)
 					currentSelectPlant = new PeaShooter(coords);
 				break;
 
+			case SEED_CARD::SUN_FLOWER:
+				if (bar.getSuns() >= SunFlower::price)
+					currentSelectPlant = new SunFlower(coords);
+				break;
+			case SEED_CARD::SNOW_PEA:
+				if (bar.getSuns() >= SnowPea::price)
+					currentSelectPlant = new SnowPea(coords);
+				break;
 			case SEED_CARD::REFUSED:
 				if (currentSelectPlant == nullptr
 					|| pos.x == -1 || pos.y == -1
@@ -216,8 +225,7 @@ namespace game_framework {
 			&& displayedSuns.size() <= MAX_SUNS_FALLEN)
 		{
 			displayedSuns.push_back(new NormalSun());
-			displayedSuns.at(displayedSuns.size() - 1)
-				->init(MIDDLE_TILES_POSITION_ON_MAP.at(integerPRNG(0, 8)),
+			displayedSuns.back()->init(MIDDLE_TILES_POSITION_ON_MAP.at(integerPRNG(0, 8)),
 					FALLING_SUN_INITIAL_POSITION,
 					MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(integerPRNG(0, 4)));
 

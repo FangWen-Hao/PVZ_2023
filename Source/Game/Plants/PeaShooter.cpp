@@ -1,10 +1,13 @@
 #include "stdafx.h"
 #include "Plant.h"
+#include "../Misc/Bullet/Bullet.h"
 
 using namespace game_framework;
 
 PeaShooter::PeaShooter(CPoint pos)
 {
+	_type = PLANT::PEA_SHOOTER;
+
 	animate.LoadBitmapByString({
 		"Resources/Plants/PeaShooter/BMP/Peashooter_0.bmp",
 		"Resources/Plants/PeaShooter/BMP/Peashooter_1.bmp",
@@ -18,7 +21,7 @@ PeaShooter::PeaShooter(CPoint pos)
 	animate.SetTopLeft(pos.x, pos.y);
 
 	_attackSpeed = 100;
-	_price = 100;
+	_price = PeaShooter::price;
 }
 
 PeaShooter::~PeaShooter()
