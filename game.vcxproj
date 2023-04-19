@@ -262,9 +262,14 @@
     <ClCompile Include="Source\Game\mygame_initialize.cpp" />
     <ClCompile Include="Source\Game\mygame_over.cpp" />
     <ClCompile Include="Source\Game\mygame_run.cpp" />
+    <ClCompile Include="Source\Game\Plants\CherryBomb.cpp" />
     <ClCompile Include="Source\Game\Plants\PeaShooter.cpp" />
+    <ClCompile Include="Source\Game\Plants\PotatoMine.cpp" />
+    <ClCompile Include="Source\Game\Plants\PuffShroom.cpp" />
     <ClCompile Include="Source\Game\Plants\SnowPea.cpp" />
+    <ClCompile Include="Source\Game\Plants\Squash.cpp" />
     <ClCompile Include="Source\Game\Plants\SunFlower.cpp" />
+    <ClCompile Include="Source\Game\Plants\WallNut.cpp" />
     <ClCompile Include="Source\Game\Terrain\Lane.cpp" />
     <ClCompile Include="Source\Game\Zombies\BucketheadZombie.cpp" />
     <ClCompile Include="Source\Game\Zombies\ConeheadZombie.cpp" />

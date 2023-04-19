@@ -90,8 +90,14 @@ namespace game_framework {
 			sunFactoryLogic();
 
 			for (Plant* plant : plants) {
-				if (plant->getType() == PLANT::SUN_FLOWER) plant->onMove(&displayedSuns);
-				else plant->onMove(&bullets);
+				if (plant->getType() == PLANT::SUN_FLOWER) plant->onMove(&displayedSuns, &zombies);
+				else plant->onMove(&bullets, &zombies);
+				
+				if (plant->isDead())
+				{
+					delete plant;
+					plants.erase(remove(plants.begin(), plants.end(), plant), plants.end());
+				}
 			}
 
 			for (Zombie* zombie : zombies)
@@ -139,18 +145,37 @@ namespace game_framework {
 			CPoint pos = _mousePos2TilePos(coords);
 			switch (card)
 			{
+			case SEED_CARD::CHERRY_BOMB:
+				if (bar.getSuns() >= CherryBomb::price)
+					currentSelectPlant = new CherryBomb(coords);
+				break;
 			case SEED_CARD::PEA_SHOOTER:
 				if (bar.getSuns() >= PeaShooter::price)
 					currentSelectPlant = new PeaShooter(coords);
 				break;
-
-			case SEED_CARD::SUN_FLOWER:
-				if (bar.getSuns() >= SunFlower::price)
-					currentSelectPlant = new SunFlower(coords);
+			case SEED_CARD::POTATO_MINE:
+				if (bar.getSuns() >= PotatoMine::price)
+					currentSelectPlant = new PotatoMine(coords);
+				break;
+			case SEED_CARD::PUFF_SHROOM:
+				if (bar.getSuns() >= PuffShroom::price)
+					currentSelectPlant = new PuffShroom(coords);
 				break;
 			case SEED_CARD::SNOW_PEA:
 				if (bar.getSuns() >= SnowPea::price)
 					currentSelectPlant = new SnowPea(coords);
+				break;
+			case SEED_CARD::SQUASH:
+				if (bar.getSuns() >= Squash::price)
+					currentSelectPlant = new Squash(coords);
+				break;
+			case SEED_CARD::SUN_FLOWER:
+				if (bar.getSuns() >= SunFlower::price)
+					currentSelectPlant = new SunFlower(coords);
+				break;
+			case SEED_CARD::WALL_NUT:
+				if (bar.getSuns() >= WallNut::price)
+					currentSelectPlant = new WallNut(coords);
 				break;
 			case SEED_CARD::REFUSED:
 				if (currentSelectPlant == nullptr
@@ -159,9 +184,6 @@ namespace game_framework {
 				{
 					break;
 				}
-					
-				// if (pos.x == -1 || pos.y == -1) break;
-				// if (plantsMap[pos.y][pos.x] != PLANT::EMPTY) break;
 				
 				plantsMap[pos.y][pos.x] = currentSelectPlant->getType();
 				currentSelectPlant->SetTopLeft(

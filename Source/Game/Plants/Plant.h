@@ -47,39 +47,34 @@ namespace game_framework {
 
 		virtual void attack(vector<Bullet*>*) {};
 		virtual void generateSun(vector<Sun*>*) {};
-		virtual void SetTopLeft(CPoint pos) {
-			animate.SetTopLeft(pos.x, pos.y);
-		}
-		virtual void SetTopLeft(int x, int y) {
-			animate.SetTopLeft(x, y);
-		}
-		virtual void onShow() {
-			animate.ShowBitmap();
-		}
-		virtual void onMove(vector<Bullet*>* bullets) {
+		virtual void SetTopLeft(CPoint pos) { animate.SetTopLeft(pos.x, pos.y); }
+		virtual void SetTopLeft(int x, int y) { animate.SetTopLeft(x, y); }
+		virtual void onShow() { animate.ShowBitmap(); }
+
+		virtual void onMove(vector<Bullet*>* bullets, vector<Zombie*>* zombies) {
 			++_ttlAttack %= _attackSpeed;
 
 			if (_ttlAttack == 0)
 			{
 				attack(bullets);
 			}
+
+			detectCollision(zombies);
 		}
-		virtual void onMove(vector<Sun*>* suns) {
+		virtual void onMove(vector<Sun*>* suns, vector<Zombie*>* zombies) {
 			++_ttlAttack %= _attackSpeed;
 
 			if (_ttlAttack == 0)
 			{
-				
 				generateSun(suns);
 			}
-		}
-		int width() {
-			return animate.GetWidth();
+
+			detectCollision(zombies);
 		}
 
-		int height() {
-			return animate.GetHeight();
-		}
+		int width() { return animate.GetWidth(); }
+		int height() { return animate.GetHeight(); }
+		bool isDead() { return _isDead; }
 
 	protected:
 		// Lane *_currentLane;
@@ -91,16 +86,33 @@ namespace game_framework {
 		int _attackSpeed;
 		int _ttlAttack = 0;
 		int _price;
+		bool _isDead = false;
 
 		CMovingBitmap animate;
+
+	private:
+		void detectCollision(vector<Zombie*>* zombies) {
+			for (Zombie* zombie : *zombies) {
+				if (animate.GetLeft() < (zombie->GetLeft() + zombie->GetWidth()) &&
+					(animate.GetLeft() + animate.GetWidth()) > zombie->GetLeft() &&
+					animate.GetTop() < (zombie->GetTop() + zombie->GetHeight()) &&
+					(animate.GetTop() + animate.GetHeight()) > zombie->GetTop())
+				{
+					_hp -= zombie->getDamage();
+					if (_hp <= 0) _isDead = true;
+				}
+			}
+		}
 	};
 
 	// inheritance class
 	class CherryBomb : public Plant
 	{
 	public:
-		CherryBomb();
+		CherryBomb(CPoint);
 		~CherryBomb();
+
+		static const int price = 150;
 	};
 
 	class Chomper : public Plant
@@ -145,15 +157,19 @@ namespace game_framework {
 	class PotatoMine : public Plant
 	{
 	public:
-		PotatoMine();
+		PotatoMine(CPoint);
 		~PotatoMine();
+
+		static const int price = 25;
 	};
 
 	class PuffShroom : public Plant
 	{
 	public:
-		PuffShroom();
+		PuffShroom(CPoint);
 		~PuffShroom();
+
+		static const int price = 0;
 	};
 
 	class RepeaterPea : public Plant
@@ -191,8 +207,10 @@ namespace game_framework {
 	class Squash : public Plant
 	{
 	public:
-		Squash();
+		Squash(CPoint);
 		~Squash();
+
+		static const int price = 50;
 	};
 
 	class SunFlower : public Plant
@@ -216,8 +234,10 @@ namespace game_framework {
 	class WallNut : public Plant
 	{
 	public:
-		WallNut();
+		WallNut(CPoint);
 		~WallNut();
+
+		static const int price = 50;
 	};
 }
 

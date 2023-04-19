@@ -21,6 +21,8 @@ SnowPea::SnowPea(CPoint pos)
 	animate.SetTopLeft(pos.x, pos.y);
 
 	_attackSpeed = 100;
+	_damage = 10;
+	_hp = 100;
 	_price = SnowPea::price;
 }
 

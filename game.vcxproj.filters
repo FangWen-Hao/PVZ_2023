@@ -156,6 +156,21 @@
     <ClCompile Include="Source\Game\Misc\Bullet\SnowPeaBullet.cpp">
       <Filter>MyGame\Misc\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Plants\CherryBomb.cpp">
+      <Filter>MyGame\Plants</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Plants\PotatoMine.cpp">
+      <Filter>MyGame\Plants</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Plants\PuffShroom.cpp">
+      <Filter>MyGame\Plants</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Plants\Squash.cpp">
+      <Filter>MyGame\Plants</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Plants\WallNut.cpp">
+      <Filter>MyGame\Plants</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Library\audio.h">
