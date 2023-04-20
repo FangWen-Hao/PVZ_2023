@@ -43,7 +43,6 @@ namespace game_framework
 			{"Resources/Plants/Cards/BMP/card_snowpea_alive.bmp", "Resources/Plants/Cards/BMP/card_snowpea_die.bmp"},
 			{"Resources/Plants/Cards/BMP/card_chomper_alive.bmp", "Resources/Plants/Cards/BMP/card_chomper_die.bmp"},
 			{"Resources/Plants/Cards/BMP/card_repeaterpea_alive.bmp", "Resources/Plants/Cards/BMP/card_repeaterpea_die.bmp"},
-			{"Resources/Plants/Cards/BMP/card_snowpea_alive.bmp", "Resources/Plants/Cards/BMP/card_snowpea_die.bmp"},
 			{"Resources/Plants/Cards/BMP/card_puffshroom_alive.bmp", "Resources/Plants/Cards/BMP/card_puffshroom_die.bmp"},
 			{"Resources/Plants/Cards/BMP/card_sunshroom_alive.bmp", "Resources/Plants/Cards/BMP/card_sunshroom_die.bmp"}, // sun_shroom
 			{"Resources/Plants/Cards/BMP/card_hypnoshroom_alive.bmp", "Resources/Plants/Cards/BMP/card_hypnoshroom_die.bmp"}, // hypno-shroom
@@ -64,7 +63,6 @@ namespace game_framework
 			{175, 10, SEED_CARD::SNOW_PEA},
 			{150, 10, SEED_CARD::CHOMPER},
 			{200, 10, SEED_CARD::REPEATER_PEA},
-			{175, 10, SEED_CARD::SNOW_PEA},
 			{0, 10, SEED_CARD::PUFF_SHROOM},
 			{25, 10, SEED_CARD::HYPNO_SHROOM},
 			{75, 30, SEED_CARD::HYPNO_SHROOM},

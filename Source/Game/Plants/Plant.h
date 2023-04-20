@@ -161,6 +161,14 @@ namespace game_framework {
 		~PotatoMine();
 
 		static const int price = 25;
+
+		void onMove(vector<Bullet*>*, vector<Zombie*>*) override;
+
+	private:
+		CMovingBitmap mine;
+		CMovingBitmap explode;
+
+		bool _isDetected = false;
 	};
 
 	class PuffShroom : public Plant
