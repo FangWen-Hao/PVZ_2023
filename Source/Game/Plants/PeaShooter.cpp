@@ -4,10 +4,8 @@
 
 using namespace game_framework;
 
-PeaShooter::PeaShooter(CPoint pos)
+PeaShooter::PeaShooter(CPoint pos) : ShootingPlant(PLANT::PEA_SHOOTER, PeaShooter::price, 7.5, 20, 1.5)
 {
-	_type = PLANT::PEA_SHOOTER;
-
 	animate.LoadBitmapByString({
 		"Resources/Plants/PeaShooter/BMP/Peashooter_0.bmp",
 		"Resources/Plants/PeaShooter/BMP/Peashooter_1.bmp",
@@ -20,14 +18,7 @@ PeaShooter::PeaShooter(CPoint pos)
 	animate.SetAnimation(100, false);
 	animate.SetTopLeft(pos.x, pos.y);
 
-	_attackSpeed = 100;
-	_damage = 10;
-	_hp = 100;
-	_price = PeaShooter::price;
-}
-
-PeaShooter::~PeaShooter()
-{
+	_hp = 300;
 }
 
 void PeaShooter::attack(vector<Bullet*>* bullets)

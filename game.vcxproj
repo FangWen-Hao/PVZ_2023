@@ -277,6 +277,7 @@
     <ClCompile Include="Source\Game\Zombies\NewPaperZombie.cpp" />
     <ClCompile Include="Source\Game\Zombies\NewpaperZombieNoPaper.cpp" />
     <ClCompile Include="Source\Game\Zombies\NormalZombie.cpp" />
+    <ClCompile Include="Source\Game\Zombies\Zombie.cpp" />
     <ClCompile Include="Source\Library\audio.cpp" />
     <ClCompile Include="Source\Library\gamecore.cpp" />
     <ClCompile Include="Source\Library\gameutil.cpp">

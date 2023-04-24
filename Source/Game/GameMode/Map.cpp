@@ -84,15 +84,19 @@ namespace game_framework {
 		// On Move is performed aprox 30 times per second.
 
 		Cooldown::updateGameClock(); // update the universal clock the game uses to check all cooldowns.
-		
+
 		if (bar.hasGameStarted())
 		{
 			sunFactoryLogic();
 
+			// TODO: wirte a function for detect objects collision
+			collisionDetection(&zombies, &plants);
+
 			for (Plant* plant : plants) {
-				if (plant->getType() == PLANT::SUN_FLOWER) plant->onMove(&displayedSuns, &zombies);
-				else plant->onMove(&bullets, &zombies);
-				
+				if (plant->getType() == PLANT_TYPE::GENERATE_SUN) plant->onMove(&displayedSuns);
+				else if (plant->getType() == PLANT_TYPE::SHOOTING) plant->onMove(&bullets);
+				else plant->onMove();
+
 				if (plant->isDead())
 				{
 					delete plant;
@@ -120,8 +124,6 @@ namespace game_framework {
 				}
 			}
 		}
-		
-
 	}
 
 	int Map::OnClick(CPoint coords)
@@ -130,17 +132,16 @@ namespace game_framework {
 
 		if (bar.hasGameStarted())
 		{
-			if (displayedSuns.size() != 0)
-				for (unsigned int i = 0; i < displayedSuns.size(); i++)
+			for (Sun* sun : displayedSuns)
+			{
+				if (coords.x < (sun->GetLeft() + sun->GetWidth()) && coords.x > sun->GetLeft()
+					&& coords.y < (sun->GetTop() + sun->GetHeight()) && coords.y > sun->GetTop())
 				{
-					if (coords.x < (displayedSuns.at(i)->GetLeft() + displayedSuns.at(i)->GetWidth()) && coords.x > displayedSuns.at(i)->GetLeft()
-						&& coords.y < (displayedSuns.at(i)->GetTop() + displayedSuns.at(i)->GetHeight()) && coords.y > displayedSuns.at(i)->GetTop())
-					{
-						bar.addSuns(displayedSuns.at(i)->getValue());
-						removeSunFromVector(i);
-						break;
-					}
+					bar.addSuns(sun->getValue());
+					removeSunFromVector(sun);
+					break;
 				}
+			}
 			
 			CPoint pos = _mousePos2TilePos(coords);
 			switch (card)
@@ -184,8 +185,8 @@ namespace game_framework {
 				{
 					break;
 				}
-				
-				plantsMap[pos.y][pos.x] = currentSelectPlant->getType();
+
+				plantsMap[pos.y][pos.x] = currentSelectPlant->getName();
 				currentSelectPlant->SetTopLeft(
 					MIDDLE_TILES_POSITION_ON_MAP.at(pos.x) - currentSelectPlant->width() / 2,
 					MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(pos.y) - currentSelectPlant->height() / 2);
@@ -230,16 +231,11 @@ namespace game_framework {
 	{
 		sunProductionCooldown.updateCooldown();
 
-		if (displayedSuns.size() != 0)
+		for (Sun* sun : displayedSuns)
 		{
-			for (unsigned int i = 0; i < displayedSuns.size(); i++)
+			if (sun->update() == Sun_status::INVALID)
 			{
-
-				if (displayedSuns.at(i)->update() == Sun_status::INVALID)
-				{
-					removeSunFromVector(i);
-				}
-					
+				removeSunFromVector(sun);
 			}
 		}
 
@@ -248,17 +244,38 @@ namespace game_framework {
 		{
 			displayedSuns.push_back(new NormalSun());
 			displayedSuns.back()->init(MIDDLE_TILES_POSITION_ON_MAP.at(integerPRNG(0, 8)),
-					FALLING_SUN_INITIAL_POSITION,
-					MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(integerPRNG(0, 4)));
+				FALLING_SUN_INITIAL_POSITION,
+				MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(integerPRNG(0, 4)));
 
 			sunProductionCooldown.startCooldown();
 		}
 	}
-	void Map::removeSunFromVector(unsigned int index)
+
+	void Map::removeSunFromVector(Sun* sun)
 	{
-		displayedSuns.at(index)->unshow();
-		delete displayedSuns.at(index);
-		displayedSuns.erase(displayedSuns.begin() + index);
+		displayedSuns.erase(remove(displayedSuns.begin(), displayedSuns.end(), sun), displayedSuns.end());
+		delete sun;
+	}
+
+	void Map::collisionDetection(vector<Zombie*>* zombies, vector<Plant*>* plants)
+	{
+		for (Zombie* zombie : *zombies)
+		{
+			for (Plant* plant : *plants)
+			{
+				if (zombie->left() < plant->right() && zombie->right() > plant->left() &&
+					zombie->top() < plant->bottom() && zombie->bottom() > plant->top())
+				{
+					// collision
+					zombie->setIsAttacking(true);
+					plant->isAttackedBy(zombie);
+				}
+				else {
+					zombie->setIsAttacking(false);
+					plant->isNotAttackedBy(zombie);
+				}
+			}
+		}
 	}
 
 	CPoint Map::_mousePos2TilePos(CPoint coords)

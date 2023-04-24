@@ -4,10 +4,8 @@
 
 using namespace game_framework;
 
-SunFlower::SunFlower(CPoint pos)
+SunFlower::SunFlower(CPoint pos) : GenerateSunPlant(PLANT::SUN_FLOWER, SunFlower::price, 7.5, 23.5)
 {
-	_type = PLANT::SUN_FLOWER;
-
 	animate.LoadBitmapByString({
 		"Resources/Plants/SunFlower/BMP/SunFlower_0.bmp",
 		"Resources/Plants/SunFlower/BMP/SunFlower_1.bmp",
@@ -22,12 +20,7 @@ SunFlower::SunFlower(CPoint pos)
 	animate.SetAnimation(100, false);
 	animate.SetTopLeft(pos.x, pos.y);
 
-	_attackSpeed = 200;
-	_price = SunFlower::price;
-}
-
-SunFlower::~SunFlower()
-{
+	_hp = 300;
 }
 
 void SunFlower::generateSun(vector<Sun*>* suns)

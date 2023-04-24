@@ -3,10 +3,8 @@
 
 using namespace game_framework;
 
-PuffShroom::PuffShroom(CPoint pos)
+PuffShroom::PuffShroom(CPoint pos) : ShootingPlant(PLANT::PUFF_SHROOM, PuffShroom::price, 7.5, 20, 1.5)
 {
-	_type = PLANT::PUFF_SHROOM;
-
 	animate.LoadBitmapByString({
 		"Resources/Plants/PuffShroom/BMP/PuffShroom_0.bmp",
 		"Resources/Plants/PuffShroom/BMP/PuffShroom_1.bmp",
@@ -18,12 +16,10 @@ PuffShroom::PuffShroom(CPoint pos)
 	animate.SetAnimation(100, false);
 	animate.SetTopLeft(pos.x, pos.y);
 
-	_attackSpeed = 100;
-	_damage = 10;
-	_hp = 100;
-	_price = PuffShroom::price;
+	_hp = 300;
 }
 
-PuffShroom::~PuffShroom()
+void PuffShroom::attack(vector<Bullet*>* bullets)
 {
+	// TODO
 }

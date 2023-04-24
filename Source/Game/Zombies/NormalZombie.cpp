@@ -3,10 +3,8 @@
 
 using namespace game_framework;
 
-NormalZombie::NormalZombie()
+NormalZombie::NormalZombie() : Zombie(ZOMBIE_TYPE::NORMAL, 4, 0.04)
 {
-	_type = ZOMBIE_TYPE::NORMAL;
-
 	normalAnimate.LoadBitmapByString({
 		"Resources/Zombies/BMP/NormalState/Zombie/Zombie_0.bmp",
 		"Resources/Zombies/BMP/NormalState/Zombie/Zombie_1.bmp",
@@ -50,10 +48,4 @@ NormalZombie::NormalZombie()
 	attackAnimate.SetAnimation(100, false);
 
 	_hp = 270;
-	_damage = 4;
-	_attackFrequency = 1;
-}
-
-NormalZombie::~NormalZombie()
-{
 }

@@ -3,10 +3,8 @@
 
 using namespace game_framework;
 
-FlagZombie::FlagZombie()
+FlagZombie::FlagZombie() : Zombie(ZOMBIE_TYPE::FLAG, 4, 0.04)
 {
-	_type = ZOMBIE_TYPE::FLAG;
-
 	normalAnimate.LoadBitmapByString({
 		"Resources/Zombies/BMP/NormalState/FlagZombie/FlagZombie_0.bmp",
 		"Resources/Zombies/BMP/NormalState/FlagZombie/FlagZombie_1.bmp",
@@ -53,10 +51,4 @@ FlagZombie::FlagZombie()
 	attackAnimate.SetAnimation(100, false);
 
 	_hp = 270;
-	_damage = 4;
-	_attackFrequency = 1;
-}
-
-FlagZombie::~FlagZombie()
-{
 }

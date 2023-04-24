@@ -4,10 +4,8 @@
 
 using namespace game_framework;
 
-SnowPea::SnowPea(CPoint pos)
+SnowPea::SnowPea(CPoint pos) : ShootingPlant(PLANT::SNOW_PEA, SnowPea::price, 7.5, 20, 1.5)
 {
-	_type = PLANT::SNOW_PEA;
-
 	animate.LoadBitmapByString({
 		"Resources/Plants/SnowPea/BMP/SnowPea_0.bmp",
 		"Resources/Plants/SnowPea/BMP/SnowPea_1.bmp",
@@ -20,14 +18,7 @@ SnowPea::SnowPea(CPoint pos)
 	animate.SetAnimation(100, false);
 	animate.SetTopLeft(pos.x, pos.y);
 
-	_attackSpeed = 100;
-	_damage = 10;
-	_hp = 100;
-	_price = SnowPea::price;
-}
-
-SnowPea::~SnowPea()
-{
+	_hp = 300;
 }
 
 void SnowPea::attack(vector<Bullet*>* bullets)

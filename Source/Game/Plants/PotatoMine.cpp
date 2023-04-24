@@ -3,10 +3,8 @@
 
 using namespace game_framework;
 
-PotatoMine::PotatoMine(CPoint pos)
+PotatoMine::PotatoMine(CPoint pos) : DisposablePlant(PLANT::POTATO_MINE, PotatoMine::price, 30, 1800)
 {
-	_type = PLANT::POTATO_MINE;
-
 	animate.LoadBitmapByString({
 		"Resources/Plants/PotatoMine/BMP/PotatoMineInit_0.bmp",
 		"Resources/Plants/PotatoMine/BMP/PotatoMine_0.bmp",
@@ -23,33 +21,14 @@ PotatoMine::PotatoMine(CPoint pos)
 	animate.SetAnimation(100, true);
 	animate.SetTopLeft(pos.x, pos.y);
 
-	_attackSpeed = 100;
-	_damage = 10;
-	_hp = 100;
-	_price = PotatoMine::price;
+	_hp = 300;
 }
 
-PotatoMine::~PotatoMine()
-{
-}
-
-void PotatoMine::onMove(vector<Bullet*>* bullets, vector<Zombie*>* zombies)
+void PotatoMine::onMove()
 {
 	if (_isDetected)
 	{
 		if (animate.IsAnimationDone()) _isDead = true;
 		return;
-	}
-
-	for (Zombie* zombie : *zombies) {
-		if (animate.GetLeft() < (zombie->GetLeft() + zombie->GetWidth()) &&
-			(animate.GetLeft() + animate.GetWidth()) > zombie->GetLeft() &&
-			animate.GetTop() < (zombie->GetTop() + zombie->GetHeight()) &&
-			(animate.GetTop() + animate.GetHeight()) > zombie->GetTop())
-		{
-			_isDetected = true;
-			animate.ToggleAnimation();
-			return;
-		}
 	}
 }

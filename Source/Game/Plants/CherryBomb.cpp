@@ -3,10 +3,8 @@
 
 using namespace game_framework;
 
-CherryBomb::CherryBomb(CPoint pos)
+CherryBomb::CherryBomb(CPoint pos) : DisposablePlant(PLANT::CHERRY_BOMB, CherryBomb::price, 50, 1800)
 {
-	_type = PLANT::CHERRY_BOMB;
-
 	animate.LoadBitmapByString({
 		"Resources/Plants/CherryBomb/BMP/CherryBomb_0.bmp",
 		"Resources/Plants/CherryBomb/BMP/CherryBomb_1.bmp",
@@ -20,12 +18,5 @@ CherryBomb::CherryBomb(CPoint pos)
 	animate.SetAnimation(100, false);
 	animate.SetTopLeft(pos.x, pos.y);
 
-	_attackSpeed = 100;
-	_damage = 10;
-	_hp = 100;
-	_price = CherryBomb::price;
-}
-
-CherryBomb::~CherryBomb()
-{
+	_hp = 300;
 }

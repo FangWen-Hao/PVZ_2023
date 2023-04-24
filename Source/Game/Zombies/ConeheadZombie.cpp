@@ -3,10 +3,8 @@
 
 using namespace game_framework;
 
-ConeheadZombie::ConeheadZombie()
+ConeheadZombie::ConeheadZombie() : Zombie(ZOMBIE_TYPE::CONEHEAD, 4, 0.04)
 {
-	_type = ZOMBIE_TYPE::CONEHEAD;
-
 	normalAnimate.LoadBitmapByString({
 		"Resources/Zombies/BMP/NormalState/ConeheadZombie/ConeheadZombie_0.bmp",
 		"Resources/Zombies/BMP/NormalState/ConeheadZombie/ConeheadZombie_1.bmp",
@@ -54,10 +52,4 @@ ConeheadZombie::ConeheadZombie()
 	attackAnimate.SetAnimation(100, false);
 
 	_hp = 640;
-	_damage = 4;
-	_attackFrequency = 1;
-}
-
-ConeheadZombie::~ConeheadZombie()
-{
 }

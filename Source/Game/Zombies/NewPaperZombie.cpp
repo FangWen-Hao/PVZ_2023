@@ -3,10 +3,8 @@
 
 using namespace game_framework;
 
-NewspaperZombie::NewspaperZombie()
+NewspaperZombie::NewspaperZombie() : Zombie(ZOMBIE_TYPE::NEWSPAPER, 4, 0.04)
 {
-	_type = ZOMBIE_TYPE::NEWSPAPER;
-
 	normalAnimate.LoadBitmapByString({
 		"Resources/Zombies/BMP/NormalState/NewspaperZombie/NewspaperZombie_0.bmp",
 		"Resources/Zombies/BMP/NormalState/NewspaperZombie/NewspaperZombie_1.bmp",
@@ -50,10 +48,4 @@ NewspaperZombie::NewspaperZombie()
 	attackAnimate.SetAnimation(100, false);
 
 	_hp = 270;
-	_damage = 4;
-	_attackFrequency = 1;
-}
-
-NewspaperZombie::~NewspaperZombie()
-{
 }

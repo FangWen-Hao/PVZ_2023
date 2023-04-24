@@ -2,11 +2,15 @@
 
 #include "../../Library/gameutil.h"
 #include "../GameMode/Maps/Tile_Positions.h"
-#include <time.h>
+#include <chrono>
 
 using namespace std;
+using namespace std::chrono;
 
-namespace game_framework {
+namespace game_framework
+{
+	class Plant;	// Forward declaration
+
 	enum class ZOMBIE_TYPE
 	{
 		EMPTY,
@@ -18,31 +22,43 @@ namespace game_framework {
 		NEWSPAPERNOPAPER,
 	};
 
+	//////////////////////////////////////////////////
+	// Base Class
+	//////////////////////////////////////////////////
 	class Zombie
 	{
 	public:
+		~Zombie() {}
 
 		// virtual Lane getLane() { return _currentLane; }
-		virtual ZOMBIE_TYPE getType() { return _type; }
-		virtual int GetLeft() { return _posX; }
-		virtual int GetTop() { return _posY; }
+		ZOMBIE_TYPE getType() { return _type; }
+		int getDamage() { return _damage; }
+		int width() { return normalAnimate.GetWidth(); }
+		int height() { return normalAnimate.GetHeight(); }
+		int left() { return _posX; }
+		int top() { return _posY; }
+		int right() { return _posX + width(); }
+		int bottom() { return _posY + height(); }
+
 		virtual int getCurrentHp() { return _hp; }
-		virtual int getDamage() { return _damage; }
 		virtual int getSpeed() { return _speed; }
-		virtual int GetWidth() { return normalAnimate.GetWidth(); }
-		virtual int GetHeight() { return normalAnimate.GetHeight(); }
 		virtual bool isDead() { return _isDead; }
 		virtual bool isDeadDone() { return deadAnimate.IsAnimationDone(); }
-
-		// virtual void setLane(Lane* lane) { _currentLane = lane; }
-		virtual void setHp(int hp) { _hp = hp; }
-		virtual void setDamage(int damage) { _damage = damage; }
-		virtual void setSpeed(int speed) { _speed = speed; }
-		virtual void beingAttacked(int damage) {
-			_hp -= damage;
+		virtual bool ableToAttack() { 
+			duration<double> time_span = duration_cast<duration<double>>(high_resolution_clock::now() - lastAttackTime);
+			return time_span.count() >= _attackSpeed;
 		}
 
-		virtual void attack() {}
+		virtual void setIsAttacking(bool isAttacking) {
+			_isAttacking = isAttacking;
+			lastAttackTime = high_resolution_clock::now();
+		}
+		// virtual void setLane(Lane* lane) { _currentLane = lane; }
+		virtual void setHp(int hp) { _hp = hp; }
+		virtual void setSpeed(int speed) { _speed = speed; }
+		void beingAttacked(int damage) { _hp -= damage; }
+
+		virtual void attack(Plant*);
 		virtual void onInit() {
 			int _lane = rand() % 5;
 
@@ -57,13 +73,7 @@ namespace game_framework {
 				_isDead = true;
 				deadAnimate.ToggleAnimation();
 			}
-
-			if (_isAttacking) {
-				++_ttlAttack %= _attackFrequency;
-
-				if (_ttlAttack == 0) attack();
-			}
-			else if (!_isDead) {
+			else if (!_isAttacking && !_isDead) {
 				++_ttlMove %= _moveFrequency;
 
 				if (_ttlMove == 0) _posX -= _speed;
@@ -90,62 +100,67 @@ namespace game_framework {
 		}
 
 	protected:
+		Zombie(const ZOMBIE_TYPE type, const int damage, const double attackSpeed)
+			: _type(type), _damage(damage), _attackSpeed(attackSpeed) {}
+		
 		//Lane *_currentLane;
-		ZOMBIE_TYPE _type;
+		const ZOMBIE_TYPE _type;
+		const int _damage;
+		const double _attackSpeed;
+		int _speed = 1;
+		int _moveFrequency = 10;
 
 		int _posX;
 		int _posY;
 		int _lane;
 
-		int _ttlMove = 0;
-		int _ttlAttack = 0;
-
 		int _hp;
-		int _speed = 1;
-		int _damage;
-		int _moveFrequency = 10;
-		int _attackFrequency;
+		int _ttlMove = 0;
 
 		bool _isAttacking = false;
 		bool _isDead = false;
 
-		time_t lastAttackTime;
+		high_resolution_clock::time_point lastAttackTime = high_resolution_clock::now();
 
 		CMovingBitmap normalAnimate;
 		CMovingBitmap deadAnimate;
 		CMovingBitmap attackAnimate;
 	};
-
+	//////////////////////////////////////////////////
+	
+	//////////////////////////////////////////////////
+	// Inheritance Classes of Zombie
+	//////////////////////////////////////////////////
 	class NormalZombie : public Zombie {
 	public:
 		NormalZombie();
-		~NormalZombie();
+		~NormalZombie() {}
 	};
 
 	class BucketheadZombie : public Zombie {
 	public:
 		BucketheadZombie();
-		~BucketheadZombie();
+		~BucketheadZombie() {}
 	};
 
 	class ConeheadZombie : public Zombie {
 	public:
 		ConeheadZombie();
-		~ConeheadZombie();
+		~ConeheadZombie() {}
 	};
 
 	class FlagZombie : public Zombie {
 		FlagZombie();
-		~FlagZombie();
+		~FlagZombie() {}
 	};
 
 	class NewspaperZombie : public Zombie {
 		NewspaperZombie();
-		~NewspaperZombie();
+		~NewspaperZombie() {}
 	};
 
 	class NewpaperZombieNoPaper : public Zombie {
 		NewpaperZombieNoPaper();
-		~NewpaperZombieNoPaper();
+		~NewpaperZombieNoPaper() {}
 	};
 }

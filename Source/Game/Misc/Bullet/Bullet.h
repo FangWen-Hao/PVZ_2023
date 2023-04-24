@@ -23,8 +23,8 @@ namespace game_framework
 		virtual bool detectCollison(vector<Zombie*>* zombies) {
 			for (Zombie* zombie : *zombies) {
 				if (!zombie->isDead() && 
-					GetLeft() < (zombie->GetLeft() + zombie->GetWidth()) && (GetLeft() + GetWidth()) > zombie->GetLeft() &&
-					GetTop() < (zombie->GetTop() + zombie->GetHeight()) && (GetTop() + GetHeight()) > zombie->GetTop()) {
+					GetLeft() < zombie->right() && (GetLeft() + GetWidth()) > zombie->left() &&
+					GetTop() < zombie->bottom() && (GetTop() + GetHeight()) > zombie->top()) {
 					zombie->beingAttacked(_damage);
 					return true;
 				}

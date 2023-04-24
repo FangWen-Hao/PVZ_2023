@@ -3,10 +3,8 @@
 
 using namespace game_framework;
 
-NewpaperZombieNoPaper::NewpaperZombieNoPaper()
+NewpaperZombieNoPaper::NewpaperZombieNoPaper() : Zombie(ZOMBIE_TYPE::NEWSPAPERNOPAPER, 4, 0.04)
 {
-	_type = ZOMBIE_TYPE::NEWSPAPERNOPAPER;
-
 	normalAnimate.LoadBitmapByString({
 		"Resources/Zombies/BMP/NormalState/NewspaperZombieNoPaper/NewspaperZombieNoPaper_0.bmp",
 		"Resources/Zombies/BMP/NormalState/NewspaperZombieNoPaper/NewspaperZombieNoPaper_1.bmp",
@@ -48,12 +46,5 @@ NewpaperZombieNoPaper::NewpaperZombieNoPaper()
 	deadAnimate.SetAnimation(100, true);
 	attackAnimate.SetAnimation(100, false);
 
-	_hp = 100;
-	_speed = 1;
-	_damage = 1;
-	_moveFrequency = 10;
-}
-
-NewpaperZombieNoPaper::~NewpaperZombieNoPaper()
-{
+	_hp = 270;
 }

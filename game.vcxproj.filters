@@ -171,6 +171,9 @@
     <ClCompile Include="Source\Game\Plants\WallNut.cpp">
       <Filter>MyGame\Plants</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Zombies\Zombie.cpp">
+      <Filter>MyGame\Zombies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Library\audio.h">

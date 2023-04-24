@@ -33,7 +33,9 @@ namespace game_framework {
 		void sunFactoryLogic();
 
 	private:
-		void removeSunFromVector(unsigned int index);
+		void removeSunFromVector(Sun*);
+		void collisionDetection(vector<Zombie*>*, vector<Plant*>*);
+		CPoint _mousePos2TilePos(CPoint);
 
 		int ZombiesKilled = 0;
 		int sunsAmount = 50;
@@ -52,8 +54,6 @@ namespace game_framework {
 
 		Plant* currentSelectPlant = nullptr;
 		PLANT plantsMap[5][9];
-
-		CPoint _mousePos2TilePos(CPoint);
 	};
 
 }
