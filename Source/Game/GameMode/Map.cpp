@@ -43,6 +43,7 @@ namespace game_framework {
 	{
 		background.show();
 		bar.show();
+		menu.Show();
 
 		if (bar.hasGameStarted())
 		{
@@ -70,6 +71,8 @@ namespace game_framework {
 
 	void Map::OnHover(CPoint coords)
 	{
+		menu.onHover(coords);
+
 		if (bar.hasGameStarted())
 		{
 			if (currentSelectPlant != nullptr)
@@ -82,6 +85,11 @@ namespace game_framework {
 	void Map::OnMove()
 	{
 		// On Move is performed aprox 30 times per second.
+
+		if (menu.getGameIsPaused())
+		{
+			return;
+		}
 
 		Cooldown::updateGameClock(); // update the universal clock the game uses to check all cooldowns.
 		
@@ -126,6 +134,14 @@ namespace game_framework {
 
 	int Map::OnClick(CPoint coords)
 	{
+		int returnCode = menu.onClick(coords, THIS_LEVEL_CODE);
+
+		if (returnCode != MENU_NO_BTN_ACTION_ACCEPTED && returnCode != MENU_NO_BTN_ACTION_REJECTED
+			&& returnCode == MENU_BTN) // last one is temporary as we only have this level implemented for now...
+		{
+			return returnCode;
+		}
+
 		SEED_CARD card = bar.onClick(coords);
 
 		if (bar.hasGameStarted())
@@ -202,7 +218,7 @@ namespace game_framework {
 			zombies.push_back(nz);
 		}
 
-		return 0;
+		return MENU_NO_BTN_ACTION_ACCEPTED;
 	}
 
 	void Map::setIsDay(bool val)

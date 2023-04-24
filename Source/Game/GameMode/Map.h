@@ -1,6 +1,7 @@
 #pragma once
 #include "GameMode.h"
 #include "../Background/GameBar.h"
+#include "../Background/GameMenu.h"
 #include "../Plants/Plant.h"
 #include "../Zombies/Zombie.h"
 #include "../Misc/Sun.h"
@@ -34,13 +35,14 @@ namespace game_framework {
 
 	private:
 		void removeSunFromVector(unsigned int index);
+		const int THIS_LEVEL_CODE = ADVENTURE_MODE_BTN;
 
 		int ZombiesKilled = 0;
 		int sunsAmount = 50;
 		bool isDay;
 		GameBar bar;
 
-		// GameMenu menu;
+		GameMenu menu;
 		// ProgressBar progress;
 		// vector<Lane> lanes;
 		Cooldown sunProductionCooldown;
