@@ -52,6 +52,11 @@ namespace game_framework
 		}
 	}
 
+	void GameBar::move()
+	{
+		updateCardsFrames();
+	}
+
 	void GameBar::onHover(CPoint coords)
 	{
 		if (!gameStarted)
@@ -71,7 +76,7 @@ namespace game_framework
 	}
 
 
-	SEED_CARD GameBar::onClick(CPoint coords)
+	SEED_CARD_TYPE GameBar::onClick(CPoint coords)
 	{
 		// WIP
 		if (!gameStarted)
@@ -85,8 +90,8 @@ namespace game_framework
 				background.UnshowBitmap();
 				picker.unshow();
 				startGameButton.UnshowBitmap();
-				updateCardsFrames();
-				return SEED_CARD::REFUSED; // tmp
+				// updateCardsFrames();
+				return SEED_CARD_TYPE::REFUSED; // tmp
 			}
 
 			if (coords.x < (picker.GetLeft() + picker.GetWidth()) && coords.x > picker.GetLeft()
@@ -127,25 +132,38 @@ namespace game_framework
 			for (SeedCard card : cards)
 			{
 				if (coords.x < (card.GetLeft() + card.GetWidth()) && coords.x > card.GetLeft()
-					&& coords.y < (card.GetTop() + card.GetHeight()) && coords.y > card.GetTop())
+					&& coords.y < (card.GetTop() + card.GetHeight()) && coords.y > card.GetTop()
+					&& (!card.isOnCooldown()))
 				{
 					return card.getType();
 				}
 			}
 		}
-		return SEED_CARD::REFUSED;
+		return SEED_CARD_TYPE::REFUSED;
+	}
+
+	void GameBar::setSeedCardCooldown(SEED_CARD_TYPE cardType)
+	{
+		for (unsigned int i = 0; i < cards.size(); i++)
+		{
+			if (cards.at(i).getType() == cardType)
+			{
+				cards.at(i).used();
+				return;
+			}
+		}
 	}
 
 	void GameBar::addSuns(int suns)
 	{
 		_suns += suns;
-		updateCardsFrames();
+		// updateCardsFrames();
 	}
 
 	void GameBar::setSuns(int suns)
 	{
 		_suns = suns;
-		updateCardsFrames();
+		// updateCardsFrames();
 	}
 
 	int GameBar::getSuns(void)
@@ -206,7 +224,7 @@ namespace game_framework
 			for (unsigned int i = 0; i < cards.size(); i++)
 			{
 				// check for invalid cards and replace them.
-				if (cards.at(i).getType() == SEED_CARD::REFUSED)
+				if (cards.at(i).getType() == SEED_CARD_TYPE::REFUSED)
 				{
 					cards.at(i) = SeedCard(card);
 					_selectedCards += 1;
@@ -235,15 +253,16 @@ namespace game_framework
 	}
 	void GameBar::updateCardsFrames()
 	{
-		if (gameStarted)
-		{
 			for (unsigned int i = 0; i < cards.size(); i++)
 			{
-				if (_suns < cards.at(i).getPrice())
-					cards.at(i).SetFrameIndexOfBitmap(1);
+				cards.at(i).updateCooldown();
+
+				if (cards.at(i).isOnCooldown())
+					continue; // updateCooldown already took care of it.
+				else if (_suns < cards.at(i).getPrice())
+					cards.at(i).SetFrameIndexOfBitmap(SEED_CARD_STATE::UNABLE);
 				else
-					cards.at(i).SetFrameIndexOfBitmap(0);
+					cards.at(i).SetFrameIndexOfBitmap(SEED_CARD_STATE::ALIVE);
 			}
-		}
 	}
 }

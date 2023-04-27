@@ -20,20 +20,20 @@ SeedCard::SeedCard(SeedCard *other)
 {
 	this->_type = other->_type;
 	this->_price = other->_price;
-	this->_cooldown.setCooldown(other->_cooldown.getCooldown());
+	this->_cooldown.initCooldown(other->_cooldown.getCooldown());
 	this->_filePath = other->_filePath;
 	this->LoadBitmapByString(_filePath);
 }
 
-void SeedCard::init(vector<string> filePath, int offsetX, int offsetY, int price, int cooldown, SEED_CARD type)
+void SeedCard::init(vector<string> filePath, int offsetX, int offsetY, int price, int cooldown, SEED_CARD_TYPE type)
 {
 	_type = type;
 	_price = price;
-	_cooldown.setCooldown(cooldown);
+	_cooldown.initCooldown(cooldown);
 	_filePath = filePath;
 	LoadBitmapByString(_filePath);
 	setCardPos(offsetX, offsetY);
-	SetFrameIndexOfBitmap(0);	
+	SetFrameIndexOfBitmap(SEED_CARD_STATE::ALIVE);
 }
 
 void SeedCard::show()
@@ -46,7 +46,7 @@ void SeedCard::unshow()
 	UnshowBitmap();
 }
 
-SEED_CARD SeedCard::clicked()
+SEED_CARD_TYPE SeedCard::clicked()
 {
 	// if it wasnt clicked before, put it up
 	if (!_cooldown.isOnCooldown() && GetTop() == _posY && GetLeft() == _posX)
@@ -71,17 +71,24 @@ void SeedCard::used()
 {
 	_cooldown.startCooldown();
 	resetCardPos();
-	SetFrameIndexOfBitmap(1);
+	SetFrameIndexOfBitmap(SEED_CARD_STATE::COOLDOWN_0); // needed?
 }
 
 void SeedCard::updateCooldown()
 {
-	_cooldown.updateCooldown();
+	int progress = _cooldown.getCoolDownProgressInPercentage();
 
-	if (!_cooldown.isOnCooldown())
-	{
-		SetFrameIndexOfBitmap(0);
-	}
+	if (progress <= 100 && progress > 75)
+		SetFrameIndexOfBitmap(SEED_CARD_STATE::COOLDOWN_0);
+
+	else if (progress <= 75 && progress > 50)
+		SetFrameIndexOfBitmap(SEED_CARD_STATE::COOLDOWN_1);
+
+	else if (progress <= 50 && progress > 25)
+		SetFrameIndexOfBitmap(SEED_CARD_STATE::COOLDOWN_2);
+
+	else if (progress <= 25 && progress > 0)
+		SetFrameIndexOfBitmap(SEED_CARD_STATE::COOLDOWN_3);
 }
 
 void SeedCard::setCardPos(int x, int y)
@@ -93,10 +100,10 @@ void SeedCard::setCardPos(int x, int y)
 
 void SeedCard::invalidateCard()
 {
-	_type = SEED_CARD::REFUSED;
+	_type = SEED_CARD_TYPE::REFUSED;
 }
 
-SEED_CARD SeedCard::getType()
+SEED_CARD_TYPE SeedCard::getType()
 {
 	return _type;
 }
@@ -104,4 +111,9 @@ SEED_CARD SeedCard::getType()
 int SeedCard::getPrice()
 {
 	return _price;
+}
+
+bool SeedCard::isOnCooldown()
+{
+	return _cooldown.isOnCooldown();
 }

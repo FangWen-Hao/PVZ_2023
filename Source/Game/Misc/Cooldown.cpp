@@ -1,72 +1,66 @@
 #include "stdafx.h"
 #include "Cooldown.h"
 
+using namespace std::chrono;
 namespace game_framework
 {
-	time_t Cooldown::gameClock;
+	high_resolution_clock::time_point Cooldown::gameClock;
 
 	Cooldown::Cooldown()
 	{
-		gameClock = time(0);
+		gameClock = high_resolution_clock::now();
 	}
 
-	Cooldown::~Cooldown()
-	{
-	}
+	Cooldown::~Cooldown() {}
 
-	void Cooldown::setCooldown(int cooldown)
+	void Cooldown::initCooldown(double cooldown)
 	{
 		_cooldown = cooldown;
 	}
 
-	void Cooldown::overrideCooldownStatus(bool status)
-	{
-		_onCooldown = status; // is this gonna even useful?
-	}
-
-	time_t Cooldown::getGameClock()
+	high_resolution_clock::time_point Cooldown::getGameClock()
 	{
 		return gameClock;
 	}
 
-	unsigned int Cooldown::getGameClockForPRNGSeed()
+	long unsigned int Cooldown::getGameClockForPRNGSeed()
 	{
-		return ((unsigned int)gameClock);
+		return (static_cast<long unsigned int>(gameClock.time_since_epoch().count()));
 	}
 
-	int Cooldown::getCooldown()
+	double Cooldown::getCooldown()
 	{
 		return _cooldown;
 	}
 
-	time_t Cooldown::getLastUse()
+	high_resolution_clock::time_point Cooldown::getLastUse()
 	{
 		return _lastUse;
 	}
 
 	bool Cooldown::isOnCooldown()
 	{
-		return _onCooldown;
+		return duration_cast<duration<double>>(gameClock - _lastUse).count() < _cooldown;
+	}
+
+	int Cooldown::getCoolDownProgressInPercentage()
+	{
+		if (isOnCooldown())
+		{
+			double percentage = (_cooldown - std::chrono::duration<double>(gameClock - _lastUse).count()) / _cooldown * 100;
+			return (int(percentage));
+		}
+
+		return 0;
 	}
 
 	void Cooldown::updateGameClock()
 	{
-		gameClock = time(0);
+		gameClock = high_resolution_clock::now();
 	}
 
 	void Cooldown::startCooldown()
 	{
-		if (!_onCooldown)
-		{
-			_lastUse = time(0);
-			_onCooldown = true;
-		}
-	}
-
-	void Cooldown::updateCooldown()
-	{
-		// https://www.codespeedy.com/how-to-create-a-timer-in-cpp/
-		if ((gameClock - _lastUse) >= _cooldown)
-			_onCooldown = false;
+		_lastUse = high_resolution_clock::now();
 	}
 }

@@ -4,7 +4,16 @@
 
 using namespace std;
 namespace game_framework {
-	const enum SEED_CARD : int {
+	const enum SEED_CARD_STATE : int {
+		ALIVE,
+		UNABLE,
+		COOLDOWN_0, // full cooldown
+		COOLDOWN_1, // 75%
+		COOLDOWN_2, // 50%
+		COOLDOWN_3, // 25%
+	};
+
+	const enum SEED_CARD_TYPE : int {
 		REFUSED,
 		PEA_SHOOTER,
 		SUN_FLOWER,
@@ -30,10 +39,10 @@ namespace game_framework {
 		SeedCard();
 		SeedCard(SeedCard *other);
 		~SeedCard();
-		void init(vector<string> filePath, int offsetX, int offsetY, int price, int cooldown, SEED_CARD type);
+		void init(vector<string> filePath, int offsetX, int offsetY, int price, int cooldown, SEED_CARD_TYPE type);
 		void show();
 		void unshow();
-		SEED_CARD clicked();
+		SEED_CARD_TYPE clicked();
 		void resetCardPos();
 		void used();
 		void updateCooldown();
@@ -41,11 +50,12 @@ namespace game_framework {
 
 		void invalidateCard();
 
-		SEED_CARD getType();
+		SEED_CARD_TYPE getType();
 		int getPrice();
+		bool isOnCooldown();
 
 	private:
-		SEED_CARD _type;
+		SEED_CARD_TYPE _type;
 		int _posX;
 		int _posY;
 		int _price;

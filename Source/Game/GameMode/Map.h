@@ -39,6 +39,8 @@ namespace game_framework {
 		void UpdatePlantsState();
 		void CreateZombieOnInstruction();
 		Zombie* zombieFactory();
+		void AddSunOnClick(CPoint &coords);
+		void CreatePlantOnClick(const CPoint &coords);
 
 		int ZombiesKilled = 0;
 		int sunsAmount = 50;
@@ -57,5 +59,6 @@ namespace game_framework {
 		vector<Bullet*> bullets;
 
 		Plant* currentSelectPlant = nullptr;
+		SEED_CARD_TYPE currentSelectedSeedCard = REFUSED;
 	};
 }

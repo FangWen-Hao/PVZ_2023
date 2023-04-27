@@ -63,7 +63,7 @@ namespace game_framework {
 		bar.init(50);
 
 		// Sun is obtained from [...] and falls from the sky approximately every 10 seconds when it is daytime. -> https://plantsvszombies.fandom.com/wiki/Sun
-		sunProductionCooldown.setCooldown(10);
+		sunProductionCooldown.initCooldown(10);
 	}
 
 	void Map::show()
@@ -117,7 +117,7 @@ namespace game_framework {
 		if (bar.hasGameStarted())
 		{
 			sunFactoryLogic();
-
+			bar.move();
 			collisionDetection(&zombies);
 
 			CreateZombieOnInstruction();
@@ -187,75 +187,87 @@ namespace game_framework {
 
 	int Map::OnClick(CPoint coords)
 	{
-		SEED_CARD card = bar.onClick(coords);
+		CreatePlantOnClick(coords);
 
 		if (bar.hasGameStarted())
 		{
-			for (Sun* sun : displayedSuns)
-			{
-				if (coords.x < (sun->GetLeft() + sun->GetWidth()) && coords.x > sun->GetLeft()
-					&& coords.y < (sun->GetTop() + sun->GetHeight()) && coords.y > sun->GetTop())
-				{
-					bar.addSuns(sun->getValue());
-					removeSunFromVector(sun);
-					break;
-				}
-			}
-			
-			CPoint pos = _mousePos2TilePos(coords);
-			switch (card)
-			{
-			case SEED_CARD::CHERRY_BOMB:
-				if (bar.getSuns() >= CherryBomb::price)
-					currentSelectPlant = new CherryBomb(coords);
-				break;
-			case SEED_CARD::PEA_SHOOTER:
-				if (bar.getSuns() >= PeaShooter::price)
-					currentSelectPlant = new PeaShooter(coords);
-				break;
-			case SEED_CARD::POTATO_MINE:
-				if (bar.getSuns() >= PotatoMine::price)
-					currentSelectPlant = new PotatoMine(coords);
-				break;
-			case SEED_CARD::PUFF_SHROOM:
-				if (bar.getSuns() >= PuffShroom::price)
-					currentSelectPlant = new PuffShroom(coords);
-				break;
-			case SEED_CARD::SNOW_PEA:
-				if (bar.getSuns() >= SnowPea::price)
-					currentSelectPlant = new SnowPea(coords);
-				break;
-			case SEED_CARD::SQUASH:
-				if (bar.getSuns() >= Squash::price)
-					currentSelectPlant = new Squash(coords);
-				break;
-			case SEED_CARD::SUN_FLOWER:
-				if (bar.getSuns() >= SunFlower::price)
-					currentSelectPlant = new SunFlower(coords);
-				break;
-			case SEED_CARD::WALL_NUT:
-				if (bar.getSuns() >= WallNut::price)
-					currentSelectPlant = new WallNut(coords);
-				break;
-			case SEED_CARD::REFUSED:
-				if (currentSelectPlant == nullptr
-					|| pos.x == -1 || pos.y == -1
-					|| plants[pos.y][pos.x] != nullptr)
-				{
-					break;
-				}
-
-				currentSelectPlant->PlaceDown(pos.y, pos.x);
-				plants[pos.y][pos.x] = currentSelectPlant;
-
-				bar.addSuns(-1 * currentSelectPlant->getPrice());
-				currentSelectPlant = nullptr;
-
-			default: break;
-			}
+			AddSunOnClick(coords);
 		}
 
 		return 0;
+	}
+
+	void Map::CreatePlantOnClick(const CPoint &coords)
+	{
+		SEED_CARD_TYPE card = bar.onClick(coords);
+		CPoint pos = _mousePos2TilePos(coords);
+		switch (card)
+		{
+		case SEED_CARD_TYPE::CHERRY_BOMB:
+			if (bar.getSuns() >= CherryBomb::price)
+				currentSelectPlant = new CherryBomb(coords);
+			break;
+		case SEED_CARD_TYPE::PEA_SHOOTER:
+			if (bar.getSuns() >= PeaShooter::price)
+				currentSelectPlant = new PeaShooter(coords);
+			break;
+		case SEED_CARD_TYPE::POTATO_MINE:
+			if (bar.getSuns() >= PotatoMine::price)
+				currentSelectPlant = new PotatoMine(coords);
+			break;
+		case SEED_CARD_TYPE::PUFF_SHROOM:
+			if (bar.getSuns() >= PuffShroom::price)
+				currentSelectPlant = new PuffShroom(coords);
+			break;
+		case SEED_CARD_TYPE::SNOW_PEA:
+			if (bar.getSuns() >= SnowPea::price)
+				currentSelectPlant = new SnowPea(coords);
+			break;
+		case SEED_CARD_TYPE::SQUASH:
+			if (bar.getSuns() >= Squash::price)
+				currentSelectPlant = new Squash(coords);
+			break;
+		case SEED_CARD_TYPE::SUN_FLOWER:
+			if (bar.getSuns() >= SunFlower::price)
+				currentSelectPlant = new SunFlower(coords);
+			break;
+		case SEED_CARD_TYPE::WALL_NUT:
+			if (bar.getSuns() >= WallNut::price)
+				currentSelectPlant = new WallNut(coords);
+			break;
+		case SEED_CARD_TYPE::REFUSED:
+			if (currentSelectPlant == nullptr
+				|| pos.x == -1 || pos.y == -1
+				|| plants[pos.y][pos.x] != nullptr)
+			{
+				break;
+			}
+
+			currentSelectPlant->PlaceDown(pos.y, pos.x);
+			plants[pos.y][pos.x] = currentSelectPlant;
+
+			bar.addSuns(-1 * currentSelectPlant->getPrice());
+			bar.setSeedCardCooldown(currentSelectedSeedCard);
+			currentSelectPlant = nullptr;
+
+		default: break;
+		}
+
+		currentSelectedSeedCard = card;
+	}
+
+	void Map::AddSunOnClick(CPoint &coords)
+	{
+		for (Sun* sun : displayedSuns)
+		{
+			if (coords.x < (sun->GetLeft() + sun->GetWidth()) && coords.x > sun->GetLeft()
+				&& coords.y < (sun->GetTop() + sun->GetHeight()) && coords.y > sun->GetTop())
+			{
+				bar.addSuns(sun->getValue());
+				removeSunFromVector(sun);
+				break;
+			}
+		}
 	}
 
 	void Map::setIsDay(bool val)
@@ -281,8 +293,6 @@ namespace game_framework {
 	}
 	void Map::sunFactoryLogic()
 	{
-		sunProductionCooldown.updateCooldown();
-
 		for (Sun* sun : displayedSuns)
 		{
 			if (sun->update() == Sun_status::INVALID)
