@@ -12,7 +12,8 @@
 #include <algorithm>
 
 namespace game_framework {
-	Map::Map()
+
+	Map::Map(vector<vector<int>> zombiesSpawningInstructions)
 	{
 		for (int row = 0; row < 5; row++)
 		{
@@ -23,9 +24,11 @@ namespace game_framework {
 		}
 
 		// temp code
-		NormalZombie *nz = new NormalZombie();
-		nz->onInit();
-		zombies.push_back(nz);
+		// NormalZombie *nz = new NormalZombie();
+		// nz->onInit();
+		// zombies.push_back(nz);
+
+		this->zombiesSpawningInstructions = zombiesSpawningInstructions;
 	}
 
 	Map::~Map()
@@ -34,6 +37,23 @@ namespace game_framework {
 		{
 			delete displayedSuns.at(i);
 		}
+
+		for (unsigned i = 0; i < zombies.size(); i++)
+		{
+			delete zombies.at(i);
+		}
+
+		for (int row = 0; row < 5; row++)
+		{
+			for (int col = 0; col < 9; col++) {
+				if (plants.at(row).at(col) != nullptr)
+				{
+					delete plants.at(row).at(col);
+				}
+			}
+		}
+
+		// delete vector bullets
 	}
 
 	void Map::init()
@@ -100,42 +120,68 @@ namespace game_framework {
 
 			collisionDetection(&zombies);
 
-			for (vector<Plant*> row : plants) {
-				for (Plant* plant : row) {
-					if (plant != nullptr) 
-					{
-						if (plant->getType() == PLANT_TYPE::GENERATE_SUN) plant->onMove(&displayedSuns);
-						else if (plant->getType() == PLANT_TYPE::SHOOTING) plant->onMove(&bullets, &zombies);
-						else plant->onMove();
+			CreateZombieOnInstruction();
 
-						if (plant->isDead())
-						{
-							plants[plant->row()][plant->col()] = nullptr;
-							delete plant;
-						}
+			UpdatePlantsState();
+
+			UpdateZombiesState();
+
+			UpdateBulletsState();
+		}
+	}
+
+	void Map::UpdateBulletsState()
+	{
+		for (Bullet* bullet : bullets)
+		{
+			bullet->onMove();
+			if (bullet->detectCollison(&zombies) || bullet->GetLeft() > 900)
+			{
+				bullets.erase(remove(bullets.begin(), bullets.end(), bullet), bullets.end());
+				delete bullet;
+			}
+		}
+	}
+
+	void Map::UpdateZombiesState()
+	{
+		for (Zombie* zombie : zombies)
+		{
+			zombie->onMove(&plants);
+			if (zombie->isDead() && zombie->isDeadDone())
+			{
+				zombies.erase(remove(zombies.begin(), zombies.end(), zombie), zombies.end());
+				delete zombie;
+			}
+		}
+	}
+
+	void Map::UpdatePlantsState()
+	{
+		for (vector<Plant*> row : plants) {
+			for (Plant* plant : row) {
+				if (plant != nullptr)
+				{
+					if (plant->getType() == PLANT_TYPE::GENERATE_SUN) plant->onMove(&displayedSuns);
+					else if (plant->getType() == PLANT_TYPE::SHOOTING) plant->onMove(&bullets, &zombies);
+					else plant->onMove();
+
+					if (plant->isDead())
+					{
+						plants[plant->row()][plant->col()] = nullptr;
+						delete plant;
 					}
 				}
 			}
+		}
+	}
 
-			for (Zombie* zombie : zombies)
-			{
-				zombie->onMove(&plants);
-				if (zombie->isDead() && zombie->isDeadDone())
-				{
-					zombies.erase(remove(zombies.begin(), zombies.end(), zombie), zombies.end());
-					delete zombie;
-				}
-			}
-
-			for (Bullet* bullet : bullets)
-			{
-				bullet->onMove();
-				if (bullet->detectCollison(&zombies) || bullet->GetLeft() > 900)
-				{
-					bullets.erase(remove(bullets.begin(), bullets.end(), bullet), bullets.end());
-					delete bullet;
-				}
-			}
+	void Map::CreateZombieOnInstruction()
+	{
+		Zombie* zomb = zombieFactory();
+		if (zomb != NULL)
+		{
+			zombies.push_back(zomb);
 		}
 	}
 
@@ -305,5 +351,58 @@ namespace game_framework {
 		}
 
 		return res;
+	}
+
+	Zombie* Map::zombieFactory()
+	{
+		Zombie* zombie;
+		for (unsigned int i = 0; i < zombiesSpawningInstructions.size(); i++)
+		{
+			if (zombiesSpawningInstructions.at(i).at(3) == 1)
+			{
+				continue;
+			}
+
+			if (Cooldown::getGameClock() - bar.getGameStartedTime() >= zombiesSpawningInstructions.at(i).at(1))
+			{
+				switch ((ZOMBIE_TYPE)zombiesSpawningInstructions.at(i).at(0))
+				{
+				case ZOMBIE_TYPE::EMPTY:
+					return NULL;
+				
+				case ZOMBIE_TYPE::NORMAL:
+					zombie = new NormalZombie();
+					break;
+
+				case ZOMBIE_TYPE::BUCKETHEAD:
+					zombie = new BucketheadZombie();
+					break;
+
+				case ZOMBIE_TYPE::CONEHEAD:
+					zombie = new ConeheadZombie();
+					break;
+
+				// case ZOMBIE_TYPE::FLAG:
+				// 	zombie = new FlagZombie();
+				// 	break;
+
+				// case ZOMBIE_TYPE::NEWSPAPER:
+				// 	zombie = new NewspaperZombie();
+				// 	break;
+
+				// case ZOMBIE_TYPE::NEWSPAPERNOPAPER:
+				// 	zombie = new NewpaperZombieNoPaper();
+				// 	break;
+
+				default:
+					return NULL;
+				}
+
+				zombiesSpawningInstructions.at(i).at(3) = 1;
+				zombie->onInit(zombiesSpawningInstructions.at(i).at(2));
+				return zombie;
+			}
+		}
+		return NULL;
 	}
 }

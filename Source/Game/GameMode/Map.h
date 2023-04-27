@@ -16,7 +16,7 @@ namespace game_framework {
 	class Map : public GameMode
 	{
 	public:
-		Map();
+		Map(vector<vector<int>> zombiesSpawningInstructions);
 		~Map();
 
 		void init();
@@ -34,6 +34,11 @@ namespace game_framework {
 		void removeSunFromVector(Sun*);
 		void collisionDetection(vector<Zombie*>*);
 		CPoint _mousePos2TilePos(CPoint);
+		void UpdateBulletsState();
+		void UpdateZombiesState();
+		void UpdatePlantsState();
+		void CreateZombieOnInstruction();
+		Zombie* zombieFactory();
 
 		int ZombiesKilled = 0;
 		int sunsAmount = 50;
@@ -47,6 +52,7 @@ namespace game_framework {
 
 		vector<Sun*> displayedSuns;
 		vector<Zombie*> zombies;
+		vector<vector<int>> zombiesSpawningInstructions;
 		vector<vector<Plant*>> plants;
 		vector<Bullet*> bullets;
 

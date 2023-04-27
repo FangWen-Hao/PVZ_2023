@@ -306,6 +306,7 @@
     <ClInclude Include="Source\Game\GameMode\Main_Menu.h" />
     <ClInclude Include="Source\Game\GameMode\Map.h" />
     <ClInclude Include="Source\Game\GameMode\Maps\Tile_Positions.h" />
+    <ClInclude Include="Source\Game\GameMode\Maps\Zombies_Spawn_Instruction.h" />
     <ClInclude Include="Source\Game\Misc\Bullet\Bullet.h" />
     <ClInclude Include="Source\Game\Misc\Cooldown.h" />
     <ClInclude Include="Source\Game\Misc\NormalSun.h" />

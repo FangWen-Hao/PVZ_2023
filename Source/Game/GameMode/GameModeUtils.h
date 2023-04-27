@@ -4,6 +4,7 @@
 #include "Almanac.h"
 #include "LoadingScreen.h"
 #include "../Misc/Cooldown.h"
+#include "Maps/Zombies_Spawn_Instruction.h"
 
 using namespace std;
 namespace game_framework {
@@ -18,7 +19,7 @@ namespace game_framework {
 		switch (newGameMode)
 		{
 		case ADVENTURE_MODE_BTN:
-			GameModePtr = new Map();
+			GameModePtr = new Map(DEMO);
 			break;
 
 		case ALMANAC_BTN:

@@ -275,6 +275,9 @@
     <ClInclude Include="Source\Game\Misc\Bullet\Bullet.h">
       <Filter>MyGame\Misc\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\GameMode\Maps\Zombies_Spawn_Instruction.h">
+      <Filter>MyGame\GameMode\Maps</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\Core\game.rc">

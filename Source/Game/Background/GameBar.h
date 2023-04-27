@@ -22,6 +22,7 @@ namespace game_framework
 		void setSuns(int suns);
 		int getSuns(void);
 		bool hasGameStarted(void);
+		time_t getGameStartedTime();
 
 	private:
 		void drawSun();
@@ -39,6 +40,7 @@ namespace game_framework
 		int _suns;
 		int _selectedCards = 0;
 		bool gameStarted = false;
+		time_t gameStartedTime = NULL;
 
 		CMovingBitmap background;
 		vector<SeedCard> cards;
