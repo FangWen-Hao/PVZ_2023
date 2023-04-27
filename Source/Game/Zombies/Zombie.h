@@ -39,59 +39,41 @@ namespace game_framework
 		int top() { return _posY; }
 		int right() { return _posX + width(); }
 		int bottom() { return _posY + height(); }
+		int row() { return _row; }
+		int col() { return _col; }
 
 		virtual int getCurrentHp() { return _hp; }
 		virtual int getSpeed() { return _speed; }
 		virtual bool isDead() { return _isDead; }
 		virtual bool isDeadDone() { return deadAnimate.IsAnimationDone(); }
-		virtual bool ableToAttack() { 
-			duration<double> time_span = duration_cast<duration<double>>(high_resolution_clock::now() - lastAttackTime);
-			return time_span.count() >= _attackSpeed;
-		}
 
 		virtual void setIsAttacking(bool isAttacking) {
+			if (!_isAttacking) lastAttackTime = high_resolution_clock::now();
 			_isAttacking = isAttacking;
-			lastAttackTime = high_resolution_clock::now();
 		}
 		// virtual void setLane(Lane* lane) { _currentLane = lane; }
 		virtual void setHp(int hp) { _hp = hp; }
 		virtual void setSpeed(int speed) { _speed = speed; }
 		void beingAttacked(int damage) { _hp -= damage; }
 
-		virtual void attack(Plant*);
+		virtual void attack() {}
 		virtual void onInit() {
-			int _lane = rand() % 5;
+			_row = rand() % 5;
 
 			_posX = RIGHT_TILES_POSITION_ON_MAP.at(8);
-			_posY = BOTTOM_LANE_POSITION_ON_SCREEN_MAP.at(_lane) - normalAnimate.GetHeight();
+			_posY = BOTTOM_LANE_POSITION_ON_SCREEN_MAP.at(_row) - normalAnimate.GetHeight();
 		}
 
-		virtual void onMove() {
-
-			if (_hp <= 0 && !_isDead)
-			{
-				_isDead = true;
-				deadAnimate.ToggleAnimation();
-			}
-			else if (!_isAttacking && !_isDead) {
-				++_ttlMove %= _moveFrequency;
-
-				if (_ttlMove == 0) _posX -= _speed;
-			}
-
-			attackAnimate.SetTopLeft(_posX, _posY);
-			deadAnimate.SetTopLeft(_posX - 100, _posY - 25);
-			normalAnimate.SetTopLeft(_posX, _posY);
-		}
+		virtual void onMove(vector<vector<Plant*>>*);
 
 		virtual void onShow() {
-			if (_isAttacking)
-			{
-				attackAnimate.ShowBitmap();
-			}
-			else if (_isDead)
+			if (_isDead)
 			{
 				deadAnimate.ShowBitmap();
+			}
+			else if (_isAttacking)
+			{
+				attackAnimate.ShowBitmap();
 			}
 			else
 			{
@@ -112,7 +94,8 @@ namespace game_framework
 
 		int _posX;
 		int _posY;
-		int _lane;
+		int _row;
+		int _col = -1;
 
 		int _hp;
 		int _ttlMove = 0;
@@ -125,6 +108,19 @@ namespace game_framework
 		CMovingBitmap normalAnimate;
 		CMovingBitmap deadAnimate;
 		CMovingBitmap attackAnimate;
+
+		void _updateCol()
+		{
+			for (int i = 0; i < 9; ++i) {
+				if (_posX >= LEFT_TILES_POSITION_ON_MAP.at(i) &&
+					_posX <= RIGHT_TILES_POSITION_ON_MAP.at(i))
+				{
+					_col = i;
+					return;
+				}
+			}
+			_col = -1;
+		}
 	};
 	//////////////////////////////////////////////////
 	

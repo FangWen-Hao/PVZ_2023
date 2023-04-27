@@ -12,9 +12,7 @@ namespace game_framework {
 	const int SUN_PRODUCTION_COOLDOWN = 10;
 	const unsigned int MAX_SUNS_FALLEN = 10;
 	const int FALLING_SUN_INITIAL_POSITION = 50;
-
-	// temporary put it here: do we want to migrate these 2 const?
-
+	
 	class Map : public GameMode
 	{
 	public:
@@ -34,7 +32,7 @@ namespace game_framework {
 
 	private:
 		void removeSunFromVector(Sun*);
-		void collisionDetection(vector<Zombie*>*, vector<Plant*>*);
+		void collisionDetection(vector<Zombie*>*);
 		CPoint _mousePos2TilePos(CPoint);
 
 		int ZombiesKilled = 0;
@@ -49,11 +47,9 @@ namespace game_framework {
 
 		vector<Sun*> displayedSuns;
 		vector<Zombie*> zombies;
-		vector<Plant*> plants;
+		vector<vector<Plant*>> plants;
 		vector<Bullet*> bullets;
 
 		Plant* currentSelectPlant = nullptr;
-		PLANT plantsMap[5][9];
 	};
-
 }

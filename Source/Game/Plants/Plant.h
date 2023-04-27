@@ -5,6 +5,7 @@
 #include "../Misc/Bullet/Bullet.h"
 #include "../Zombies/Zombie.h"
 #include "../Misc/Sun.h"
+#include <vector>
 #include <chrono>
 #include <algorithm>
 
@@ -60,48 +61,42 @@ namespace game_framework
 		int left() { return animate.GetLeft(); }
 		int right() { return left() + width(); }
 		int bottom() { return top() + height(); }
+		int row() { return _row; }
+		int col() { return _col; }
 		bool isDead() { return _isDead; }
 
 		void SetTopLeft(CPoint pos) { animate.SetTopLeft(pos.x, pos.y); }
-		void SetTopLeft(int x, int y) { animate.SetTopLeft(x, y); }
-		void beginAttack(int damage) { _hp -= damage; }
-		void isAttackedBy(Zombie* zombie) {
-			if (find(_isAttackedBy.begin(), _isAttackedBy.end(), zombie) == _isAttackedBy.end())
-			{
-				_isAttackedBy.push_back(zombie);
-			}
-		}
-		void isNotAttackedBy(Zombie* zombie) {
-			_isAttackedBy.erase(remove(_isAttackedBy.begin(), _isAttackedBy.end(), zombie), _isAttackedBy.end());
-		}
+		void begingAttack(int damage) { _hp -= damage; }
 
-		virtual void onMove() {
-			for (Zombie* zombie : _isAttackedBy)
-			{
-				zombie->attack(this);
-			}
-		};
-		virtual void onMove(vector<Sun*>*) { Plant::onMove(); };
-		virtual void onMove(vector<Bullet*>*) { Plant::onMove(); };
+		virtual void PlaceDown(int row, int col)
+		{
+			_row = row;
+			_col = col;
+
+			animate.SetTopLeft(MIDDLE_TILES_POSITION_ON_MAP.at(col) - width() / 2,
+				MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(row) - height() / 2);
+
+			// TODO: reset the cooldown timer
+		}
+		virtual void onMove() { if (_hp < 0) _isDead = true; }
+		virtual void onMove(vector<Sun*>*) { Plant::onMove(); }
+		virtual void onMove(vector<Bullet*>*, vector<Zombie*>*) { Plant::onMove(); }
 		virtual void onShow() { animate.ShowBitmap(); }
 
 	protected:
 		Plant(const PLANT_TYPE type, const PLANT name, const int price, const double coolDown)
 			: _type(type), _name(name), _price(price), _coolDown(coolDown) {}
 		
-		// Lane *_currentLane;
 		const PLANT_TYPE _type;
 		const PLANT _name;
 		const int _price;
 		const double _coolDown;
 		
 		CMovingBitmap animate;
-		vector<Zombie*> _isAttackedBy;
 		int _hp;
+		int _row;
+		int _col;
 		bool _isDead = false;
-
-		// time_t lastAttackTime;
-		// int secondsCoolDown;	
 	};
 	//////////////////////////////////////////////////
 
@@ -137,7 +132,9 @@ namespace game_framework
 	public:
 		virtual void generateSun(vector<Sun*>*) = 0;
 
-		virtual void onMove(vector<Sun*>* suns) override  {
+		virtual void onMove(vector<Sun*>* suns) {
+			Plant::onMove();
+
 			duration<double> durationTime = duration_cast<duration<double>>(high_resolution_clock::now() - lastGenerateTime);
 
 			if (durationTime.count() >= _generateSpeed)
@@ -146,6 +143,13 @@ namespace game_framework
 				lastGenerateTime = high_resolution_clock::now();
 			}
 		}
+
+		virtual void PlaceDown(int row, int col) override {
+			Plant::PlaceDown(row, col);
+
+			lastGenerateTime = high_resolution_clock::now();
+		}
+
 	protected:
 		GenerateSunPlant(const PLANT name, const int price, const double coolDown, const double generateSpeed)
 			: Plant(PLANT_TYPE::GENERATE_SUN, name, price, coolDown), _generateSpeed(generateSpeed) {}
@@ -160,13 +164,31 @@ namespace game_framework
 	public:
 		virtual void attack(vector<Bullet*>*) = 0;
 
-		virtual void onMove(vector<Bullet*>* bullets) override {
+		virtual void onMove(vector<Bullet*>* bullets, vector<Zombie*>* zombies) {
+			Plant::onMove();
+
 			duration<double> durationTime = duration_cast<duration<double>>(high_resolution_clock::now() - lastAttackTime);
-			if (durationTime.count() >= _attackSpeed)
+
+			bool hasZombieInRow = false;
+
+			for (Zombie *zombie : *zombies) {
+				if (zombie->row() == _row) {
+					hasZombieInRow = true;
+					break;
+				}
+			}
+
+			if (hasZombieInRow && durationTime.count() >= _attackSpeed)
 			{
 				attack(bullets);
 				lastAttackTime = high_resolution_clock::now();
 			}
+		}
+
+		virtual void PlaceDown(int row, int col) override {
+			Plant::PlaceDown(row, col);
+
+			lastAttackTime = high_resolution_clock::now();
 		}
 
 	protected:

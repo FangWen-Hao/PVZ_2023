@@ -14,11 +14,18 @@
 namespace game_framework {
 	Map::Map()
 	{
-		for (int y = 0; y < 5; y++) {
-			for (int x = 0; x < 9; x++) {
-				plantsMap[y][x] = PLANT::EMPTY;
+		for (int row = 0; row < 5; row++)
+		{
+			plants.push_back(vector<Plant*>());
+			for (int col = 0; col < 9; col++) {
+				plants[row].push_back(nullptr);
 			}
 		}
+
+		// temp code
+		NormalZombie *nz = new NormalZombie();
+		nz->onInit();
+		zombies.push_back(nz);
 	}
 
 	Map::~Map()
@@ -50,8 +57,10 @@ namespace game_framework {
 				zombie->onShow();
 			}
 
-			for (Plant* plant : plants) {
-				plant->onShow();
+			for (vector<Plant*> row : plants) {
+				for (Plant* plant : row) {
+					if (plant != nullptr) plant->onShow();
+				}
 			}
 
 			for (Bullet* bullet : bullets) {
@@ -89,28 +98,32 @@ namespace game_framework {
 		{
 			sunFactoryLogic();
 
-			// TODO: wirte a function for detect objects collision
-			collisionDetection(&zombies, &plants);
+			collisionDetection(&zombies);
 
-			for (Plant* plant : plants) {
-				if (plant->getType() == PLANT_TYPE::GENERATE_SUN) plant->onMove(&displayedSuns);
-				else if (plant->getType() == PLANT_TYPE::SHOOTING) plant->onMove(&bullets);
-				else plant->onMove();
+			for (vector<Plant*> row : plants) {
+				for (Plant* plant : row) {
+					if (plant != nullptr) 
+					{
+						if (plant->getType() == PLANT_TYPE::GENERATE_SUN) plant->onMove(&displayedSuns);
+						else if (plant->getType() == PLANT_TYPE::SHOOTING) plant->onMove(&bullets, &zombies);
+						else plant->onMove();
 
-				if (plant->isDead())
-				{
-					delete plant;
-					plants.erase(remove(plants.begin(), plants.end(), plant), plants.end());
+						if (plant->isDead())
+						{
+							plants[plant->row()][plant->col()] = nullptr;
+							delete plant;
+						}
+					}
 				}
 			}
 
 			for (Zombie* zombie : zombies)
 			{
-				zombie->onMove();
+				zombie->onMove(&plants);
 				if (zombie->isDead() && zombie->isDeadDone())
 				{
-					delete zombie;
 					zombies.erase(remove(zombies.begin(), zombies.end(), zombie), zombies.end());
+					delete zombie;
 				}
 			}
 
@@ -119,8 +132,8 @@ namespace game_framework {
 				bullet->onMove();
 				if (bullet->detectCollison(&zombies) || bullet->GetLeft() > 900)
 				{
-					delete bullet;
 					bullets.erase(remove(bullets.begin(), bullets.end(), bullet), bullets.end());
+					delete bullet;
 				}
 			}
 		}
@@ -181,26 +194,19 @@ namespace game_framework {
 			case SEED_CARD::REFUSED:
 				if (currentSelectPlant == nullptr
 					|| pos.x == -1 || pos.y == -1
-					|| plantsMap[pos.y][pos.x] != PLANT::EMPTY)
+					|| plants[pos.y][pos.x] != nullptr)
 				{
 					break;
 				}
 
-				plantsMap[pos.y][pos.x] = currentSelectPlant->getName();
-				currentSelectPlant->SetTopLeft(
-					MIDDLE_TILES_POSITION_ON_MAP.at(pos.x) - currentSelectPlant->width() / 2,
-					MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(pos.y) - currentSelectPlant->height() / 2);
-				plants.push_back(currentSelectPlant);
+				currentSelectPlant->PlaceDown(pos.y, pos.x);
+				plants[pos.y][pos.x] = currentSelectPlant;
+
 				bar.addSuns(-1 * currentSelectPlant->getPrice());
 				currentSelectPlant = nullptr;
 
 			default: break;
 			}
-
-			// temp code
-			NormalZombie *nz = new NormalZombie();
-			nz->onInit();
-			zombies.push_back(nz);
 		}
 
 		return 0;
@@ -257,23 +263,17 @@ namespace game_framework {
 		delete sun;
 	}
 
-	void Map::collisionDetection(vector<Zombie*>* zombies, vector<Plant*>* plants)
+	void Map::collisionDetection(vector<Zombie*>* zombies)
 	{
 		for (Zombie* zombie : *zombies)
 		{
-			for (Plant* plant : *plants)
+			if (zombie->col() != -1 && plants[zombie->row()][zombie->col()] != nullptr)
 			{
-				if (zombie->left() < plant->right() && zombie->right() > plant->left() &&
-					zombie->top() < plant->bottom() && zombie->bottom() > plant->top())
-				{
-					// collision
-					zombie->setIsAttacking(true);
-					plant->isAttackedBy(zombie);
-				}
-				else {
-					zombie->setIsAttacking(false);
-					plant->isNotAttackedBy(zombie);
-				}
+				zombie->setIsAttacking(true);
+			}
+			else
+			{
+				zombie->setIsAttacking(false);
 			}
 		}
 	}
