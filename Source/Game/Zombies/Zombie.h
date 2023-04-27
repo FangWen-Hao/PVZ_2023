@@ -1,11 +1,10 @@
 #pragma once
 
 #include "../../Library/gameutil.h"
+#include "../Misc/Cooldown.h"
 #include "../GameMode/Maps/Tile_Positions.h"
-#include <chrono>
 
 using namespace std;
-using namespace std::chrono;
 
 namespace game_framework
 {
@@ -48,7 +47,7 @@ namespace game_framework
 		virtual bool isDeadDone() { return deadAnimate.IsAnimationDone(); }
 
 		virtual void setIsAttacking(bool isAttacking) {
-			if (!_isAttacking) lastAttackTime = high_resolution_clock::now();
+			if (!_isAttacking) attackCooldown.startCooldown();
 			_isAttacking = isAttacking;
 		}
 		// virtual void setLane(Lane* lane) { _currentLane = lane; }
@@ -83,7 +82,10 @@ namespace game_framework
 
 	protected:
 		Zombie(const ZOMBIE_TYPE type, const int damage, const double attackSpeed)
-			: _type(type), _damage(damage), _attackSpeed(attackSpeed) {}
+			: _type(type), _damage(damage), _attackSpeed(attackSpeed)
+		{
+			attackCooldown.initCooldown(attackSpeed);
+		}
 		
 		//Lane *_currentLane;
 		const ZOMBIE_TYPE _type;
@@ -103,7 +105,7 @@ namespace game_framework
 		bool _isAttacking = false;
 		bool _isDead = false;
 
-		high_resolution_clock::time_point lastAttackTime = high_resolution_clock::now();
+		Cooldown attackCooldown;
 
 		CMovingBitmap normalAnimate;
 		CMovingBitmap deadAnimate;

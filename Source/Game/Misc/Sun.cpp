@@ -10,7 +10,7 @@ Sun::Sun()
 void Sun::init(int posX, int startingPosY, int finalPosY)
 {
 	// initiate the sun with the values from the child class.
-	lifespan.setCooldown(getLifeSpan());
+	lifespan.initCooldown(getLifeSpan());
 	initiateBitMap();
 	initiateSunValue();
 
@@ -27,7 +27,7 @@ void Sun::show()
 	ShowBitmap();
 	ToggleAnimation();
 
-	lifespan.setCooldown(getLifeSpan());
+	lifespan.initCooldown(getLifeSpan());
 	lifespan.startCooldown();
 }
 
@@ -41,8 +41,6 @@ int Sun::update()
 {
 	if (!lifespan.isOnCooldown())
 		return INVALID;
-
-	lifespan.updateCooldown();
 
 	if (GetTop() < _finalPosY)
 	{

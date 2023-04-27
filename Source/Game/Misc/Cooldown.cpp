@@ -11,18 +11,11 @@ namespace game_framework
 		gameClock = high_resolution_clock::now();
 	}
 
-	Cooldown::~Cooldown()
-	{
-	}
+	Cooldown::~Cooldown() {}
 
-	void Cooldown::setCooldown(double cooldown)
+	void Cooldown::initCooldown(double cooldown)
 	{
 		_cooldown = cooldown;
-	}
-
-	void Cooldown::overrideCooldownStatus(bool status)
-	{
-		_onCooldown = status; // is this gonna even useful?
 	}
 
 	high_resolution_clock::time_point Cooldown::getGameClock()
@@ -47,12 +40,12 @@ namespace game_framework
 
 	bool Cooldown::isOnCooldown()
 	{
-		return _onCooldown;
+		return duration_cast<duration<double>>(gameClock - _lastUse).count() < _cooldown;
 	}
 
 	int Cooldown::getCoolDownProgressInPercentage()
 	{
-		if (_onCooldown)
+		if (isOnCooldown())
 		{
 			double percentage = (_cooldown - std::chrono::duration<double>(gameClock - _lastUse).count()) / _cooldown * 100;
 			return (int(percentage));
@@ -68,17 +61,6 @@ namespace game_framework
 
 	void Cooldown::startCooldown()
 	{
-		if (!_onCooldown)
-		{
-			_lastUse = high_resolution_clock::now();
-			_onCooldown = true;
-		}
-	}
-
-	void Cooldown::updateCooldown()
-	{
-		// https://www.codespeedy.com/how-to-create-a-timer-in-cpp/
-		if (duration_cast<duration<double>>(gameClock - _lastUse).count() >= _cooldown)
-			_onCooldown = false;
+		_lastUse = high_resolution_clock::now();
 	}
 }

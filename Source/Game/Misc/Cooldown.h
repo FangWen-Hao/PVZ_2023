@@ -11,25 +11,22 @@ namespace game_framework
 		Cooldown();
 		~Cooldown();
 
-		void setCooldown(double cooldown);
-		void overrideCooldownStatus(bool status);
-
+		static void updateGameClock();
 		static high_resolution_clock::time_point getGameClock();
 		static long unsigned int getGameClockForPRNGSeed();
+
+		void initCooldown(double cooldown);
+
 		double getCooldown();
 		high_resolution_clock::time_point getLastUse();
-		bool isOnCooldown();
 		int getCoolDownProgressInPercentage();
-
-		static void updateGameClock();
+		bool isOnCooldown();
 		void startCooldown();
-		void updateCooldown();
 
 	private:
 		static high_resolution_clock::time_point gameClock; // this clock is used so we can just call the current time once and then compare all the cooldowns with this one
 								// instead of calling the system clock for every cooldown since we want to updateCooldown every second of the game.
 		double _cooldown; // in seconds
 		high_resolution_clock::time_point _lastUse;
-		bool _onCooldown = false;
 	};
 }

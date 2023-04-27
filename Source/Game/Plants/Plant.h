@@ -1,16 +1,14 @@
 #pragma once
 
-// #include "../Terrain/Lane.h"
-#include "../../Library/gameutil.h"
-#include "../Misc/Bullet/Bullet.h"
-#include "../Zombies/Zombie.h"
-#include "../Misc/Sun.h"
 #include <vector>
-#include <chrono>
 #include <algorithm>
+#include "../../Library/gameutil.h"
+#include "../Misc/Cooldown.h"
+#include "../Misc/Sun.h"
+#include "../Zombies/Zombie.h"
+#include "../Misc/Bullet/Bullet.h"
 
 using namespace std;
-using namespace std::chrono;
 
 namespace game_framework
 {
@@ -75,9 +73,8 @@ namespace game_framework
 
 			animate.SetTopLeft(MIDDLE_TILES_POSITION_ON_MAP.at(col) - width() / 2,
 				MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(row) - height() / 2);
-
-			// TODO: reset the cooldown timer
 		}
+
 		virtual void onMove() { if (_hp < 0) _isDead = true; }
 		virtual void onMove(vector<Sun*>*) { Plant::onMove(); }
 		virtual void onMove(vector<Bullet*>*, vector<Zombie*>*) { Plant::onMove(); }
@@ -135,28 +132,29 @@ namespace game_framework
 		virtual void onMove(vector<Sun*>* suns) {
 			Plant::onMove();
 
-			duration<double> durationTime = duration_cast<duration<double>>(high_resolution_clock::now() - lastGenerateTime);
-
-			if (durationTime.count() >= _generateSpeed)
+			if (!generateCooldown.isOnCooldown())
 			{
 				generateSun(suns);
-				lastGenerateTime = high_resolution_clock::now();
+				generateCooldown.startCooldown();
 			}
 		}
 
 		virtual void PlaceDown(int row, int col) override {
 			Plant::PlaceDown(row, col);
 
-			lastGenerateTime = high_resolution_clock::now();
+			generateCooldown.startCooldown();
 		}
 
 	protected:
 		GenerateSunPlant(const PLANT name, const int price, const double coolDown, const double generateSpeed)
-			: Plant(PLANT_TYPE::GENERATE_SUN, name, price, coolDown), _generateSpeed(generateSpeed) {}
+			: Plant(PLANT_TYPE::GENERATE_SUN, name, price, coolDown), _generateSpeed(generateSpeed)
+		{
+			generateCooldown.initCooldown(generateSpeed);
+		}
 		~GenerateSunPlant() {}
 
 		const double _generateSpeed;
-		high_resolution_clock::time_point lastGenerateTime = high_resolution_clock::now();
+		Cooldown generateCooldown;
 	};
 
 	class ShootingPlant : public Plant
@@ -167,8 +165,6 @@ namespace game_framework
 		virtual void onMove(vector<Bullet*>* bullets, vector<Zombie*>* zombies) {
 			Plant::onMove();
 
-			duration<double> durationTime = duration_cast<duration<double>>(high_resolution_clock::now() - lastAttackTime);
-
 			bool hasZombieInRow = false;
 
 			for (Zombie *zombie : *zombies) {
@@ -178,27 +174,29 @@ namespace game_framework
 				}
 			}
 
-			if (hasZombieInRow && durationTime.count() >= _attackSpeed)
+			if (hasZombieInRow && !attackCooldown.isOnCooldown())
 			{
 				attack(bullets);
-				lastAttackTime = high_resolution_clock::now();
+				attackCooldown.startCooldown();
 			}
 		}
 
 		virtual void PlaceDown(int row, int col) override {
 			Plant::PlaceDown(row, col);
-
-			lastAttackTime = high_resolution_clock::now();
+			attackCooldown.startCooldown();
 		}
 
 	protected:
 		ShootingPlant(const PLANT name, const int price, const double coolDown, const int damage, const double attackSpeed)
-			: Plant(PLANT_TYPE::SHOOTING, name, price, coolDown), _damage(damage), _attackSpeed(attackSpeed) {}
+			: Plant(PLANT_TYPE::SHOOTING, name, price, coolDown), _damage(damage), _attackSpeed(attackSpeed)
+		{
+			attackCooldown.initCooldown(_attackSpeed);
+		}
 		~ShootingPlant() {}
 		
 		const int _damage;
 		const double _attackSpeed;
-		high_resolution_clock::time_point lastAttackTime = high_resolution_clock::now();
+		Cooldown attackCooldown;
 	};
 	//////////////////////////////////////////////////
 
