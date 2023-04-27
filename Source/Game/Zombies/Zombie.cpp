@@ -13,12 +13,11 @@ void Zombie::onMove(vector<vector<Plant*>>* plants)
 	}
 	else if (_isAttacking)
 	{	
-		duration<double> time_span = duration_cast<duration<double>>(high_resolution_clock::now() - lastAttackTime);
-		if (time_span.count() >= _attackSpeed)
+		if (!attackCooldown.isOnCooldown())
 		{
 			if ((*plants)[_row][_col] != nullptr)
 				(*plants)[_row][_col]->begingAttack(_damage);
-			lastAttackTime = high_resolution_clock::now();
+			attackCooldown.startCooldown();
 		}
 	}
 	else if (!_isAttacking && !_isDead) {

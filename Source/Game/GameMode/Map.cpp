@@ -43,7 +43,7 @@ namespace game_framework {
 		bar.init(50);
 
 		// Sun is obtained from [...] and falls from the sky approximately every 10 seconds when it is daytime. -> https://plantsvszombies.fandom.com/wiki/Sun
-		sunProductionCooldown.setCooldown(10);
+		sunProductionCooldown.initCooldown(10);
 	}
 
 	void Map::show()
@@ -247,8 +247,6 @@ namespace game_framework {
 	}
 	void Map::sunFactoryLogic()
 	{
-		sunProductionCooldown.updateCooldown();
-
 		for (Sun* sun : displayedSuns)
 		{
 			if (sun->update() == Sun_status::INVALID)

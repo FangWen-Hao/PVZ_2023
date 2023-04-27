@@ -20,7 +20,7 @@ SeedCard::SeedCard(SeedCard *other)
 {
 	this->_type = other->_type;
 	this->_price = other->_price;
-	this->_cooldown.setCooldown(other->_cooldown.getCooldown());
+	this->_cooldown.initCooldown(other->_cooldown.getCooldown());
 	this->_filePath = other->_filePath;
 	this->LoadBitmapByString(_filePath);
 }
@@ -29,7 +29,7 @@ void SeedCard::init(vector<string> filePath, int offsetX, int offsetY, int price
 {
 	_type = type;
 	_price = price;
-	_cooldown.setCooldown(cooldown);
+	_cooldown.initCooldown(cooldown);
 	_filePath = filePath;
 	LoadBitmapByString(_filePath);
 	setCardPos(offsetX, offsetY);
@@ -76,8 +76,6 @@ void SeedCard::used()
 
 void SeedCard::updateCooldown()
 {
-	_cooldown.updateCooldown();
-
 	int progress = _cooldown.getCoolDownProgressInPercentage();
 
 	if (progress <= 100 && progress > 75)
