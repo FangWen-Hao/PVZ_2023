@@ -373,7 +373,7 @@ namespace game_framework {
 				continue;
 			}
 
-			if (Cooldown::getGameClock() - bar.getGameStartedTime() >= zombiesSpawningInstructions.at(i).at(1))
+			if (duration_cast<duration<double>>(Cooldown::getGameClock() - bar.getGameStartedTime()).count() >= zombiesSpawningInstructions.at(i).at(1))
 			{
 				switch ((ZOMBIE_TYPE)zombiesSpawningInstructions.at(i).at(0))
 				{

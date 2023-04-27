@@ -86,7 +86,7 @@ namespace game_framework
 				&& coords.y < (startGameButton.GetTop() + startGameButton.GetHeight()) && coords.y > startGameButton.GetTop())
 			{
 				gameStarted = true;
-				gameStartedTime = time(0);
+				gameStartedTime = high_resolution_clock::now();
 				background.UnshowBitmap();
 				picker.unshow();
 				startGameButton.UnshowBitmap();
@@ -176,7 +176,7 @@ namespace game_framework
 		return gameStarted;
 	}
 
-	time_t GameBar::getGameStartedTime()
+	high_resolution_clock::time_point GameBar::getGameStartedTime()
 	{
 		return gameStartedTime;
 	}
