@@ -48,7 +48,7 @@ void CardPicker::init()
 	for (unsigned int i = 0; i < CARDS_BITMAPS_FILEPATH.size(); i++)
 	{
 		cards.push_back(SeedCard());
-		cards.at(i).init(CARDS_BITMAPS_FILEPATH.at(i), cardLeft, cardTop, CARDS_DATA.at(i).at(0), CARDS_DATA.at(i).at(1), static_cast<SEED_CARD>(CARDS_DATA.at(i).at(2)));
+		cards.at(i).init(CARDS_BITMAPS_FILEPATH.at(i), cardLeft, cardTop, CARDS_DATA.at(i).at(0), CARDS_DATA.at(i).at(1), static_cast<SEED_CARD_TYPE>(CARDS_DATA.at(i).at(2)));
 		cardLeft += CARD_LEFT_PADDING;
 
 		if (i % CARD_PER_ROW == CARD_PER_ROW - 1)
@@ -89,7 +89,7 @@ SeedCard* CardPicker::OnClick(CPoint coords)
 			&& coords.y < (cards.at(i).GetTop() + cards.at(i).GetHeight()) && coords.y > cards.at(i).GetTop())
 		{
 			// card was selected
-			if (cards.at(i).clicked() != SEED_CARD::REFUSED)
+			if (cards.at(i).clicked() != SEED_CARD_TYPE::REFUSED)
 			{
 				return &(cards.at(i));
 			}

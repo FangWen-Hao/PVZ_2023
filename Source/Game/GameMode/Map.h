@@ -34,6 +34,8 @@ namespace game_framework {
 		void removeSunFromVector(Sun*);
 		void collisionDetection(vector<Zombie*>*);
 		CPoint _mousePos2TilePos(CPoint);
+		void AddSunOnClick(CPoint &coords);
+		void CreatePlantOnClick(const CPoint &coords);
 
 		int ZombiesKilled = 0;
 		int sunsAmount = 50;
@@ -51,5 +53,6 @@ namespace game_framework {
 		vector<Bullet*> bullets;
 
 		Plant* currentSelectPlant = nullptr;
+		SEED_CARD_TYPE currentSelectedSeedCard = REFUSED;
 	};
 }

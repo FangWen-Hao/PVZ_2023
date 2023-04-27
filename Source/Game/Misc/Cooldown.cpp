@@ -1,20 +1,21 @@
 #include "stdafx.h"
 #include "Cooldown.h"
 
+using namespace std::chrono;
 namespace game_framework
 {
-	time_t Cooldown::gameClock;
+	high_resolution_clock::time_point Cooldown::gameClock;
 
 	Cooldown::Cooldown()
 	{
-		gameClock = time(0);
+		gameClock = high_resolution_clock::now();
 	}
 
 	Cooldown::~Cooldown()
 	{
 	}
 
-	void Cooldown::setCooldown(int cooldown)
+	void Cooldown::setCooldown(double cooldown)
 	{
 		_cooldown = cooldown;
 	}
@@ -24,22 +25,22 @@ namespace game_framework
 		_onCooldown = status; // is this gonna even useful?
 	}
 
-	time_t Cooldown::getGameClock()
+	high_resolution_clock::time_point Cooldown::getGameClock()
 	{
 		return gameClock;
 	}
 
-	unsigned int Cooldown::getGameClockForPRNGSeed()
+	long unsigned int Cooldown::getGameClockForPRNGSeed()
 	{
-		return ((unsigned int)gameClock);
+		return (static_cast<long unsigned int>(gameClock.time_since_epoch().count()));
 	}
 
-	int Cooldown::getCooldown()
+	double Cooldown::getCooldown()
 	{
 		return _cooldown;
 	}
 
-	time_t Cooldown::getLastUse()
+	high_resolution_clock::time_point Cooldown::getLastUse()
 	{
 		return _lastUse;
 	}
@@ -49,16 +50,27 @@ namespace game_framework
 		return _onCooldown;
 	}
 
+	int Cooldown::getCoolDownProgressInPercentage()
+	{
+		if (_onCooldown)
+		{
+			double percentage = (_cooldown - std::chrono::duration<double>(gameClock - _lastUse).count()) / _cooldown * 100;
+			return (int(percentage));
+		}
+
+		return 0;
+	}
+
 	void Cooldown::updateGameClock()
 	{
-		gameClock = time(0);
+		gameClock = high_resolution_clock::now();
 	}
 
 	void Cooldown::startCooldown()
 	{
 		if (!_onCooldown)
 		{
-			_lastUse = time(0);
+			_lastUse = high_resolution_clock::now();
 			_onCooldown = true;
 		}
 	}
@@ -66,7 +78,7 @@ namespace game_framework
 	void Cooldown::updateCooldown()
 	{
 		// https://www.codespeedy.com/how-to-create-a-timer-in-cpp/
-		if ((gameClock - _lastUse) >= _cooldown)
+		if (duration_cast<duration<double>>(gameClock - _lastUse).count() >= _cooldown)
 			_onCooldown = false;
 	}
 }
