@@ -15,8 +15,11 @@ namespace game_framework
 
 		void GameBar::init(int initialSuns);
 		void show();
+		void move();
 		void onHover(CPoint coords);
-		SEED_CARD onClick(CPoint coords);
+		SEED_CARD_TYPE onClick(CPoint coords);
+		void setSeedCardCooldown(SEED_CARD_TYPE cardType);
+
 		
 		void addSuns(int suns);
 		void setSuns(int suns);

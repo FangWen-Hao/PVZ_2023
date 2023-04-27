@@ -1,6 +1,7 @@
 #pragma once
-#include <ctime>
+#include <chrono>
 
+using namespace std::chrono;
 namespace game_framework
 {
 
@@ -10,24 +11,25 @@ namespace game_framework
 		Cooldown();
 		~Cooldown();
 
-		void setCooldown(int cooldown);
+		void setCooldown(double cooldown);
 		void overrideCooldownStatus(bool status);
 
-		static time_t getGameClock();
-		static unsigned int getGameClockForPRNGSeed();
-		int getCooldown();
-		time_t getLastUse();
+		static high_resolution_clock::time_point getGameClock();
+		static long unsigned int getGameClockForPRNGSeed();
+		double getCooldown();
+		high_resolution_clock::time_point getLastUse();
 		bool isOnCooldown();
+		int getCoolDownProgressInPercentage();
 
 		static void updateGameClock();
 		void startCooldown();
 		void updateCooldown();
 
 	private:
-		static time_t gameClock; // this clock is used so we can just call the current time once and then compare all the cooldowns with this one
+		static high_resolution_clock::time_point gameClock; // this clock is used so we can just call the current time once and then compare all the cooldowns with this one
 								// instead of calling the system clock for every cooldown since we want to updateCooldown every second of the game.
-		int _cooldown; // in seconds
-		time_t _lastUse;
+		double _cooldown; // in seconds
+		high_resolution_clock::time_point _lastUse;
 		bool _onCooldown = false;
 	};
 }
