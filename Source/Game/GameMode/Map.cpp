@@ -44,6 +44,7 @@ namespace game_framework {
 
 		// Sun is obtained from [...] and falls from the sky approximately every 10 seconds when it is daytime. -> https://plantsvszombies.fandom.com/wiki/Sun
 		sunProductionCooldown.initCooldown(10);
+		shovelCursor.LoadBitmapByString({ SHOVEL_CURSOR_BITMAP }, RGB(255, 255, 255));
 	}
 
 	void Map::show()
@@ -74,6 +75,16 @@ namespace game_framework {
 			if (currentSelectPlant != nullptr) {
 				currentSelectPlant->onShow();
 			}
+
+			if (currentSelectedSeedCard == SEED_CARD_TYPE::SHOVEL)
+			{
+				shovelCursor.ShowBitmap();
+			}
+			else
+			{
+				shovelCursor.UnshowBitmap();
+			}
+
 		}
 	}
 
@@ -84,6 +95,11 @@ namespace game_framework {
 			if (currentSelectPlant != nullptr)
 			{
 				currentSelectPlant->SetTopLeft(coords);
+			}
+
+			if (currentSelectedSeedCard == SEED_CARD_TYPE::SHOVEL)
+			{
+				shovelCursor.SetTopLeft(coords.x, coords.y);
 			}
 		}
 	}
@@ -141,11 +157,16 @@ namespace game_framework {
 
 	int Map::OnClick(CPoint coords)
 	{
-		CreatePlantOnClick(coords);
+		if (!bar.hasGameStarted())
+		{
+			bar.onClick(coords);
+			return 0;
+		}
 
 		if (bar.hasGameStarted())
 		{
 			AddSunOnClick(coords);
+			CreatePlantOnClick(coords);
 		}
 
 		return 0;
@@ -189,20 +210,59 @@ namespace game_framework {
 			if (bar.getSuns() >= WallNut::price)
 				currentSelectPlant = new WallNut(coords);
 			break;
+		case SEED_CARD_TYPE::SHOVEL:
+			shovelCursor.SetTopLeft(coords.x, coords.y);
+			break;
 		case SEED_CARD_TYPE::REFUSED:
-			if (currentSelectPlant == nullptr
-				|| pos.x == -1 || pos.y == -1
-				|| plants[pos.y][pos.x] != nullptr)
+			if (currentSelectedSeedCard == SEED_CARD_TYPE::REFUSED)
 			{
 				break;
 			}
 
-			currentSelectPlant->PlaceDown(pos.y, pos.x);
-			plants[pos.y][pos.x] = currentSelectPlant;
+			// if the click was registered outside of the board bounderies
+			// or the user tried to plant on an occupied tile
+			// or the user tried to remove a plant from an empty tile
+			// breaks
+			if ((currentSelectPlant == nullptr
+				&& currentSelectedSeedCard != SEED_CARD_TYPE::SHOVEL)
+				|| pos.x == -1
+				|| pos.y == -1
+				|| (plants[pos.y][pos.x] != nullptr
+					&& currentSelectedSeedCard != SEED_CARD_TYPE::SHOVEL)
+				|| (plants[pos.y][pos.x] == nullptr
+					&& currentSelectedSeedCard == SEED_CARD_TYPE::SHOVEL))
+			{
+				// cancel planting
+				if (currentSelectPlant != nullptr)
+				{
+					delete currentSelectPlant;
+					currentSelectPlant = nullptr;
+				}
+				
+				// cancel shovel
+				bar.resetShovelButtonBitmap();
+				
+				break;
+			}
 
-			bar.addSuns(-1 * currentSelectPlant->getPrice());
-			bar.setSeedCardCooldown(currentSelectedSeedCard);
-			currentSelectPlant = nullptr;
+			if (plants[pos.y][pos.x] != nullptr
+				&& currentSelectedSeedCard == SEED_CARD_TYPE::SHOVEL)
+			{
+				// unplant plant
+				delete plants[pos.y][pos.x];
+				plants[pos.y][pos.x] = nullptr;
+				bar.resetShovelButtonBitmap();
+			}
+			if (plants[pos.y][pos.x] == nullptr
+				&& currentSelectedSeedCard != SEED_CARD_TYPE::SHOVEL)
+			{ // plant plant
+				currentSelectPlant->PlaceDown(pos.y, pos.x);
+				plants[pos.y][pos.x] = currentSelectPlant;
+
+				bar.addSuns(-1 * currentSelectPlant->getPrice());
+				bar.setSeedCardCooldown(currentSelectedSeedCard);
+				currentSelectPlant = nullptr;
+			}
 
 		default: break;
 		}
