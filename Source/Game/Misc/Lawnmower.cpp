@@ -6,11 +6,9 @@
 using namespace game_framework;
 void Lawnmower::init(int row)
 {
-	_row = row;
 	bitmap.LoadBitmapByString(LAWNMOWER_BITMAP, RGB(255, 255, 255));
 	bitmap.SetTopLeft(LEFT_TILES_POSITION_ON_MAP.at(0) - bitmap.GetWidth() + 1,
-						MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(_row) - (bitmap.GetHeight() / 2));
-	active = false;
+						MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(row) - (bitmap.GetHeight() / 2));
 }
 
 void Lawnmower::show()
@@ -22,12 +20,11 @@ void Lawnmower::activate()
 {
 	bitmap.SetAnimation(100, false);
 	bitmap.ToggleAnimation();
-	active = true;
 }
 
 bool Lawnmower::isActive()
 {
-	return active;
+	return bitmap.IsAnimation();
 }
 
 void Lawnmower::move()
@@ -40,10 +37,6 @@ bool Lawnmower::isDone()
 	return bitmap.GetLeft() > SIZE_X;
 }
 
-int Lawnmower::getRow()
-{
-	return _row;;
-}
 
 int game_framework::Lawnmower::getRight()
 {

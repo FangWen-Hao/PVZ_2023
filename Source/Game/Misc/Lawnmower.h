@@ -21,13 +21,10 @@ namespace game_framework
 		void move();
 		bool isDone();
 
-		int getRow();
 		int getRight();
 
 
 	protected:
-		int _row;
-		bool active;
 		CMovingBitmap bitmap;
 	};
 }
