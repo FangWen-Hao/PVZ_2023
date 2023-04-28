@@ -33,6 +33,7 @@ namespace game_framework
 
 		// initialize the startGameButton.
 		startGameButton.init(START_GAME_BMP_FILEPATH, background.GetWidth() + 5, 0);
+		shovelButton.init({ SHOVEL_BUTTON_FILEPATH }, background.GetWidth() + 5, 0);
 		startGameButton.SetFrameIndexOfBitmap(2);
 
 	}
@@ -47,7 +48,7 @@ namespace game_framework
 			picker.show();
 			startGameButton.show();
 		} else { // else show the selected cards on the bar
-
+			shovelButton.show();
 			setSelectedCards();
 		}
 	}
@@ -138,6 +139,14 @@ namespace game_framework
 					return card.getType();
 				}
 			}
+
+			if (coords.x < (shovelButton.GetLeft() + shovelButton.GetWidth()) && coords.x > shovelButton.GetLeft()
+				&& coords.y < (shovelButton.GetTop() + shovelButton.GetHeight()) && coords.y > shovelButton.GetTop())
+			{
+				shovelButton.clicked();
+				return SEED_CARD_TYPE::SHOVEL;
+			}
+
 		}
 		return SEED_CARD_TYPE::REFUSED;
 	}
@@ -152,6 +161,11 @@ namespace game_framework
 				return;
 			}
 		}
+	}
+
+	void GameBar::resetShovelButtonBitmap()
+	{
+		shovelButton.SetFrameIndexOfBitmap(0);
 	}
 
 	void GameBar::addSuns(int suns)

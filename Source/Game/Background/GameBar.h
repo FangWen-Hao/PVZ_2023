@@ -7,6 +7,8 @@ using namespace std;
 namespace game_framework
 {
 
+
+
 	class GameBar
 	{
 	public:
@@ -19,7 +21,7 @@ namespace game_framework
 		void onHover(CPoint coords);
 		SEED_CARD_TYPE onClick(CPoint coords);
 		void setSeedCardCooldown(SEED_CARD_TYPE cardType);
-
+		void resetShovelButtonBitmap();
 		
 		void addSuns(int suns);
 		void setSuns(int suns);
@@ -39,6 +41,7 @@ namespace game_framework
 
 		const string BACKGROUND_BMP_FILEPATH = "Resources/Misc/Plant Slot/BMP/ChooserBackground.bmp";
 		const vector<string> START_GAME_BMP_FILEPATH = {"Resources/Misc/Plant Slot/BMP/startDark.bmp", "Resources/Misc/Plant Slot/BMP/startLight.bmp", "Resources/Misc/Plant Slot/BMP/startUnableToStart.bmp" };
+		const vector<string> SHOVEL_BUTTON_FILEPATH = { "Resources/Misc/Shovel/BMP/Shovel.bmp", "Resources/Misc/Shovel/BMP/shovelEmpty.bmp" };
 
 		int _suns;
 		int _selectedCards = 0;
@@ -49,6 +52,7 @@ namespace game_framework
 		vector<SeedCard> cards;
 		CardPicker picker;
 		Button startGameButton;
-		
+		Button shovelButton;
+
 	};
 }
