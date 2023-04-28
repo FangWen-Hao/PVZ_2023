@@ -257,6 +257,7 @@
     <ClCompile Include="Source\Game\Misc\Bullet\PeaShooterBullet.cpp" />
     <ClCompile Include="Source\Game\Misc\Bullet\SnowPeaBullet.cpp" />
     <ClCompile Include="Source\Game\Misc\Cooldown.cpp" />
+    <ClCompile Include="Source\Game\Misc\Lawnmower.cpp" />
     <ClCompile Include="Source\Game\Misc\NormalSun.cpp" />
     <ClCompile Include="Source\Game\Misc\Sun.cpp" />
     <ClCompile Include="Source\Game\mygame_initialize.cpp" />
@@ -308,6 +309,7 @@
     <ClInclude Include="Source\Game\GameMode\Maps\Tile_Positions.h" />
     <ClInclude Include="Source\Game\Misc\Bullet\Bullet.h" />
     <ClInclude Include="Source\Game\Misc\Cooldown.h" />
+    <ClInclude Include="Source\Game\Misc\Lawnmower.h" />
     <ClInclude Include="Source\Game\Misc\NormalSun.h" />
     <ClInclude Include="Source\Game\Misc\Sun.h" />
     <ClInclude Include="Source\Game\mygame.h" />

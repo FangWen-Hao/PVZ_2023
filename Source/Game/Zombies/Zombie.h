@@ -53,6 +53,7 @@ namespace game_framework
 		// virtual void setLane(Lane* lane) { _currentLane = lane; }
 		virtual void setHp(int hp) { _hp = hp; }
 		virtual void setSpeed(int speed) { _speed = speed; }
+		virtual void setIsDead(bool isDead) { _isDead = isDead; }
 		void beingAttacked(int damage) { _hp -= damage; }
 
 		virtual void attack() {}
