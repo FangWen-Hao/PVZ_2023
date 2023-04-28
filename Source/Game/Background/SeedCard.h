@@ -30,7 +30,8 @@ namespace game_framework {
 		SQUASH,
 		THREE_PEATER,
 		JALAPENO,
-		SPIKE_WEED
+		SPIKE_WEED,
+		SHOVEL
 	};
 	
 	class SeedCard : public CMovingBitmap

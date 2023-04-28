@@ -9,6 +9,8 @@ using namespace std;
 namespace game_framework {
 	const string MAP_BG_DAY = "Resources/Background/GAME/DAY/BMP/Background.bmp";
 	const string MAP_BG_NIGHT = "Resources/Background/GAME/NIGHT/BMP/Background.bmp";
+	const string SHOVEL_CURSOR_BITMAP = "Resources/Misc/Shovel/BMP/Shovel1.bmp";
+
 	const int SUN_PRODUCTION_COOLDOWN = 10;
 	const unsigned int MAX_SUNS_FALLEN = 10;
 	const int FALLING_SUN_INITIAL_POSITION = 50;
@@ -52,6 +54,7 @@ namespace game_framework {
 		vector<vector<Plant*>> plants;
 		vector<Bullet*> bullets;
 
+		CMovingBitmap shovelCursor;
 		Plant* currentSelectPlant = nullptr;
 		SEED_CARD_TYPE currentSelectedSeedCard = REFUSED;
 	};
