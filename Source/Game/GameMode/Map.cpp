@@ -23,11 +23,9 @@ namespace game_framework {
 		}
 
 		// temp code
-		// NormalZombie *nz = new NormalZombie();
-		// nz->onInit();
-		// zombies.push_back(nz);
-
-		this->zombiesSpawningInstructions = zombiesSpawningInstructions;
+		NormalZombie *nz = new NormalZombie();
+		nz->onInit();
+		zombies.push_back(nz);
 
 		for (int row = 0; row < 5; row++)
 		{
@@ -159,8 +157,6 @@ namespace game_framework {
 			bar.move();
 			collisionDetection(&zombies);
 
-			CreateZombieOnInstruction();
-
 			UpdatePlantsState();
 
 			UpdateZombiesState();
@@ -194,7 +190,14 @@ namespace game_framework {
 				&& zombie->left() <= lawnmowers.at(zombie->row())->getRight()
 				&& !zombie->isDead())
 			{
-				zombie->setIsDead(true);
+				if (!lawnmowers.at(zombie->row())->isActive())
+				{
+					lawnmowers.at(zombie->row())->activate();
+				}
+				else
+				{
+					zombie->setHp(0);
+				}
 			}
 
 			if (zombie->isDead() && zombie->isDeadDone())
@@ -371,20 +374,19 @@ namespace game_framework {
 	{
 		for (int row = 0; row < 5; row++)
 		{
-			Lawnmower* lawnmower = lawnmowers.at(row);
-			if (lawnmower == nullptr)
+			if (lawnmowers.at(row) == nullptr)
 			{
 				continue;
 			}
 
-			if (lawnmower->isActive())
+			if (lawnmowers.at(row)->isActive())
 			{
-				lawnmower->move();
+				lawnmowers.at(row)->move();
 			}
 
-			if (lawnmower->isDone())
+			if (lawnmowers.at(row)->isDone())
 			{
-				delete lawnmower;
+				delete lawnmowers.at(row);
 				lawnmowers.at(row) = nullptr;
 			}
 		}
@@ -464,14 +466,6 @@ namespace game_framework {
 			else
 			{
 				zombie->setIsAttacking(false);
-			}
-
-			if (lawnmowers.at(zombie->row()) != nullptr
-				&& zombie->left() <= lawnmowers.at(zombie->row())->getRight()
-				&& !zombie->isDead()
-				&& !lawnmowers.at(zombie->row())->isActive())
-			{
-				lawnmowers.at(zombie->row())->activate();
 			}
 		}
 	}

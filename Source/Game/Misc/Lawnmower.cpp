@@ -32,7 +32,7 @@ bool Lawnmower::isActive()
 
 void Lawnmower::move()
 {
-	bitmap.SetTopLeft(bitmap.GetTop(), bitmap.GetLeft() + LAWNMOWER_MOVEMENT_SPEED);
+	bitmap.SetTopLeft(bitmap.GetLeft() + LAWNMOWER_MOVEMENT_SPEED, bitmap.GetTop());
 }
 
 bool Lawnmower::isDone()

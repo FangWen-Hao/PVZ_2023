@@ -41,6 +41,11 @@ namespace game_framework {
 		void CreatePlantOnClick(const CPoint &coords);
 		void UpdateLawnmowers();
 
+		void CreateZombieOnInstruction();
+		void UpdatePlantsState();
+		void UpdateZombiesState();
+		void UpdateBulletsState();
+
 		int ZombiesKilled = 0;
 		int sunsAmount = 50;
 		bool isDay;
