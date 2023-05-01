@@ -63,6 +63,12 @@ namespace game_framework
 			_posY = BOTTOM_LANE_POSITION_ON_SCREEN_MAP.at(_row) - normalAnimate.GetHeight();
 		}
 
+		virtual void onInit(int row) {
+			_row = row;
+			_posX = RIGHT_TILES_POSITION_ON_MAP.at(8);
+			_posY = BOTTOM_LANE_POSITION_ON_SCREEN_MAP.at(_row) - normalAnimate.GetHeight();
+		}
+
 		virtual void onMove(vector<vector<Plant*>>*);
 
 		virtual void onShow() {

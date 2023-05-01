@@ -87,6 +87,7 @@ namespace game_framework
 				&& coords.y < (startGameButton.GetTop() + startGameButton.GetHeight()) && coords.y > startGameButton.GetTop())
 			{
 				gameStarted = true;
+				gameStartedTime = high_resolution_clock::now();
 				background.UnshowBitmap();
 				picker.unshow();
 				startGameButton.UnshowBitmap();
@@ -187,6 +188,11 @@ namespace game_framework
 	bool GameBar::hasGameStarted(void)
 	{
 		return gameStarted;
+	}
+
+	high_resolution_clock::time_point GameBar::getGameStartedTime()
+	{
+		return gameStartedTime;
 	}
 
 	void GameBar::drawSun()

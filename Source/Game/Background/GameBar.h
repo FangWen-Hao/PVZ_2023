@@ -27,6 +27,7 @@ namespace game_framework
 		void setSuns(int suns);
 		int getSuns(void);
 		bool hasGameStarted(void);
+		high_resolution_clock::time_point getGameStartedTime();
 
 	private:
 		void drawSun();
@@ -45,6 +46,7 @@ namespace game_framework
 		int _suns;
 		int _selectedCards = 0;
 		bool gameStarted = false;
+		high_resolution_clock::time_point gameStartedTime;
 
 		CMovingBitmap background;
 		vector<SeedCard> cards;

@@ -19,7 +19,7 @@ namespace game_framework {
 	class Map : public GameMode
 	{
 	public:
-		Map();
+		Map(vector<vector<int>> zombiesSpawningInstructions);
 		~Map();
 
 		void init();
@@ -37,6 +37,11 @@ namespace game_framework {
 		void removeSunFromVector(Sun*);
 		void collisionDetection(vector<Zombie*>*);
 		CPoint _mousePos2TilePos(CPoint);
+		void UpdateBulletsState();
+		void UpdateZombiesState();
+		void UpdatePlantsState();
+		void CreateZombieOnInstruction();
+		Zombie* zombieFactory();
 		void AddSunOnClick(CPoint &coords);
 		void CreatePlantOnClick(const CPoint &coords);
 		void UpdateLawnmowers();
@@ -58,6 +63,7 @@ namespace game_framework {
 
 		vector<Sun*> displayedSuns;
 		vector<Zombie*> zombies;
+		vector<vector<int>> zombiesSpawningInstructions;
 		vector<vector<Plant*>> plants;
 		vector<Bullet*> bullets;
 		vector<Lawnmower*> lawnmowers;
