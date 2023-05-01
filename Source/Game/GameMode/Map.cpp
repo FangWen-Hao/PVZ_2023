@@ -24,11 +24,16 @@ namespace game_framework {
 		}
 
 		// temp code
-		// NormalZombie *nz = new NormalZombie();
-		// nz->onInit();
-		// zombies.push_back(nz);
+    
+		NormalZombie *nz = new NormalZombie();
+		nz->onInit();
+		zombies.push_back(nz);
 
-		this->zombiesSpawningInstructions = zombiesSpawningInstructions;
+		for (int row = 0; row < 5; row++)
+		{
+			lawnmowers.push_back(new Lawnmower());
+		}
+    
 	}
 
 	Map::~Map()
@@ -51,6 +56,12 @@ namespace game_framework {
 					delete plants.at(row).at(col);
 				}
 			}
+
+			if (lawnmowers.at(row) != nullptr)
+			{
+				delete lawnmowers.at(row);
+			}
+
 		}
 
 		// delete vector bullets
@@ -65,11 +76,25 @@ namespace game_framework {
 		// Sun is obtained from [...] and falls from the sky approximately every 10 seconds when it is daytime. -> https://plantsvszombies.fandom.com/wiki/Sun
 		sunProductionCooldown.initCooldown(10);
 		shovelCursor.LoadBitmapByString({ SHOVEL_CURSOR_BITMAP }, RGB(255, 255, 255));
+
+		for (int row = 0; row < 5; row++)
+		{
+			lawnmowers.at(row)->init(row);
+		}
 	}
 
 	void Map::show()
 	{
 		background.show();
+
+		for (Lawnmower* lawnmower : lawnmowers)
+		{
+			if (lawnmower != nullptr)
+			{
+				lawnmower->show();
+			}
+		}
+
 		bar.show();
 
 		if (bar.hasGameStarted())
@@ -143,8 +168,76 @@ namespace game_framework {
 			UpdateZombiesState();
 
 			UpdateBulletsState();
+
+			UpdateLawnmowers();
 		}
 	}
+
+	void Map::UpdateBulletsState()
+	{
+		for (Bullet* bullet : bullets)
+		{
+			bullet->onMove();
+			if (bullet->detectCollison(&zombies) || bullet->GetLeft() > 900)
+			{
+				bullets.erase(remove(bullets.begin(), bullets.end(), bullet), bullets.end());
+				delete bullet;
+			}
+		}
+	}
+
+	void Map::UpdateZombiesState()
+	{
+		for (Zombie* zombie : zombies)
+		{
+			zombie->onMove(&plants);
+
+			if (lawnmowers.at(zombie->row()) != nullptr
+				&& zombie->left() <= lawnmowers.at(zombie->row())->getRight()
+				&& !zombie->isDead())
+			{
+				if (!lawnmowers.at(zombie->row())->isActive())
+				{
+					lawnmowers.at(zombie->row())->activate();
+				}
+				else
+				{
+					zombie->setHp(0);
+				}
+			}
+
+			if (zombie->isDead() && zombie->isDeadDone())
+			{
+				zombies.erase(remove(zombies.begin(), zombies.end(), zombie), zombies.end());
+				delete zombie;
+			}
+		}
+	}
+
+	void Map::UpdatePlantsState()
+	{
+		for (vector<Plant*> row : plants) {
+			for (Plant* plant : row) {
+				if (plant != nullptr)
+				{
+					if (plant->getType() == PLANT_TYPE::GENERATE_SUN) plant->onMove(&displayedSuns);
+					else if (plant->getType() == PLANT_TYPE::SHOOTING) plant->onMove(&bullets, &zombies);
+					else plant->onMove();
+
+					if (plant->isDead())
+					{
+						if (plant->getType() == PLANT_TYPE::GENERATE_SUN) plant->onMove(&displayedSuns);
+						else if (plant->getType() == PLANT_TYPE::SHOOTING) plant->onMove(&bullets, &zombies);
+						else plant->onMove();
+
+						if (plant->isDead())
+						{
+							plants[plant->row()][plant->col()] = nullptr;
+							delete plant;
+						}
+					}
+				}
+			}
 
 	void Map::UpdateBulletsState()
 	{
@@ -314,6 +407,28 @@ namespace game_framework {
 		}
 
 		currentSelectedSeedCard = card;
+	}
+
+	void Map::UpdateLawnmowers()
+	{
+		for (int row = 0; row < 5; row++)
+		{
+			if (lawnmowers.at(row) == nullptr)
+			{
+				continue;
+			}
+
+			if (lawnmowers.at(row)->isActive())
+			{
+				lawnmowers.at(row)->move();
+			}
+
+			if (lawnmowers.at(row)->isDone())
+			{
+				delete lawnmowers.at(row);
+				lawnmowers.at(row) = nullptr;
+			}
+		}
 	}
 
 	void Map::AddSunOnClick(CPoint &coords)
