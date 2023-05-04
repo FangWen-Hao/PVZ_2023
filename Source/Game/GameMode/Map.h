@@ -4,6 +4,7 @@
 #include "../Plants/Plant.h"
 #include "../Zombies/Zombie.h"
 #include "../Misc/Sun.h"
+#include "../Misc/Lawnmower.h"
 
 using namespace std;
 namespace game_framework {
@@ -28,38 +29,63 @@ namespace game_framework {
 		int OnClick(CPoint coords);
 
 		void setIsDay(bool val);
-		bool getIsDay();
-
-		void sunFactoryLogic();
+		bool getIsDay() { return isDay; }
 
 	private:
-		void removeSunFromVector(Sun*);
-		void collisionDetection(vector<Zombie*>*);
-		CPoint _mousePos2TilePos(CPoint);
-		void UpdateBulletsState();
-		void UpdateZombiesState();
-		void UpdatePlantsState();
+		// Constructor helper methods
+		void SetUpGameBoard();
+
+		// Destructor helper methods
+		void DeleteEntities();
+
+		// Init helper methods
+		void InitUI();
+		void InitGameBoard();
+
+		// Show helper methods
+		void ShowEntities();
+		void ShowCursor();
+
+		// OnHover helper methods
+		void OnHoverCursor(CPoint &coords);
+
+		// OnMove helper methods
+		void sunFactoryLogic();
 		void CreateZombieOnInstruction();
-		Zombie* zombieFactory();
+		void collisionDetection(vector<Zombie*>*);
+		void UpdatePlantsState();
+		void UpdateZombiesState();
+		void UpdateBulletsState();
+		void UpdateLawnmowers();
+
+		// OnClick helper methods
 		void AddSunOnClick(CPoint &coords);
 		void CreatePlantOnClick(const CPoint &coords);
 
+		// Helpers Helper methods
+		Zombie* zombieFactory();
+		CPoint _mousePos2TilePos(CPoint);
+		void removeSunFromVector(Sun*);
+		
+		// Stats attributes
 		int ZombiesKilled = 0;
 		int sunsAmount = 50;
 		bool isDay;
-		GameBar bar;
-
-		// GameMenu menu;
-		// ProgressBar progress;
-		// vector<Lane> lanes;
+		
+		// Game Logic attributes
 		Cooldown sunProductionCooldown;
-
+		// vector<Lane> lanes;
 		vector<Sun*> displayedSuns;
 		vector<Zombie*> zombies;
 		vector<vector<int>> zombiesSpawningInstructions;
 		vector<vector<Plant*>> plants;
 		vector<Bullet*> bullets;
+		vector<Lawnmower*> lawnmowers;
 
+		// UI Elements attributes
+		GameBar bar;
+		// GameMenu menu;
+		// ProgressBar progress;
 		CMovingBitmap shovelCursor;
 		Plant* currentSelectPlant = nullptr;
 		SEED_CARD_TYPE currentSelectedSeedCard = REFUSED;

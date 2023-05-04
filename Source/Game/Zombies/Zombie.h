@@ -48,6 +48,7 @@ namespace game_framework
 			if (!_isAttacking) attackCooldown.startCooldown();
 			_isAttacking = isAttacking;
 		}
+		void setHp(int hp) { _hp = hp; }
 
 		virtual void onInit(int);
 		virtual void onMove(vector<vector<Plant*>>*);
