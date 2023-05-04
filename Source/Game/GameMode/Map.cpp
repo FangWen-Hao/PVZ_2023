@@ -24,16 +24,11 @@ namespace game_framework {
 		}
 
 		// temp code
-    
-		NormalZombie *nz = new NormalZombie();
-		nz->onInit();
-		zombies.push_back(nz);
+		// NormalZombie *nz = new NormalZombie();
+		// nz->onInit();
+		// zombies.push_back(nz);
 
-		for (int row = 0; row < 5; row++)
-		{
-			lawnmowers.push_back(new Lawnmower());
-		}
-    
+		this->zombiesSpawningInstructions = zombiesSpawningInstructions;
 	}
 
 	Map::~Map()
@@ -56,12 +51,6 @@ namespace game_framework {
 					delete plants.at(row).at(col);
 				}
 			}
-
-			if (lawnmowers.at(row) != nullptr)
-			{
-				delete lawnmowers.at(row);
-			}
-
 		}
 
 		// delete vector bullets
@@ -71,30 +60,16 @@ namespace game_framework {
 	{
 		isDay = true;
 		background.init(MAP_BG_DAY);
-		bar.init(50);
+		bar.init(sunsAmount);
 
 		// Sun is obtained from [...] and falls from the sky approximately every 10 seconds when it is daytime. -> https://plantsvszombies.fandom.com/wiki/Sun
 		sunProductionCooldown.initCooldown(10);
 		shovelCursor.LoadBitmapByString({ SHOVEL_CURSOR_BITMAP }, RGB(255, 255, 255));
-
-		for (int row = 0; row < 5; row++)
-		{
-			lawnmowers.at(row)->init(row);
-		}
 	}
 
 	void Map::show()
 	{
 		background.show();
-
-		for (Lawnmower* lawnmower : lawnmowers)
-		{
-			if (lawnmower != nullptr)
-			{
-				lawnmower->show();
-			}
-		}
-
 		bar.show();
 
 		if (bar.hasGameStarted())
@@ -168,76 +143,8 @@ namespace game_framework {
 			UpdateZombiesState();
 
 			UpdateBulletsState();
-
-			UpdateLawnmowers();
 		}
 	}
-
-	void Map::UpdateBulletsState()
-	{
-		for (Bullet* bullet : bullets)
-		{
-			bullet->onMove();
-			if (bullet->detectCollison(&zombies) || bullet->GetLeft() > 900)
-			{
-				bullets.erase(remove(bullets.begin(), bullets.end(), bullet), bullets.end());
-				delete bullet;
-			}
-		}
-	}
-
-	void Map::UpdateZombiesState()
-	{
-		for (Zombie* zombie : zombies)
-		{
-			zombie->onMove(&plants);
-
-			if (lawnmowers.at(zombie->row()) != nullptr
-				&& zombie->left() <= lawnmowers.at(zombie->row())->getRight()
-				&& !zombie->isDead())
-			{
-				if (!lawnmowers.at(zombie->row())->isActive())
-				{
-					lawnmowers.at(zombie->row())->activate();
-				}
-				else
-				{
-					zombie->setHp(0);
-				}
-			}
-
-			if (zombie->isDead() && zombie->isDeadDone())
-			{
-				zombies.erase(remove(zombies.begin(), zombies.end(), zombie), zombies.end());
-				delete zombie;
-			}
-		}
-	}
-
-	void Map::UpdatePlantsState()
-	{
-		for (vector<Plant*> row : plants) {
-			for (Plant* plant : row) {
-				if (plant != nullptr)
-				{
-					if (plant->getType() == PLANT_TYPE::GENERATE_SUN) plant->onMove(&displayedSuns);
-					else if (plant->getType() == PLANT_TYPE::SHOOTING) plant->onMove(&bullets, &zombies);
-					else plant->onMove();
-
-					if (plant->isDead())
-					{
-						if (plant->getType() == PLANT_TYPE::GENERATE_SUN) plant->onMove(&displayedSuns);
-						else if (plant->getType() == PLANT_TYPE::SHOOTING) plant->onMove(&bullets, &zombies);
-						else plant->onMove();
-
-						if (plant->isDead())
-						{
-							plants[plant->row()][plant->col()] = nullptr;
-							delete plant;
-						}
-					}
-				}
-			}
 
 	void Map::UpdateBulletsState()
 	{
@@ -271,9 +178,7 @@ namespace game_framework {
 			for (Plant* plant : row) {
 				if (plant != nullptr)
 				{
-					if (plant->getType() == PLANT_TYPE::GENERATE_SUN) plant->onMove(&displayedSuns);
-					else if (plant->getType() == PLANT_TYPE::SHOOTING) plant->onMove(&bullets, &zombies);
-					else plant->onMove();
+					plant->onMove(&bullets, &displayedSuns, &zombies);
 
 					if (plant->isDead())
 					{
@@ -324,6 +229,14 @@ namespace game_framework {
 		case SEED_CARD_TYPE::PEA_SHOOTER:
 			if (bar.getSuns() >= PeaShooter::price)
 				currentSelectPlant = new PeaShooter(coords);
+			break;
+		case SEED_CARD_TYPE::REPEATER_PEA:
+			if (bar.getSuns() >= RepeaterPea::price)
+				currentSelectPlant = new RepeaterPea(coords);
+			break;
+		case SEED_CARD_TYPE::THREE_PEATER:
+			if (bar.getSuns() >= Threepeater::price)
+				currentSelectPlant = new Threepeater(coords);
 			break;
 		case SEED_CARD_TYPE::POTATO_MINE:
 			if (bar.getSuns() >= PotatoMine::price)
@@ -398,7 +311,7 @@ namespace game_framework {
 				currentSelectPlant->PlaceDown(pos.y, pos.x);
 				plants[pos.y][pos.x] = currentSelectPlant;
 
-				bar.addSuns(-1 * currentSelectPlant->getPrice());
+				bar.addSuns(-1 * currentSelectPlant->price());
 				bar.setSeedCardCooldown(currentSelectedSeedCard);
 				currentSelectPlant = nullptr;
 			}
@@ -407,28 +320,6 @@ namespace game_framework {
 		}
 
 		currentSelectedSeedCard = card;
-	}
-
-	void Map::UpdateLawnmowers()
-	{
-		for (int row = 0; row < 5; row++)
-		{
-			if (lawnmowers.at(row) == nullptr)
-			{
-				continue;
-			}
-
-			if (lawnmowers.at(row)->isActive())
-			{
-				lawnmowers.at(row)->move();
-			}
-
-			if (lawnmowers.at(row)->isDone())
-			{
-				delete lawnmowers.at(row);
-				lawnmowers.at(row) = nullptr;
-			}
-		}
 	}
 
 	void Map::AddSunOnClick(CPoint &coords)

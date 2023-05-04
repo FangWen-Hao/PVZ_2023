@@ -4,7 +4,6 @@
 #include "../Plants/Plant.h"
 #include "../Zombies/Zombie.h"
 #include "../Misc/Sun.h"
-#include "../Misc/Lawnmower.h"
 
 using namespace std;
 namespace game_framework {
@@ -44,12 +43,6 @@ namespace game_framework {
 		Zombie* zombieFactory();
 		void AddSunOnClick(CPoint &coords);
 		void CreatePlantOnClick(const CPoint &coords);
-		void UpdateLawnmowers();
-
-		void CreateZombieOnInstruction();
-		void UpdatePlantsState();
-		void UpdateZombiesState();
-		void UpdateBulletsState();
 
 		int ZombiesKilled = 0;
 		int sunsAmount = 50;
@@ -66,7 +59,6 @@ namespace game_framework {
 		vector<vector<int>> zombiesSpawningInstructions;
 		vector<vector<Plant*>> plants;
 		vector<Bullet*> bullets;
-		vector<Lawnmower*> lawnmowers;
 
 		CMovingBitmap shovelCursor;
 		Plant* currentSelectPlant = nullptr;

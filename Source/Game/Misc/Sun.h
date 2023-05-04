@@ -16,10 +16,18 @@ namespace game_framework
 		Sun();
 		~Sun() {};
 
+		int width() { return GetWidth(); }
+		int height() { return GetHeight(); }
+		int top() { return GetTop(); }
+		int left() { return GetLeft(); }
+		int right() { return left() + width(); }
+		int bottom() { return top() + height(); }
+
 		virtual void init(int posX, int startingPosY, int finalPosY);
 		virtual void show();
 		virtual void unshow();
 		virtual int update();
+		bool onClick(CPoint);
 
 		virtual int getValue() { return _value; };
 

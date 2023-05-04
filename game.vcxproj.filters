@@ -174,8 +174,14 @@
     <ClCompile Include="Source\Game\Zombies\Zombie.cpp">
       <Filter>MyGame\Zombies</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\Misc\Lawnmower.cpp">
-      <Filter>MyGame\Misc</Filter>
+    <ClCompile Include="Source\Game\Misc\Bullet\PuffShroomBullet.cpp">
+      <Filter>MyGame\Misc\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Plants\Threepeater.cpp">
+      <Filter>MyGame\Plants</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Plants\RepeaterPea.cpp">
+      <Filter>MyGame\Plants</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -280,9 +286,6 @@
     </ClInclude>
     <ClInclude Include="Source\Game\GameMode\Maps\Zombies_Spawn_Instruction.h">
       <Filter>MyGame\GameMode\Maps</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Misc\Lawnmower.h">
-      <Filter>MyGame\Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

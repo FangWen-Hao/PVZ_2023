@@ -48,11 +48,10 @@ namespace game_framework
 	public:
 		~Plant() {}
 
-		// virtual void setLane(Lane* lane) { _currentLane = lane; }
-		PLANT_TYPE getType() { return _type; }
-		PLANT getName() { return _name; }
-		int getCurrentHp() { return _hp; }
-		int getPrice() { return _price; }
+		PLANT_TYPE type() { return _type; }
+		PLANT name() { return _name; }
+		
+		int price() { return _price; }
 		int width() { return animate.GetWidth(); }
 		int height() { return animate.GetHeight(); }
 		int top() { return animate.GetTop(); }
@@ -61,10 +60,11 @@ namespace game_framework
 		int bottom() { return top() + height(); }
 		int row() { return _row; }
 		int col() { return _col; }
+		
 		bool isDead() { return _isDead; }
 
 		void SetTopLeft(CPoint pos) { animate.SetTopLeft(pos.x, pos.y); }
-		void begingAttack(int damage) { _hp -= damage; }
+		void beingAttack(int damage) { _hp -= damage; }
 
 		virtual void PlaceDown(int row, int col)
 		{
@@ -74,10 +74,7 @@ namespace game_framework
 			animate.SetTopLeft(MIDDLE_TILES_POSITION_ON_MAP.at(col) - width() / 2,
 				MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(row) - height() / 2);
 		}
-
-		virtual void onMove() { if (_hp < 0) _isDead = true; }
-		virtual void onMove(vector<Sun*>*) { Plant::onMove(); }
-		virtual void onMove(vector<Bullet*>*, vector<Zombie*>*) { Plant::onMove(); }
+		virtual void onMove(vector<Bullet*>*, vector<Sun*>*, vector<Zombie*>*) { if (_hp < 0) _isDead = true; }
 		virtual void onShow() { animate.ShowBitmap(); }
 
 	protected:
@@ -89,11 +86,12 @@ namespace game_framework
 		const int _price;
 		const double _coolDown;
 		
-		CMovingBitmap animate;
 		int _hp;
 		int _row;
 		int _col;
 		bool _isDead = false;
+		
+		CMovingBitmap animate;
 	};
 	//////////////////////////////////////////////////
 
@@ -117,11 +115,23 @@ namespace game_framework
 	public:
 
 	protected:
-		DisposablePlant(const PLANT name, const int price, const double coolDown, const int damage)
-			: Plant(PLANT_TYPE::DISPOSABLE, name, price, coolDown), _damage(damage) {}
+		DisposablePlant(const PLANT name, const int price, const double coolDown, const int damage, const int perpareTime)
+			: Plant(PLANT_TYPE::DISPOSABLE, name, price, coolDown), _damage(damage), _perpareTime(perpareTime)
+		{
+			readyClock.initCooldown(_perpareTime);
+		}
 		~DisposablePlant() {}
 
+		virtual void PlaceDown(int row, int col) override {
+			Plant::PlaceDown(row, col);
+			readyClock.startCooldown();
+		}
+
 		const int _damage;
+		const int _perpareTime;
+
+		bool isReady = false;
+		Cooldown readyClock;
 	};
 
 	class GenerateSunPlant : public Plant
@@ -129,8 +139,8 @@ namespace game_framework
 	public:
 		virtual void generateSun(vector<Sun*>*) = 0;
 
-		virtual void onMove(vector<Sun*>* suns) {
-			Plant::onMove();
+		virtual void onMove(vector<Bullet*>* bullets, vector<Sun*>* suns, vector<Zombie*>* zombies) override {
+			Plant::onMove(bullets, suns, zombies);
 
 			if (!generateCooldown.isOnCooldown())
 			{
@@ -162,12 +172,12 @@ namespace game_framework
 	public:
 		virtual void attack(vector<Bullet*>*) = 0;
 
-		virtual void onMove(vector<Bullet*>* bullets, vector<Zombie*>* zombies) {
-			Plant::onMove();
+		virtual void onMove(vector<Bullet*>* bullets, vector<Sun*>* suns, vector<Zombie*>* zombies) override {
+			Plant::onMove(bullets, suns, zombies);
 
 			bool hasZombieInRow = false;
 
-			for (Zombie *zombie : *zombies) {
+			for (Zombie* zombie : *zombies) {
 				if (zombie->row() == _row) {
 					hasZombieInRow = true;
 					break;
@@ -239,7 +249,13 @@ namespace game_framework
 
 		static const int price = 150;
 
+		void PlaceDown(int, int) override;
+		void onMove(vector<Bullet*>*, vector<Sun*>*, vector<Zombie*>*) override;
+		void onShow() override;
+
 	protected:
+		bool boom = false;
+		CMovingBitmap boomAnimate;
 	};
 
 
@@ -251,10 +267,10 @@ namespace game_framework
 
 		static const int price = 25;
 
-		void onMove() override;
+		void onMove(vector<Bullet*>*, vector<Sun*>*, vector<Zombie*>*) override;
 
 	private:
-		bool _isDetected = false;
+		bool isBoom = false;
 	};
 
 	class Squash : public DisposablePlant
@@ -264,6 +280,14 @@ namespace game_framework
 		~Squash() {}
 
 		static const int price = 50;
+
+		void PlaceDown(int row, int col) override;
+		void onMove(vector<Bullet*>*, vector<Sun*>*, vector<Zombie*>*) override;
+		void onShow() override;
+
+	private:
+		bool isActivate = false;
+		CMovingBitmap activeAnimate;
 	};
 	//////////////////////////////////////////////////
 
@@ -300,6 +324,29 @@ namespace game_framework
 		void attack(vector<Bullet*>*) override;
 	};
 
+	class RepeaterPea : public ShootingPlant
+	{
+	public:
+		RepeaterPea(CPoint);
+		~RepeaterPea() {};
+
+		static const int price = 200;
+
+		void attack(vector<Bullet*>*) override;
+	};
+
+	class Threepeater : public ShootingPlant
+	{
+	public:
+		Threepeater(CPoint);
+		~Threepeater() {};
+
+		static const int price = 325;
+
+		void attack(vector<Bullet*>*) override;
+		void onMove(vector<Bullet*>*, vector<Sun*>*, vector<Zombie*>*) override;
+	};
+
 	class SnowPea : public ShootingPlant
 	{
 	public:
@@ -318,7 +365,8 @@ namespace game_framework
 		~PuffShroom() {}
 
 		static const int price = 0;
-
+		
+		void onMove(vector<Bullet*>*, vector<Sun*>*, vector<Zombie*>*) override;
 		void attack(vector<Bullet*>*) override;
 	};
 	//////////////////////////////////////////////////
@@ -352,12 +400,7 @@ namespace game_framework
 		~Jalapeno();
 	};
 
-	class RepeaterPea : public Plant
-	{
-	public:
-		RepeaterPea();
-		~RepeaterPea();
-	};
+	
 
 	class ScaredyShroom : public Plant
 	{
@@ -371,13 +414,6 @@ namespace game_framework
 	public:
 		Spikeweed();
 		~Spikeweed();
-	};
-
-	class Threepeater : public Plant
-	{
-	public:
-		Threepeater();
-		~Threepeater();
 	};
 	*/
 }

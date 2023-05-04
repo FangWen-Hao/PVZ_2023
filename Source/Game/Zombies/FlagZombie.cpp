@@ -3,7 +3,7 @@
 
 using namespace game_framework;
 
-FlagZombie::FlagZombie() : Zombie(ZOMBIE_TYPE::FLAG, 4, 0.04)
+FlagZombie::FlagZombie() : Zombie(ZOMBIE_TYPE::FLAG, 4, 0.04, 3.7)
 {
 	normalAnimate.LoadBitmapByString({
 		"Resources/Zombies/BMP/NormalState/FlagZombie/FlagZombie_0.bmp",

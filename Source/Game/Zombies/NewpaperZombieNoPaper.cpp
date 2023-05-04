@@ -3,7 +3,7 @@
 
 using namespace game_framework;
 
-NewpaperZombieNoPaper::NewpaperZombieNoPaper() : Zombie(ZOMBIE_TYPE::NEWSPAPERNOPAPER, 4, 0.04)
+NewpaperZombieNoPaper::NewpaperZombieNoPaper() : Zombie(ZOMBIE_TYPE::NEWSPAPERNOPAPER, 4, 0.04, 1.8)
 {
 	normalAnimate.LoadBitmapByString({
 		"Resources/Zombies/BMP/NormalState/NewspaperZombieNoPaper/NewspaperZombieNoPaper_0.bmp",

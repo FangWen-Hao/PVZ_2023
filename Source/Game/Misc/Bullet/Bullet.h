@@ -14,7 +14,7 @@ namespace game_framework
 	public:
 		virtual void onMove()
 		{
-			SetTopLeft(GetLeft() + 2, GetTop());
+			SetTopLeft(GetLeft() + 5, GetTop());
 		}
 		virtual void onShow(double factor = 1)
 		{
@@ -48,5 +48,12 @@ namespace game_framework
 	public:
 		SnowPeaBullet(int, int, int);
 		~SnowPeaBullet();
+	};
+
+	class PuffShroomBullet : public Bullet
+	{
+	public:
+		PuffShroomBullet(int, int, int);
+		~PuffShroomBullet();
 	};
 }

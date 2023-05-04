@@ -19,7 +19,27 @@ PuffShroom::PuffShroom(CPoint pos) : ShootingPlant(PLANT::PUFF_SHROOM, PuffShroo
 	_hp = 300;
 }
 
+void PuffShroom::onMove(vector<Bullet*>* bullets, vector<Sun*>* suns, vector<Zombie*>* zombies)
+{
+	Plant::onMove(bullets, suns, zombies);
+
+	bool hasZombieInAttackRange = false;
+
+	for (Zombie* zombie : *zombies) {
+		if (zombie->row() == _row && zombie->col() != -1 && zombie->col() <= _col + 3) {
+			hasZombieInAttackRange = true;
+			break;
+		}
+	}
+
+	if (hasZombieInAttackRange && !attackCooldown.isOnCooldown())
+	{
+		attack(bullets);
+		attackCooldown.startCooldown();
+	}
+}
+
 void PuffShroom::attack(vector<Bullet*>* bullets)
 {
-	// TODO
+	bullets->push_back(new PuffShroomBullet(MIDDLE_TILES_POSITION_ON_MAP.at(_col), MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(_row), _damage));
 }

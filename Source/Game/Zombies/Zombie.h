@@ -29,9 +29,8 @@ namespace game_framework
 	public:
 		~Zombie() {}
 
-		// virtual Lane getLane() { return _currentLane; }
-		ZOMBIE_TYPE getType() { return _type; }
-		int getDamage() { return _damage; }
+		ZOMBIE_TYPE type() { return _type; }
+		
 		int width() { return normalAnimate.GetWidth(); }
 		int height() { return normalAnimate.GetHeight(); }
 		int left() { return _posX; }
@@ -41,77 +40,44 @@ namespace game_framework
 		int row() { return _row; }
 		int col() { return _col; }
 
-		virtual int getCurrentHp() { return _hp; }
-		virtual int getSpeed() { return _speed; }
-		virtual bool isDead() { return _isDead; }
-		virtual bool isDeadDone() { return deadAnimate.IsAnimationDone(); }
+		bool isDead() { return _isDead; }
+		bool isDeadDone() { return deadAnimate.IsAnimationDone(); }
 
-		virtual void setIsAttacking(bool isAttacking) {
+		void beingAttacked(int damage) { _hp -= damage; }
+		void setIsAttacking(bool isAttacking) {
 			if (!_isAttacking) attackCooldown.startCooldown();
 			_isAttacking = isAttacking;
 		}
-		// virtual void setLane(Lane* lane) { _currentLane = lane; }
-		virtual void setHp(int hp) { _hp = hp; }
-		virtual void setSpeed(int speed) { _speed = speed; }
-		void beingAttacked(int damage) { _hp -= damage; }
 
-		virtual void attack() {}
-		virtual void onInit() {
-			_row = rand() % 5;
-
-			_posX = RIGHT_TILES_POSITION_ON_MAP.at(8);
-			_posY = BOTTOM_LANE_POSITION_ON_SCREEN_MAP.at(_row) - normalAnimate.GetHeight();
-		}
-
-		virtual void onInit(int row) {
-			_row = row;
-			_posX = RIGHT_TILES_POSITION_ON_MAP.at(8);
-			_posY = BOTTOM_LANE_POSITION_ON_SCREEN_MAP.at(_row) - normalAnimate.GetHeight();
-		}
-
+		virtual void onInit(int);
 		virtual void onMove(vector<vector<Plant*>>*);
-
-		virtual void onShow() {
-			if (_isDead)
-			{
-				deadAnimate.ShowBitmap();
-			}
-			else if (_isAttacking)
-			{
-				attackAnimate.ShowBitmap();
-			}
-			else
-			{
-				normalAnimate.ShowBitmap();
-			}
-		}
+		virtual void onShow();
 
 	protected:
-		Zombie(const ZOMBIE_TYPE type, const int damage, const double attackSpeed)
-			: _type(type), _damage(damage), _attackSpeed(attackSpeed)
+		Zombie(const ZOMBIE_TYPE type, const int damage, const double attackSpeed, const double moveSpeed)
+			: _type(type), _damage(damage), _attackSpeed(attackSpeed), _moveSpeed(moveSpeed)
 		{
 			attackCooldown.initCooldown(attackSpeed);
+			moveCooldown.initCooldown(moveSpeed / PX_PER_TILES);
 		}
 		
 		//Lane *_currentLane;
 		const ZOMBIE_TYPE _type;
 		const int _damage;
 		const double _attackSpeed;
-		int _speed = 1;
-		int _moveFrequency = 10;
+		const double _moveSpeed;
 
+		int _hp;
 		int _posX;
 		int _posY;
 		int _row;
 		int _col = -1;
 
-		int _hp;
-		int _ttlMove = 0;
-
 		bool _isAttacking = false;
 		bool _isDead = false;
 
 		Cooldown attackCooldown;
+		Cooldown moveCooldown;
 
 		CMovingBitmap normalAnimate;
 		CMovingBitmap deadAnimate;
@@ -131,6 +97,8 @@ namespace game_framework
 		}
 	};
 	//////////////////////////////////////////////////
+	
+
 	
 	//////////////////////////////////////////////////
 	// Inheritance Classes of Zombie

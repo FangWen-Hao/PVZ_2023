@@ -3,7 +3,7 @@
 
 using namespace game_framework;
 
-PotatoMine::PotatoMine(CPoint pos) : DisposablePlant(PLANT::POTATO_MINE, PotatoMine::price, 30, 1800)
+PotatoMine::PotatoMine(CPoint pos) : DisposablePlant(PLANT::POTATO_MINE, PotatoMine::price, 30, 1800, 15)
 {
 	animate.LoadBitmapByString({
 		"Resources/Plants/PotatoMine/BMP/PotatoMineInit_0.bmp",
@@ -24,11 +24,31 @@ PotatoMine::PotatoMine(CPoint pos) : DisposablePlant(PLANT::POTATO_MINE, PotatoM
 	_hp = 300;
 }
 
-void PotatoMine::onMove()
+void PotatoMine::onMove(vector<Bullet*>* bullets, vector<Sun*>* suns, vector<Zombie*>* zombies)
 {
-	if (_isDetected)
+	Plant::onMove(bullets, suns, zombies);
+
+	if (!isReady)
 	{
-		if (animate.IsAnimationDone()) _isDead = true;
-		return;
+		if (!readyClock.isOnCooldown())
+			isReady = true;
+	}
+	else
+	{
+		for (Zombie* zombie : *zombies) {
+			if (zombie->row() == _row && zombie->col() == _col)
+			{
+				if (!isBoom)
+				{
+					isBoom = true;
+					animate.ToggleAnimation();
+				}
+				else if (animate.IsAnimationDone())
+				{
+					zombie->beingAttacked(_damage);
+					_isDead = true;
+				}
+			}
+		}
 	}
 }

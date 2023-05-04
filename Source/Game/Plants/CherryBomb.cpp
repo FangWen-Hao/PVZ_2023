@@ -1,9 +1,12 @@
 #include "stdafx.h"
 #include "Plant.h"
+#include "../Misc/Bullet/Bullet.h"
+#include "../Misc/Sun.h"
+#include "../Zombies/Zombie.h"
 
 using namespace game_framework;
 
-CherryBomb::CherryBomb(CPoint pos) : DisposablePlant(PLANT::CHERRY_BOMB, CherryBomb::price, 50, 1800)
+CherryBomb::CherryBomb(CPoint pos) : DisposablePlant(PLANT::CHERRY_BOMB, CherryBomb::price, 50, 1800, 1)
 {
 	animate.LoadBitmapByString({
 		"Resources/Plants/CherryBomb/BMP/CherryBomb_0.bmp",
@@ -15,8 +18,57 @@ CherryBomb::CherryBomb(CPoint pos) : DisposablePlant(PLANT::CHERRY_BOMB, CherryB
 		"Resources/Plants/CherryBomb/BMP/CherryBomb_6.bmp",
 	}, RGB(255, 255, 255));
 
+	boomAnimate.LoadBitmapByString({
+		"Resources/Plants/CherryBomb/BMP/Boom.bmp",
+	}, RGB(255, 255, 255));
+	
 	animate.SetAnimation(100, false);
+	boomAnimate.SetAnimation(1000, true);
+	
 	animate.SetTopLeft(pos.x, pos.y);
+	boomAnimate.SetTopLeft(pos.x, pos.y);
 
 	_hp = 300;
+}
+void CherryBomb::PlaceDown(int row, int col)
+{
+	DisposablePlant::PlaceDown(row, col);
+	boomAnimate.SetTopLeft(animate.GetLeft(), animate.GetTop());
+}
+
+void CherryBomb::onMove(vector<Bullet*>* bullets, vector<Sun*>* suns, vector<Zombie*>* zombies)
+{
+	Plant::onMove(bullets, suns, zombies);
+
+	if (!isReady)
+	{
+		if (!readyClock.isOnCooldown())
+			isReady = true;
+	}
+	else
+	{
+		for (Zombie* zombie : *zombies) {
+			if (zombie->row() == _row && zombie->col() == _col)
+			{
+				if (!boom)
+				{
+					boom = true;
+					boomAnimate.ToggleAnimation();
+				}
+				else if (boomAnimate.IsAnimationDone())
+				{
+					zombie->beingAttacked(_damage);
+					_isDead = true;
+				}
+			}
+		}
+	}
+}
+
+void CherryBomb::onShow()
+{
+	if (boom)
+		boomAnimate.ShowBitmap();
+	else
+		animate.ShowBitmap();
 }

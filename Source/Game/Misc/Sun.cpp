@@ -49,3 +49,11 @@ int Sun::update()
 
 	return VALID;
 }
+
+bool Sun::onClick(CPoint pos)
+{
+	if (pos.x < right() && pos.x > left() &&
+		pos.y < bottom() && pos.y > top())
+		return true;
+	return false;
+}

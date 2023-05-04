@@ -3,7 +3,7 @@
 
 using namespace game_framework;
 
-NormalZombie::NormalZombie() : Zombie(ZOMBIE_TYPE::NORMAL, 4, 0.04)
+NormalZombie::NormalZombie() : Zombie(ZOMBIE_TYPE::NORMAL, 4, 0.04, 4.7)
 {
 	normalAnimate.LoadBitmapByString({
 		"Resources/Zombies/BMP/NormalState/Zombie/Zombie_0.bmp",

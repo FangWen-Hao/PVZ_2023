@@ -255,9 +255,9 @@
     <ClCompile Include="Source\Game\GameMode\Main_Menu.cpp" />
     <ClCompile Include="Source\Game\GameMode\Map.cpp" />
     <ClCompile Include="Source\Game\Misc\Bullet\PeaShooterBullet.cpp" />
+    <ClCompile Include="Source\Game\Misc\Bullet\PuffShroomBullet.cpp" />
     <ClCompile Include="Source\Game\Misc\Bullet\SnowPeaBullet.cpp" />
     <ClCompile Include="Source\Game\Misc\Cooldown.cpp" />
-    <ClCompile Include="Source\Game\Misc\Lawnmower.cpp" />
     <ClCompile Include="Source\Game\Misc\NormalSun.cpp" />
     <ClCompile Include="Source\Game\Misc\Sun.cpp" />
     <ClCompile Include="Source\Game\mygame_initialize.cpp" />
@@ -267,9 +267,11 @@
     <ClCompile Include="Source\Game\Plants\PeaShooter.cpp" />
     <ClCompile Include="Source\Game\Plants\PotatoMine.cpp" />
     <ClCompile Include="Source\Game\Plants\PuffShroom.cpp" />
+    <ClCompile Include="Source\Game\Plants\RepeaterPea.cpp" />
     <ClCompile Include="Source\Game\Plants\SnowPea.cpp" />
     <ClCompile Include="Source\Game\Plants\Squash.cpp" />
     <ClCompile Include="Source\Game\Plants\SunFlower.cpp" />
+    <ClCompile Include="Source\Game\Plants\Threepeater.cpp" />
     <ClCompile Include="Source\Game\Plants\WallNut.cpp" />
     <ClCompile Include="Source\Game\Terrain\Lane.cpp" />
     <ClCompile Include="Source\Game\Zombies\BucketheadZombie.cpp" />
@@ -310,7 +312,6 @@
     <ClInclude Include="Source\Game\GameMode\Maps\Zombies_Spawn_Instruction.h" />
     <ClInclude Include="Source\Game\Misc\Bullet\Bullet.h" />
     <ClInclude Include="Source\Game\Misc\Cooldown.h" />
-    <ClInclude Include="Source\Game\Misc\Lawnmower.h" />
     <ClInclude Include="Source\Game\Misc\NormalSun.h" />
     <ClInclude Include="Source\Game\Misc\Sun.h" />
     <ClInclude Include="Source\Game\mygame.h" />

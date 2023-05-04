@@ -24,5 +24,5 @@ PeaShooter::PeaShooter(CPoint pos) : ShootingPlant(PLANT::PEA_SHOOTER, PeaShoote
 void PeaShooter::attack(vector<Bullet*>* bullets)
 {
 	bullets->push_back(
-		new PeaShooterBullet(animate.GetLeft() + animate.GetWidth(), animate.GetTop(), _damage));
+		new PeaShooterBullet(MIDDLE_TILES_POSITION_ON_MAP.at(_col), MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(_row), _damage));
 }
