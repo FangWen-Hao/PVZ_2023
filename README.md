@@ -49,7 +49,7 @@
     - If the plants chosen are planted on the square that has plant, then the logic will cancel the chosen plant.
 13. Shovel logic: Removes the plants that has been planted on the map.
 
-## Work In Progress (Hopefully will be on ## Release v2.0.0)
+## Work In Progress (Hopefully will be on Released on v2.0.0)
 
 1. If the zombies are attacked by Snowpea, then the zombie animation will turn blue and move slower.
 2. If the zombies are attacked by Hypno-Shroom, then the zombie animation will turn purple and walk to the map's right side.
