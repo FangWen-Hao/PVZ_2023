@@ -33,9 +33,9 @@
 5. Zombies spawn in the right part of the screen and they walk to the left.
     - The lane they walk in is determined by the game's PRNG for now.
 6. Plants can be planted on the lane and can attack the zombies.
-    - Plants that be planted and used: `Peashooter`, `Snowpea`, `Cherrybomb`, `Wallnut`.
+    - Plants that be planted and used: `Peashooter`, `Snowpea`, `Cherrybomb`, `Wallnut`, `Repeaterpea`, `Threeshooterpea`.
     - Plants that be planted and can't be used: `Potatomine`, `Squash`, `Puffshroom`.
-    - Plants that is in WIP: `Jalapeno`, `Hypnoshroom`, `Iceshroom`, `Chomper`, `Repeaterpea`, `Threeshooterpea`.
+    - Plants that is in WIP: `Jalapeno`, `Hypnoshroom`, `Iceshroom`, `Chomper`.
 7. The plant picker cards has three modes:
     - The plant can't be planted since the accumulated sun isn't enough to plant the plants that the player wants.
     - The plant can be planted since the sun is accumulated and the cooldown has passed.
@@ -43,7 +43,7 @@
 8. The plants will not put out bullets if there is no zombies detected in the lane.
 9. The Sunflower can properly put out sun.
 10. The plants and zombies can detect their presence; Hence the zombie will stop and start eating the plants away when they can detect the plants.
-11. The game is playable on fullscreen or minimized screen.
+11. The game is playable on Fullscreen or minimized screen.
 12. Plants Cancelation logic:
     - If the plants chosen are incorrect, then by `clicking right` then it will cancel the chosen plant.
     - If the plants chosen are planted on the square that has plant, then the logic will cancel the chosen plant.
@@ -66,4 +66,4 @@
 #### Links  
 [GitLab: TA files](http://140.124.183.78/gitlab/109000000/oopl2023s/-/tree/master)  
 [GitHub: TA files](https://github.com/ntut-xuan/OOPL2023s)  
-[Toggl](https://toggl.com/track) 
+[Toggl](https://toggl.com/track)
