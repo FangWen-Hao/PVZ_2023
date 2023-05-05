@@ -1,6 +1,7 @@
 #pragma once
 #include "GameMode.h"
 #include "../Background/GameBar.h"
+#include "../Background/ProgressBar.h"
 #include "../Plants/Plant.h"
 #include "../Zombies/Zombie.h"
 #include "../Misc/Sun.h"
@@ -44,7 +45,7 @@ namespace game_framework {
 
 		// Show helper methods
 		void ShowEntities();
-		void ShowCursor();
+		void ShowUI();
 
 		// OnHover helper methods
 		void OnHoverCursor(CPoint &coords);
@@ -66,6 +67,7 @@ namespace game_framework {
 		Zombie* zombieFactory();
 		CPoint _mousePos2TilePos(CPoint);
 		void removeSunFromVector(Sun*);
+		int countTotalZombies();
 		
 		// Stats attributes
 		int ZombiesKilled = 0;
@@ -85,7 +87,7 @@ namespace game_framework {
 		// UI Elements attributes
 		GameBar bar;
 		// GameMenu menu;
-		// ProgressBar progress;
+		ProgressBar progress;
 		CMovingBitmap shovelCursor;
 		Plant* currentSelectPlant = nullptr;
 		SEED_CARD_TYPE currentSelectedSeedCard = REFUSED;
