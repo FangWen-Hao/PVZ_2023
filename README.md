@@ -48,16 +48,17 @@
     - If the plants chosen are incorrect, then by `clicking right` then it will cancel the chosen plant.
     - If the plants chosen are planted on the square that has plant, then the logic will cancel the chosen plant.
 13. Shovel logic: Removes the plants that has been planted on the map.
+14. Landmower logic.
+15. Progress Bar logic.
+16. Zombie Factory logic.
 
 ## Work In Progress (Hopefully will be on Released on v2.0.0)
 
 1. If the zombies are attacked by Snowpea, then the zombie animation will turn blue and move slower.
 2. If the zombies are attacked by Hypno-Shroom, then the zombie animation will turn purple and walk to the map's right side.
 3. Shrooms plant logic.
-4. Landmower logic.
-5. Night map logic.
-6. In game menu logic.
-
+4. Night map logic.
+5. In game menu logic.
 
 ### Bugs:
 
