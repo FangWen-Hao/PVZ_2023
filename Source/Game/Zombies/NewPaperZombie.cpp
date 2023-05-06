@@ -43,9 +43,51 @@ NewspaperZombie::NewspaperZombie() : Zombie(ZOMBIE_TYPE::NEWSPAPER, 4, 0.04, 4.7
 		"Resources/Zombies/BMP/AttackState/NewspaperZombieAttack/NewspaperZombieAttack_7.bmp",
 	}, RGB(255, 255, 255));
 
+	slowNormalAnimate.LoadBitmapByString({
+		"Resources/Zombies/BMP/FrozenNormalState/NewspaperZombie/NewspaperZombie_0.bmp",
+		"Resources/Zombies/BMP/FrozenNormalState/NewspaperZombie/NewspaperZombie_1.bmp",
+		"Resources/Zombies/BMP/FrozenNormalState/NewspaperZombie/NewspaperZombie_2.bmp",
+		"Resources/Zombies/BMP/FrozenNormalState/NewspaperZombie/NewspaperZombie_3.bmp",
+		"Resources/Zombies/BMP/FrozenNormalState/NewspaperZombie/NewspaperZombie_4.bmp",
+		"Resources/Zombies/BMP/FrozenNormalState/NewspaperZombie/NewspaperZombie_5.bmp",
+		"Resources/Zombies/BMP/FrozenNormalState/NewspaperZombie/NewspaperZombie_6.bmp",
+		"Resources/Zombies/BMP/FrozenNormalState/NewspaperZombie/NewspaperZombie_7.bmp",
+		"Resources/Zombies/BMP/FrozenNormalState/NewspaperZombie/NewspaperZombie_8.bmp",
+		"Resources/Zombies/BMP/FrozenNormalState/NewspaperZombie/NewspaperZombie_9.bmp",
+	}, RGB(255, 255, 255));
+
+	slowDeadAnimate.LoadBitmapByString({
+		"Resources/Zombies/BMP/FrozenDeadState/NewspaperZombieDie/NewspaperZombieDie_0.bmp",
+		"Resources/Zombies/BMP/FrozenDeadState/NewspaperZombieDie/NewspaperZombieDie_1.bmp",
+		"Resources/Zombies/BMP/FrozenDeadState/NewspaperZombieDie/NewspaperZombieDie_2.bmp",
+		"Resources/Zombies/BMP/FrozenDeadState/NewspaperZombieDie/NewspaperZombieDie_3.bmp",
+		"Resources/Zombies/BMP/FrozenDeadState/NewspaperZombieDie/NewspaperZombieDie_4.bmp",
+		"Resources/Zombies/BMP/FrozenDeadState/NewspaperZombieDie/NewspaperZombieDie_5.bmp",
+		"Resources/Zombies/BMP/FrozenDeadState/NewspaperZombieDie/NewspaperZombieDie_6.bmp",
+		"Resources/Zombies/BMP/FrozenDeadState/NewspaperZombieDie/NewspaperZombieDie_7.bmp",
+		"Resources/Zombies/BMP/FrozenDeadState/NewspaperZombieDie/NewspaperZombieDie_8.bmp",
+		"Resources/Zombies/BMP/FrozenDeadState/NewspaperZombieDie/NewspaperZombieDie_9.bmp",
+		"Resources/Zombies/BMP/FrozenDeadState/NewspaperZombieDie/NewspaperZombieDie_10.bmp",
+	}, RGB(255, 255, 255));
+
+	slowAttackAnimate.LoadBitmapByString({
+		"Resources/Zombies/BMP/FrozenAttackState/NewspaperZombieAttack/NewspaperZombieAttack_0.bmp",
+		"Resources/Zombies/BMP/FrozenAttackState/NewspaperZombieAttack/NewspaperZombieAttack_1.bmp",
+		"Resources/Zombies/BMP/FrozenAttackState/NewspaperZombieAttack/NewspaperZombieAttack_2.bmp",
+		"Resources/Zombies/BMP/FrozenAttackState/NewspaperZombieAttack/NewspaperZombieAttack_3.bmp",
+		"Resources/Zombies/BMP/FrozenAttackState/NewspaperZombieAttack/NewspaperZombieAttack_4.bmp",
+		"Resources/Zombies/BMP/FrozenAttackState/NewspaperZombieAttack/NewspaperZombieAttack_5.bmp",
+		"Resources/Zombies/BMP/FrozenAttackState/NewspaperZombieAttack/NewspaperZombieAttack_6.bmp",
+		"Resources/Zombies/BMP/FrozenAttackState/NewspaperZombieAttack/NewspaperZombieAttack_7.bmp",
+	}, RGB(255, 255, 255));
+
 	normalAnimate.SetAnimation(100, false);
-	deadAnimate.SetAnimation(100, true);
 	attackAnimate.SetAnimation(100, false);
+	deadAnimate.SetAnimation(100, true);
+
+	slowNormalAnimate.SetAnimation(100, false);
+	slowAttackAnimate.SetAnimation(100, false);
+	slowDeadAnimate.SetAnimation(100, true);
 
 	_hp = 270;
 }

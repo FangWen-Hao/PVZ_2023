@@ -55,7 +55,7 @@ void CGameStateRun::OnMouseMove(UINT nFlags, CPoint point)	// 處理滑鼠的動
 
 void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
-	int res = mode->OnClick(point);
+	int res = mode->OnLClick(point);
 	if (!isLoading
 		&& (res != MENU_NO_BTN_ACTION_REJECTED
 			&& res != MENU_NO_BTN_ACTION_ACCEPTED)
@@ -80,6 +80,7 @@ void CGameStateRun::OnLButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動
 
 void CGameStateRun::OnRButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的動作
 {
+	mode->OnRClick(point);
 }
 
 void CGameStateRun::OnRButtonUp(UINT nFlags, CPoint point)	// 處理滑鼠的動作

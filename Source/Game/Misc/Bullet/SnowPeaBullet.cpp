@@ -16,3 +16,17 @@ SnowPeaBullet::SnowPeaBullet(int x, int y, int damage)
 SnowPeaBullet::~SnowPeaBullet()
 {
 }
+
+bool SnowPeaBullet::detectCollison(vector<Zombie*>* zombies)
+{
+	for (Zombie* zombie : *zombies) {
+		if (!zombie->isDead() &&
+			GetLeft() < zombie->right() && (GetLeft() + GetWidth()) > zombie->left() &&
+			GetTop() < zombie->bottom() && (GetTop() + GetHeight()) > zombie->top()) {
+			zombie->beingAttacked(_damage);
+			zombie->setSlow(true);
+			return true;
+		}
+	}
+	return false;
+}

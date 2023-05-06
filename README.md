@@ -33,8 +33,8 @@
 5. Zombies spawn in the right part of the screen and they walk to the left.
     - The lane they walk in is determined by the game's PRNG for now.
 6. Plants can be planted on the lane and can attack the zombies.
-    - Plants that be planted and used: `Peashooter`, `Snowpea`, `Cherrybomb`, `Wallnut`, `Repeaterpea`, `Threeshooterpea`.
-    - Plants that be planted and can't be used: `Potatomine`, `Squash`, `Puffshroom`.
+    - Plants that be planted and used: `Peashooter`, `Snowpea`, `Cherrybomb`, `Wallnut`, `Repeaterpea`, `Threeshooterpea`, `Puffshroom`.
+    - Plants that be planted and can't be used: `Potatomine`, `Squash`.
     - Plants that is in WIP: `Jalapeno`, `Hypnoshroom`, `Iceshroom`, `Chomper`.
 7. The plant picker cards has three modes:
     - The plant can't be planted since the accumulated sun isn't enough to plant the plants that the player wants.
@@ -49,16 +49,16 @@
     - If the plants chosen are planted on the square that has plant, then the logic will cancel the chosen plant.
 13. Shovel logic: Removes the plants that has been planted on the map.
 14. Landmower logic.
-15. Progress Bar logic.
+15. Progress Bar logic. (BETA)
 16. Zombie Factory logic.
+17. If the zombies are attacked by Snowpea, then the zombie animation will turn blue and move slower.
 
 ## Work In Progress (Hopefully will be on Released on v2.0.0)
 
-1. If the zombies are attacked by Snowpea, then the zombie animation will turn blue and move slower.
-2. If the zombies are attacked by Hypno-Shroom, then the zombie animation will turn purple and walk to the map's right side.
-3. Shrooms plant logic.
-4. Night map logic.
-5. In game menu logic.
+1. If the zombies are attacked by Hypno-Shroom, then the zombie animation will turn purple and walk to the map's right side.
+2. Shrooms plant logic.
+3. Night map logic.
+4. In game menu logic.
 
 ### Bugs:
 

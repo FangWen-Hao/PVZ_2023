@@ -25,12 +25,16 @@ namespace game_framework {
 	void LoadingScreen::OnHover(CPoint coords)
 	{
 	}
-	int LoadingScreen::OnClick(CPoint coords)
+	int LoadingScreen::OnLClick(CPoint coords)
 	{
 		if (isDone)
 			return MENU_NO_BTN_ACTION_ACCEPTED;
 
 		return MENU_NO_BTN_ACTION_REJECTED;
+	}
+	int LoadingScreen::OnRClick(CPoint coords)
+	{
+		return 0;
 	}
 	bool LoadingScreen::getIsDone()
 	{

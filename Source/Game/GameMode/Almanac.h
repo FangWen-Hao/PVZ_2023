@@ -15,6 +15,7 @@ namespace game_framework {
 		void show();
 		void OnMove();
 		void OnHover(CPoint coords);
-		int OnClick(CPoint coords);
+		int OnLClick(CPoint coords);
+		int OnRClick(CPoint coords);
 	};
 }

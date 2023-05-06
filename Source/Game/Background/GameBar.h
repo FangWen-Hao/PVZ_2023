@@ -21,7 +21,6 @@ namespace game_framework
 		void onHover(CPoint coords);
 		SEED_CARD_TYPE onClick(CPoint coords);
 		void setSeedCardCooldown(SEED_CARD_TYPE cardType);
-		void resetShovelButtonBitmap();
 		
 		void addSuns(int suns);
 		void setSuns(int suns);

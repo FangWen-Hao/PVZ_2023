@@ -47,9 +47,55 @@ ConeheadZombie::ConeheadZombie() : Zombie(ZOMBIE_TYPE::CONEHEAD, 4, 0.04, 4.7)
 		"Resources/Zombies/BMP/AttackState/ConeheadZombieAttack/ConeheadZombieAttack_10.bmp",
 	}, RGB(255, 255, 255));
 
+	slowNormalAnimate.LoadBitmapByString({
+		"Resources/Zombies/BMP/FrozenNormalState/ConeheadZombie/ConeheadZombie_0.bmp",
+		"Resources/Zombies/BMP/FrozenNormalState/ConeheadZombie/ConeheadZombie_1.bmp",
+		"Resources/Zombies/BMP/FrozenNormalState/ConeheadZombie/ConeheadZombie_2.bmp",
+		"Resources/Zombies/BMP/FrozenNormalState/ConeheadZombie/ConeheadZombie_3.bmp",
+		"Resources/Zombies/BMP/FrozenNormalState/ConeheadZombie/ConeheadZombie_4.bmp",
+		"Resources/Zombies/BMP/FrozenNormalState/ConeheadZombie/ConeheadZombie_5.bmp",
+		"Resources/Zombies/BMP/FrozenNormalState/ConeheadZombie/ConeheadZombie_6.bmp",
+		"Resources/Zombies/BMP/FrozenNormalState/ConeheadZombie/ConeheadZombie_7.bmp",
+		"Resources/Zombies/BMP/FrozenNormalState/ConeheadZombie/ConeheadZombie_8.bmp",
+		"Resources/Zombies/BMP/FrozenNormalState/ConeheadZombie/ConeheadZombie_9.bmp",
+	}, RGB(255, 255, 255));
+
+	slowDeadAnimate.LoadBitmapByString({
+		"Resources/Zombies/BMP/FrozenDeadState/ZombieDie/ZombieDie_0.bmp",
+		"Resources/Zombies/BMP/FrozenDeadState/ZombieDie/ZombieDie_1.bmp",
+		"Resources/Zombies/BMP/FrozenDeadState/ZombieDie/ZombieDie_2.bmp",
+		"Resources/Zombies/BMP/FrozenDeadState/ZombieDie/ZombieDie_3.bmp",
+		"Resources/Zombies/BMP/FrozenDeadState/ZombieDie/ZombieDie_4.bmp",
+		"Resources/Zombies/BMP/FrozenDeadState/ZombieDie/ZombieDie_5.bmp",
+		"Resources/Zombies/BMP/FrozenDeadState/ZombieDie/ZombieDie_6.bmp",
+		"Resources/Zombies/BMP/FrozenDeadState/ZombieDie/ZombieDie_7.bmp",
+		"Resources/Zombies/BMP/FrozenDeadState/ZombieDie/ZombieDie_8.bmp",
+		"Resources/Zombies/BMP/FrozenDeadState/ZombieDie/ZombieDie_9.bmp",
+		"Resources/Zombies/BMP/FrozenDeadState/ZombieDie/ZombieDie_10.bmp",
+		"Resources/Zombies/BMP/FrozenDeadState/ZombieDie/ZombieDie_11.bmp",
+	}, RGB(255, 255, 255));
+
+	slowAttackAnimate.LoadBitmapByString({
+		"Resources/Zombies/BMP/FrozenAttackState/ConeheadZombieAttack/ConeheadZombieAttack_0.bmp",
+		"Resources/Zombies/BMP/FrozenAttackState/ConeheadZombieAttack/ConeheadZombieAttack_1.bmp",
+		"Resources/Zombies/BMP/FrozenAttackState/ConeheadZombieAttack/ConeheadZombieAttack_2.bmp",
+		"Resources/Zombies/BMP/FrozenAttackState/ConeheadZombieAttack/ConeheadZombieAttack_3.bmp",
+		"Resources/Zombies/BMP/FrozenAttackState/ConeheadZombieAttack/ConeheadZombieAttack_4.bmp",
+		"Resources/Zombies/BMP/FrozenAttackState/ConeheadZombieAttack/ConeheadZombieAttack_5.bmp",
+		"Resources/Zombies/BMP/FrozenAttackState/ConeheadZombieAttack/ConeheadZombieAttack_6.bmp",
+		"Resources/Zombies/BMP/FrozenAttackState/ConeheadZombieAttack/ConeheadZombieAttack_7.bmp",
+		"Resources/Zombies/BMP/FrozenAttackState/ConeheadZombieAttack/ConeheadZombieAttack_8.bmp",
+		"Resources/Zombies/BMP/FrozenAttackState/ConeheadZombieAttack/ConeheadZombieAttack_9.bmp",
+		"Resources/Zombies/BMP/FrozenAttackState/ConeheadZombieAttack/ConeheadZombieAttack_10.bmp",
+	}, RGB(255, 255, 255));
+
 	normalAnimate.SetAnimation(100, false);
-	deadAnimate.SetAnimation(100, true);
 	attackAnimate.SetAnimation(100, false);
+	deadAnimate.SetAnimation(100, true);
+
+	slowNormalAnimate.SetAnimation(100, false);
+	slowAttackAnimate.SetAnimation(100, false);
+	slowDeadAnimate.SetAnimation(100, true);
 
 	_hp = 640;
 }

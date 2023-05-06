@@ -48,6 +48,8 @@ namespace game_framework
 	public:
 		SnowPeaBullet(int, int, int);
 		~SnowPeaBullet();
+
+		bool detectCollison(vector<Zombie*>*) override;
 	};
 
 	class PuffShroomBullet : public Bullet

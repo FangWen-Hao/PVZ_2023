@@ -101,18 +101,27 @@ namespace game_framework {
 		background.init(MAP_BG_DAY);
 		bar.init(sunsAmount);
 		shovelCursor.LoadBitmapByString({ SHOVEL_CURSOR_BITMAP }, RGB(255, 255, 255));
-		progress.init(countTotalZombies(), 0);
 	}
 
 	void Map::show()
 	{
 		background.show();
-		ShowEntities();
-		ShowUI();
+		bar.show();
+
+		if (bar.hasGameStarted())
+		{
+			ShowEntities();
+
+			ShowCursor();
+
+		}
 	}
 
 	void Map::ShowEntities()
 	{
+		for (Zombie* zombie : zombies) {
+			zombie->onShow();
+		}
 
 		for (vector<Plant*> row : plants) {
 			for (Plant* plant : row) {
@@ -120,16 +129,12 @@ namespace game_framework {
 			}
 		}
 
-		for (Sun* sun : displayedSuns) {
-			sun->show();
-		}
-
-		for (Zombie* zombie : zombies) {
-			zombie->onShow();
-		}
-
 		for (Bullet* bullet : bullets) {
 			bullet->onShow();
+		}
+
+		for (Sun* sun : displayedSuns) {
+			sun->show();
 		}
 
 		for (Lawnmower* lawnmower : lawnmowers)
@@ -141,25 +146,19 @@ namespace game_framework {
 		}
 	}
 
-	void Map::ShowUI()
+	void Map::ShowCursor()
 	{
-		bar.show();
+		if (currentSelectPlant != nullptr) {
+			currentSelectPlant->onShow();
+		}
 
-		if (bar.hasGameStarted())
+		if (currentSelectedSeedCard == SEED_CARD_TYPE::SHOVEL)
 		{
-			if (currentSelectPlant != nullptr) {
-				currentSelectPlant->onShow();
-			}
-
-			if (currentSelectedSeedCard == SEED_CARD_TYPE::SHOVEL)
-			{
-				shovelCursor.ShowBitmap();
-			}
-			else
-			{
-				shovelCursor.UnshowBitmap();
-			}
-			progress.show();
+			shovelCursor.ShowBitmap();
+		}
+		else
+		{
+			shovelCursor.UnshowBitmap();
 		}
 	}
 
@@ -207,7 +206,7 @@ namespace game_framework {
 	void Map::CreateZombieOnInstruction()
 	{
 		Zombie* zomb = zombieFactory();
-		if (zomb != nullptr)
+		if (zomb != NULL)
 		{
 			zombies.push_back(zomb);
 		}
@@ -270,7 +269,6 @@ namespace game_framework {
 			{
 				zombies.erase(remove(zombies.begin(), zombies.end(), zombie), zombies.end());
 				delete zombie;
-				progress.updateCount();
 			}
 		}
 	}
@@ -310,7 +308,7 @@ namespace game_framework {
 		}
 	}
 	
-	int Map::OnClick(CPoint coords)
+	int Map::OnLClick(CPoint coords)
 	{
 		if (!bar.hasGameStarted())
 		{
@@ -323,6 +321,16 @@ namespace game_framework {
 			AddSunOnClick(coords);
 			CreatePlantOnClick(coords);
 		}
+
+		return 0;
+	}
+
+	int Map::OnRClick(CPoint coords)
+	{
+		if (!bar.hasGameStarted()) return 0;
+		if (currentSelectPlant == nullptr) return 0;
+		delete currentSelectPlant;
+		currentSelectPlant = nullptr;
 
 		return 0;
 	}
@@ -375,6 +383,13 @@ namespace game_framework {
 			break;
 		case SEED_CARD_TYPE::SHOVEL:
 			shovelCursor.SetTopLeft(coords.x, coords.y);
+
+			if (currentSelectPlant != nullptr)
+			{
+				delete currentSelectPlant;
+				currentSelectPlant = nullptr;
+			}
+
 			break;
 		case SEED_CARD_TYPE::REFUSED:
 			if (currentSelectedSeedCard == SEED_CARD_TYPE::REFUSED)
@@ -402,9 +417,6 @@ namespace game_framework {
 					currentSelectPlant = nullptr;
 				}
 				
-				// cancel shovel
-				bar.resetShovelButtonBitmap();
-				
 				break;
 			}
 
@@ -414,11 +426,12 @@ namespace game_framework {
 				// unplant plant
 				delete plants[pos.y][pos.x];
 				plants[pos.y][pos.x] = nullptr;
-				bar.resetShovelButtonBitmap();
 			}
+
 			if (plants[pos.y][pos.x] == nullptr
 				&& currentSelectedSeedCard != SEED_CARD_TYPE::SHOVEL)
-			{ // plant plant
+			{
+				// plant plant
 				currentSelectPlant->PlaceDown(pos.y, pos.x);
 				plants[pos.y][pos.x] = currentSelectPlant;
 
@@ -472,11 +485,6 @@ namespace game_framework {
 			{
 				removeSunFromVector(sun);
 			}
-		}
-
-		if (!isDay)
-		{
-			return;
 		}
 
 		if (!sunProductionCooldown.isOnCooldown()
@@ -538,43 +546,37 @@ namespace game_framework {
 
 			if (duration_cast<duration<double>>(Cooldown::getGameClock() - bar.getGameStartedTime()).count() >= zombiesSpawningInstructions.at(i).at(1))
 			{
-				switch ((ZOMBIE_INSTRUCTION_TYPE)zombiesSpawningInstructions.at(i).at(0))
+				switch ((ZOMBIE_TYPE)zombiesSpawningInstructions.at(i).at(0))
 				{
-				case ZOMBIE_INSTRUCTION_TYPE::WAVE_CHKPOINT:
-				case ZOMBIE_INSTRUCTION_TYPE::WAIT:
-					// in the case of EMPTY: the game waits until the screen is clear of zombies to spawn any new one
-					if (zombies.size() == 0)
-					{
-						zombiesSpawningInstructions.at(i).at(3) = 1;
-					}
-					return nullptr;
+				case ZOMBIE_TYPE::EMPTY:
+					return NULL;
 				
-				case ZOMBIE_INSTRUCTION_TYPE::NORMAL:
+				case ZOMBIE_TYPE::NORMAL:
 					zombie = new NormalZombie();
 					break;
 
-				case ZOMBIE_INSTRUCTION_TYPE::BUCKETHEAD:
+				case ZOMBIE_TYPE::BUCKETHEAD:
 					zombie = new BucketheadZombie();
 					break;
 
-				case ZOMBIE_INSTRUCTION_TYPE::CONEHEAD:
+				case ZOMBIE_TYPE::CONEHEAD:
 					zombie = new ConeheadZombie();
 					break;
 
-				// case ZOMBIE_INSTRUCTION_TYPE::FLAG:
+				// case ZOMBIE_TYPE::FLAG:
 				// 	zombie = new FlagZombie();
 				// 	break;
 
-				// case ZOMBIE_INSTRUCTION_TYPE::NEWSPAPER:
+				// case ZOMBIE_TYPE::NEWSPAPER:
 				// 	zombie = new NewspaperZombie();
 				// 	break;
 
-				// case ZOMBIE_INSTRUCTION_TYPE::NEWSPAPERNOPAPER:
+				// case ZOMBIE_TYPE::NEWSPAPERNOPAPER:
 				// 	zombie = new NewpaperZombieNoPaper();
 				// 	break;
 
 				default:
-					return nullptr;
+					return NULL;
 				}
 
 				zombiesSpawningInstructions.at(i).at(3) = 1;
@@ -582,30 +584,6 @@ namespace game_framework {
 				return zombie;
 			}
 		}
-		return nullptr;
-	}
-
-	int Map::countTotalZombies()
-	{
-		int total = 0;
-		for (unsigned int i = 0; i < zombiesSpawningInstructions.size(); i++)
-		{
-			switch ((ZOMBIE_INSTRUCTION_TYPE)zombiesSpawningInstructions.at(i).at(0))
-			{
-			case ZOMBIE_INSTRUCTION_TYPE::NORMAL:
-			case ZOMBIE_INSTRUCTION_TYPE::BUCKETHEAD:
-			case ZOMBIE_INSTRUCTION_TYPE::CONEHEAD:
-			case ZOMBIE_INSTRUCTION_TYPE::FLAG:
-			case ZOMBIE_INSTRUCTION_TYPE::NEWSPAPER:
-			case ZOMBIE_INSTRUCTION_TYPE::NEWSPAPERNOPAPER:
-				total++;
-				break;
-
-			case ZOMBIE_INSTRUCTION_TYPE::EMPTY:
-			default:
-				continue;
-			}
-		}
-		return total;
+		return NULL;
 	}
 }

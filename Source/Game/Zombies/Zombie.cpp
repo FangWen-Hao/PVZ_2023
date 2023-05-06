@@ -13,10 +13,13 @@ void Zombie::onInit(int row)
 
 void Zombie::onMove(vector<vector<Plant*>>* plants)
 {
+	if (_isSlow) moveCooldown.initCooldown(2 * (_moveSpeed / PX_PER_TILES));
+
     if (_hp <= 0 && !_isDead)
 	{
 		_isDead = true;
 		deadAnimate.ToggleAnimation();
+		slowDeadAnimate.ToggleAnimation();
 	}
 	else if (_isAttacking && !attackCooldown.isOnCooldown())
 	{
@@ -32,16 +35,32 @@ void Zombie::onMove(vector<vector<Plant*>>* plants)
 	_updateCol();
 
 	attackAnimate.SetTopLeft(_posX, _posY);
-	deadAnimate.SetTopLeft(_posX - 100, _posY - 25);
 	normalAnimate.SetTopLeft(_posX, _posY);
+	deadAnimate.SetTopLeft(_posX - 100, _posY - 25);
+
+	slowAttackAnimate.SetTopLeft(_posX, _posY);
+	slowNormalAnimate.SetTopLeft(_posX, _posY);
+	slowDeadAnimate.SetTopLeft(_posX - 100, _posY - 25);
 }
 
 void Zombie::onShow()
 {
-	if (_isDead)
-		deadAnimate.ShowBitmap();
-	else if (_isAttacking)
-		attackAnimate.ShowBitmap();
+	if (_isSlow)
+	{
+		if (_isDead)
+			slowDeadAnimate.ShowBitmap();
+		else if (_isAttacking)
+			slowAttackAnimate.ShowBitmap();
+		else
+			slowNormalAnimate.ShowBitmap();
+	}
 	else
-		normalAnimate.ShowBitmap();
+	{
+		if (_isDead)
+			deadAnimate.ShowBitmap();
+		else if (_isAttacking)
+			attackAnimate.ShowBitmap();
+		else
+			normalAnimate.ShowBitmap();
+	}
 }

@@ -41,7 +41,10 @@ namespace game_framework
 		int col() { return _col; }
 
 		bool isDead() { return _isDead; }
-		bool isDeadDone() { return deadAnimate.IsAnimationDone(); }
+		bool isDeadDone() {
+			if (_isSlow) return slowDeadAnimate.IsAnimationDone();
+			return deadAnimate.IsAnimationDone();
+		}
 
 		void beingAttacked(int damage) { _hp -= damage; }
 		void setIsAttacking(bool isAttacking) {
@@ -49,6 +52,7 @@ namespace game_framework
 			_isAttacking = isAttacking;
 		}
 		void setHp(int hp) { _hp = hp; }
+		void setSlow(bool slow) { _isSlow = slow; }
 
 		virtual void onInit(int);
 		virtual void onMove(vector<vector<Plant*>>*);
@@ -76,13 +80,17 @@ namespace game_framework
 
 		bool _isAttacking = false;
 		bool _isDead = false;
+		bool _isSlow = false;
 
 		Cooldown attackCooldown;
 		Cooldown moveCooldown;
 
 		CMovingBitmap normalAnimate;
-		CMovingBitmap deadAnimate;
 		CMovingBitmap attackAnimate;
+		CMovingBitmap deadAnimate;
+		CMovingBitmap slowNormalAnimate;
+		CMovingBitmap slowAttackAnimate;
+		CMovingBitmap slowDeadAnimate;
 
 		void _updateCol()
 		{

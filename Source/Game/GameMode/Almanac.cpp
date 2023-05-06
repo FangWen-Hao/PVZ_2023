@@ -29,7 +29,12 @@ namespace game_framework {
 	{
 	}
 
-	int Almanac::OnClick(CPoint coords)
+	int Almanac::OnLClick(CPoint coords)
+	{
+		return 0;
+	}
+
+	int Almanac::OnRClick(CPoint coords)
 	{
 		return 0;
 	}

@@ -130,6 +130,19 @@ namespace game_framework
 		}
 		else
 		{
+			if (coords.x < (shovelButton.GetLeft() + shovelButton.GetWidth()) && coords.x > shovelButton.GetLeft()
+				&& coords.y < (shovelButton.GetTop() + shovelButton.GetHeight()) && coords.y > shovelButton.GetTop())
+			{
+				shovelButton.clicked();
+				return SEED_CARD_TYPE::SHOVEL;
+			}
+
+			// the shovel wasn't touched, so reset the bitmap if needed
+			if (shovelButton.GetFrameIndexOfBitmap() != 0)
+			{
+				shovelButton.SetFrameIndexOfBitmap(0);
+			}
+
 			for (SeedCard card : cards)
 			{
 				if (coords.x < (card.GetLeft() + card.GetWidth()) && coords.x > card.GetLeft()
@@ -139,14 +152,6 @@ namespace game_framework
 					return card.getType();
 				}
 			}
-
-			if (coords.x < (shovelButton.GetLeft() + shovelButton.GetWidth()) && coords.x > shovelButton.GetLeft()
-				&& coords.y < (shovelButton.GetTop() + shovelButton.GetHeight()) && coords.y > shovelButton.GetTop())
-			{
-				shovelButton.clicked();
-				return SEED_CARD_TYPE::SHOVEL;
-			}
-
 		}
 		return SEED_CARD_TYPE::REFUSED;
 	}
@@ -161,11 +166,6 @@ namespace game_framework
 				return;
 			}
 		}
-	}
-
-	void GameBar::resetShovelButtonBitmap()
-	{
-		shovelButton.SetFrameIndexOfBitmap(0);
 	}
 
 	void GameBar::addSuns(int suns)

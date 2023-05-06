@@ -60,7 +60,7 @@ void MainMenu::OnHover(CPoint coords)
 	}
 }
 
-int MainMenu::OnClick(CPoint coords)
+int MainMenu::OnLClick(CPoint coords)
 {
 	for (unsigned int i = 0; i < MenuButtons.size(); i++)
 	{
@@ -75,4 +75,9 @@ int MainMenu::OnClick(CPoint coords)
 	}
 
 	return MENU_NO_BTN_ACTION_REJECTED;
+}
+
+int MainMenu::OnRClick(CPoint coords)
+{
+	return 0;
 }

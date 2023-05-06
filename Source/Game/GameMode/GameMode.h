@@ -21,7 +21,8 @@ namespace game_framework {
 		virtual void show() = 0;
 		virtual void OnMove() = 0;
 		virtual void OnHover(CPoint coords) = 0;
-		virtual int OnClick(CPoint coords) = 0;
+		virtual int OnLClick(CPoint coords) = 0;
+		virtual int OnRClick(CPoint coords) = 0;
 
 	protected:
 		Background background;
