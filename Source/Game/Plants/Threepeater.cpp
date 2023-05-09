@@ -4,7 +4,7 @@
 
 using namespace game_framework;
 
-Threepeater::Threepeater(CPoint pos) : ShootingPlant(PLANT::PEA_SHOOTER, PeaShooter::price, 7.5, 20, 1.5)
+Threepeater::Threepeater(CPoint pos) : ShootingPlant(PLANT::THREE_PEATER, Threepeater::price, 7.5, 20, 1.5)
 {
 	animate.LoadBitmapByString({
 		"Resources/Plants/Threepeater/BMP/Threepeater_0.bmp",
@@ -47,9 +47,9 @@ void Threepeater::onMove(vector<Bullet*>* bullets, vector<Sun*>* suns, vector<Zo
 	bool hasZombieInRow = false;
 
 	for (Zombie* zombie : *zombies) {
-		if (zombie->row() == _row - 1 ||
+		if (!zombie->isDead() && (zombie->row() == _row - 1 ||
 			zombie->row() == _row ||
-			zombie->row() == _row + 1) {
+			zombie->row() == _row + 1)) {
 			hasZombieInRow = true;
 			break;
 		}

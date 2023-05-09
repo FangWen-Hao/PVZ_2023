@@ -178,7 +178,7 @@ namespace game_framework
 			bool hasZombieInRow = false;
 
 			for (Zombie* zombie : *zombies) {
-				if (zombie->row() == _row) {
+				if (!zombie->isDead() && zombie->row() == _row) {
 					hasZombieInRow = true;
 					break;
 				}
@@ -281,7 +281,7 @@ namespace game_framework
 
 		static const int price = 50;
 
-		void PlaceDown(int row, int col) override;
+		void PlaceDown(int, int) override;
 		void onMove(vector<Bullet*>*, vector<Sun*>*, vector<Zombie*>*) override;
 		void onShow() override;
 
@@ -328,7 +328,7 @@ namespace game_framework
 	{
 	public:
 		RepeaterPea(CPoint);
-		~RepeaterPea() {};
+		~RepeaterPea() {}
 
 		static const int price = 200;
 
@@ -339,7 +339,7 @@ namespace game_framework
 	{
 	public:
 		Threepeater(CPoint);
-		~Threepeater() {};
+		~Threepeater() {}
 
 		static const int price = 325;
 
@@ -368,6 +368,24 @@ namespace game_framework
 		
 		void onMove(vector<Bullet*>*, vector<Sun*>*, vector<Zombie*>*) override;
 		void attack(vector<Bullet*>*) override;
+	};
+
+	class ScaredyShroom : public ShootingPlant
+	{
+	public:
+		ScaredyShroom(CPoint);
+		~ScaredyShroom() {}
+
+		static const int price = 25;
+
+		void PlaceDown(int, int) override;
+		void onMove(vector<Bullet*>*, vector<Sun*>*, vector<Zombie*>*) override;
+		void onShow() override;
+		void attack(vector<Bullet*>*) override;
+
+	private:
+		bool isCrying = false;
+		CMovingBitmap cryAnimate;
 	};
 	//////////////////////////////////////////////////
 
@@ -402,12 +420,7 @@ namespace game_framework
 
 	
 
-	class ScaredyShroom : public Plant
-	{
-	public:
-		ScaredyShroom();
-		~ScaredyShroom();
-	};
+	
 
 	class Spikeweed : public Plant
 	{

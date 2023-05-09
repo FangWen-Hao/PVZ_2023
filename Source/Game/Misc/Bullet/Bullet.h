@@ -12,14 +12,14 @@ namespace game_framework
 	class Bullet : public CMovingBitmap
 	{
 	public:
-		virtual void onMove()
-		{
+		~Bullet() {}
+
+		bool isOutOfRange() { return outOfRange; }
+		virtual void onMove() {
 			SetTopLeft(GetLeft() + 5, GetTop());
+			if (GetLeft() >= 900) outOfRange = true;
 		}
-		virtual void onShow(double factor = 1)
-		{
-			ShowBitmap(factor);
-		}
+		virtual void onShow(double factor = 1) { ShowBitmap(factor); }
 		virtual bool detectCollison(vector<Zombie*>* zombies) {
 			for (Zombie* zombie : *zombies) {
 				if (!zombie->isDead() && 
@@ -33,29 +33,42 @@ namespace game_framework
 		}
 
 	protected:
-		int _damage = 0;
+		Bullet(int damage) : _damage(damage) {}
+		const int _damage;
+		bool outOfRange = false;
 	};
 
 	class PeaShooterBullet : public Bullet
 	{
 	public:
 		PeaShooterBullet(int, int, int);
-		~PeaShooterBullet();
+		~PeaShooterBullet() {}
 	};
 
 	class SnowPeaBullet : public Bullet
 	{
 	public:
 		SnowPeaBullet(int, int, int);
-		~SnowPeaBullet();
+		~SnowPeaBullet() {}
 
 		bool detectCollison(vector<Zombie*>*) override;
 	};
 
-	class PuffShroomBullet : public Bullet
+	class ShroomBullet : public Bullet
 	{
 	public:
-		PuffShroomBullet(int, int, int);
-		~PuffShroomBullet();
+		ShroomBullet(int, int, int);
+		~ShroomBullet() {}
+	};
+
+	class PuffShroomBullet : public ShroomBullet
+	{
+	public:
+		PuffShroomBullet(int, int, int, int);
+		~PuffShroomBullet() {}
+	private:
+		void onMove() override;
+
+		int _plantCol;
 	};
 }

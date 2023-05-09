@@ -3,18 +3,13 @@
 
 using namespace game_framework;
 
-SnowPeaBullet::SnowPeaBullet(int x, int y, int damage)
+SnowPeaBullet::SnowPeaBullet(int x, int y, int damage) : Bullet(damage)
 {
 	LoadBitmapByString({
 		"Resources/Plants/SnowPea/BMP/SnowPeaBullet.bmp",
-		}, RGB(255, 255, 255));
+	}, RGB(255, 255, 255));
 
 	SetTopLeft(x, y);
-	_damage = damage;
-}
-
-SnowPeaBullet::~SnowPeaBullet()
-{
 }
 
 bool SnowPeaBullet::detectCollison(vector<Zombie*>* zombies)

@@ -10,6 +10,7 @@
 #include "../Plants/Plant.h"
 #include "../Zombies/Zombie.h"
 #include <algorithm>
+#include "Maps/Zombies_Spawn_Instruction.h"
 
 namespace game_framework {
 
@@ -101,27 +102,19 @@ namespace game_framework {
 		background.init(MAP_BG_DAY);
 		bar.init(sunsAmount);
 		shovelCursor.LoadBitmapByString({ SHOVEL_CURSOR_BITMAP }, RGB(255, 255, 255));
+		menu.init();
+		progress.init(countTotalZombies(), 0);
 	}
 
 	void Map::show()
 	{
 		background.show();
-		bar.show();
-
-		if (bar.hasGameStarted())
-		{
-			ShowEntities();
-
-			ShowCursor();
-
-		}
+		ShowEntities();
+		ShowUI();
 	}
 
 	void Map::ShowEntities()
 	{
-		for (Zombie* zombie : zombies) {
-			zombie->onShow();
-		}
 
 		for (vector<Plant*> row : plants) {
 			for (Plant* plant : row) {
@@ -129,12 +122,16 @@ namespace game_framework {
 			}
 		}
 
-		for (Bullet* bullet : bullets) {
-			bullet->onShow();
-		}
-
 		for (Sun* sun : displayedSuns) {
 			sun->show();
+		}
+
+		for (Zombie* zombie : zombies) {
+			zombie->onShow();
+		}
+
+		for (Bullet* bullet : bullets) {
+			bullet->onShow();
 		}
 
 		for (Lawnmower* lawnmower : lawnmowers)
@@ -146,19 +143,26 @@ namespace game_framework {
 		}
 	}
 
-	void Map::ShowCursor()
+	void Map::ShowUI()
 	{
-		if (currentSelectPlant != nullptr) {
-			currentSelectPlant->onShow();
-		}
+		bar.show();
+		menu.show();
+		if (bar.hasGameStarted())
+		{
+			progress.show();
 
-		if (currentSelectedSeedCard == SEED_CARD_TYPE::SHOVEL)
-		{
-			shovelCursor.ShowBitmap();
-		}
-		else
-		{
-			shovelCursor.UnshowBitmap();
+			if (currentSelectPlant != nullptr) {
+				currentSelectPlant->onShow();
+			}
+
+			if (currentSelectedSeedCard == SEED_CARD_TYPE::SHOVEL)
+			{
+				shovelCursor.ShowBitmap();
+			}
+			else
+			{
+				shovelCursor.UnshowBitmap();
+			}
 		}
 	}
 
@@ -168,6 +172,8 @@ namespace game_framework {
 		{
 			OnHoverCursor(coords);
 		}
+
+		menu.onHover(coords);
 	}
 
 	void Map::OnHoverCursor(CPoint &coords)
@@ -186,8 +192,13 @@ namespace game_framework {
 	void Map::OnMove()
 	{
 		// On Move is performed aprox 30 times per second.
-
 		Cooldown::updateGameClock(); // update the universal clock the game uses to check all cooldowns.
+
+		if (menu.getIsGamePaused())
+		{
+			// note that we need to have a counter for the time while the menu was open so the zombies dont just magically appear all at once.
+			return;
+		}
 
 		if (bar.hasGameStarted())
 		{
@@ -206,7 +217,7 @@ namespace game_framework {
 	void Map::CreateZombieOnInstruction()
 	{
 		Zombie* zomb = zombieFactory();
-		if (zomb != NULL)
+		if (zomb != nullptr)
 		{
 			zombies.push_back(zomb);
 		}
@@ -228,27 +239,28 @@ namespace game_framework {
 	}
 
 	void Map::UpdatePlantsState()
-		{
-			for (vector<Plant*> row : plants) {
-				for (Plant* plant : row) {
-					if (plant != nullptr)
-					{
-						plant->onMove(&bullets, &displayedSuns, &zombies);
+	{
+		for (vector<Plant*> row : plants) {
+			for (Plant* plant : row) {
+				if (plant == nullptr) continue;
 
-						if (plant->isDead())
-						{
-							plants[plant->row()][plant->col()] = nullptr;
-							delete plant;
-						}
-					}
+				plant->onMove(&bullets, &displayedSuns, &zombies);
+
+				if (plant->isDead())
+				{
+					plants[plant->row()][plant->col()] = nullptr;
+					delete plant;
 				}
 			}
 		}
-
+	}
+	 
 	void Map::UpdateZombiesState()
 	{
 		for (Zombie* zombie : zombies)
 		{
+			if (zombie == nullptr) continue;
+
 			zombie->onMove(&plants);
 
 			if (lawnmowers.at(zombie->row()) != nullptr
@@ -269,6 +281,7 @@ namespace game_framework {
 			{
 				zombies.erase(remove(zombies.begin(), zombies.end(), zombie), zombies.end());
 				delete zombie;
+				progress.updateCount();
 			}
 		}
 	}
@@ -277,8 +290,10 @@ namespace game_framework {
 	{
 		for (Bullet* bullet : bullets)
 		{
+			if (bullet == nullptr) continue;
+
 			bullet->onMove();
-			if (bullet->detectCollison(&zombies) || bullet->GetLeft() > 900)
+			if (bullet->detectCollison(&zombies) || bullet->isOutOfRange())
 			{
 				bullets.erase(remove(bullets.begin(), bullets.end(), bullet), bullets.end());
 				delete bullet;
@@ -310,17 +325,30 @@ namespace game_framework {
 	
 	int Map::OnLClick(CPoint coords)
 	{
-		if (!bar.hasGameStarted())
-		{
-			bar.onClick(coords);
-			return 0;
-		}
 
-		if (bar.hasGameStarted())
+		if (menu.getIsGamePaused())
 		{
-			AddSunOnClick(coords);
-			CreatePlantOnClick(coords);
+			int returnCode = menu.onClick(coords, 0);
+
+			if (returnCode != MENU_NO_BTN_ACTION_REJECTED && returnCode != MENU_NO_BTN_ACTION_ACCEPTED)
+				return returnCode;
 		}
+		else
+		{
+			menu.onClick(coords, 0);
+			if (!bar.hasGameStarted())
+			{
+				bar.onClick(coords);
+				return 0;
+			}
+
+			if (bar.hasGameStarted())
+			{
+				AddSunOnClick(coords);
+				CreatePlantOnClick(coords);
+			}
+		}
+		
 
 		return 0;
 	}
@@ -364,6 +392,10 @@ namespace game_framework {
 		case SEED_CARD_TYPE::PUFF_SHROOM:
 			if (bar.getSuns() >= PuffShroom::price)
 				currentSelectPlant = new PuffShroom(coords);
+			break;
+		case SEED_CARD_TYPE::SCAREDY_SHROOM:
+			if (bar.getSuns() >= ScaredyShroom::price)
+				currentSelectPlant = new ScaredyShroom(coords);
 			break;
 		case SEED_CARD_TYPE::SNOW_PEA:
 			if (bar.getSuns() >= SnowPea::price)
@@ -479,6 +511,11 @@ namespace game_framework {
 
 	void Map::sunFactoryLogic()
 	{
+		if (!isDay)
+		{
+			return;
+		}
+
 		for (Sun* sun : displayedSuns)
 		{
 			if (sun->update() == Sun_status::INVALID)
@@ -546,20 +583,26 @@ namespace game_framework {
 
 			if (duration_cast<duration<double>>(Cooldown::getGameClock() - bar.getGameStartedTime()).count() >= zombiesSpawningInstructions.at(i).at(1))
 			{
-				switch ((ZOMBIE_TYPE)zombiesSpawningInstructions.at(i).at(0))
+				switch ((ZOMBIE_INSTRUCTION_TYPE)zombiesSpawningInstructions.at(i).at(0))
 				{
-				case ZOMBIE_TYPE::EMPTY:
-					return NULL;
+				case ZOMBIE_INSTRUCTION_TYPE::WAVE_CHKPOINT:
+				case ZOMBIE_INSTRUCTION_TYPE::WAIT:
+					// in the case of EMPTY: the game waits until the screen is clear of zombies to spawn any new one
+					if (zombies.size() == 0)
+					{
+						zombiesSpawningInstructions.at(i).at(3) = 1;
+					}
+					return nullptr;
 				
-				case ZOMBIE_TYPE::NORMAL:
+				case ZOMBIE_INSTRUCTION_TYPE::NORMAL:
 					zombie = new NormalZombie();
 					break;
 
-				case ZOMBIE_TYPE::BUCKETHEAD:
+				case ZOMBIE_INSTRUCTION_TYPE::BUCKETHEAD:
 					zombie = new BucketheadZombie();
 					break;
 
-				case ZOMBIE_TYPE::CONEHEAD:
+				case ZOMBIE_INSTRUCTION_TYPE::CONEHEAD:
 					zombie = new ConeheadZombie();
 					break;
 
@@ -576,7 +619,7 @@ namespace game_framework {
 				// 	break;
 
 				default:
-					return NULL;
+					return nullptr;
 				}
 
 				zombiesSpawningInstructions.at(i).at(3) = 1;
@@ -584,6 +627,30 @@ namespace game_framework {
 				return zombie;
 			}
 		}
-		return NULL;
+		return nullptr;
+	}
+
+	int Map::countTotalZombies()
+	{
+		int total = 0;
+		for (unsigned int i = 0; i < zombiesSpawningInstructions.size(); i++)
+		{
+			switch ((ZOMBIE_INSTRUCTION_TYPE)zombiesSpawningInstructions.at(i).at(0))
+			{
+			case ZOMBIE_INSTRUCTION_TYPE::NORMAL:
+			case ZOMBIE_INSTRUCTION_TYPE::BUCKETHEAD:
+			case ZOMBIE_INSTRUCTION_TYPE::CONEHEAD:
+			case ZOMBIE_INSTRUCTION_TYPE::FLAG:
+			case ZOMBIE_INSTRUCTION_TYPE::NEWSPAPER:
+			case ZOMBIE_INSTRUCTION_TYPE::NEWSPAPERNOPAPER:
+				total++;
+				break;
+
+			case ZOMBIE_INSTRUCTION_TYPE::EMPTY:
+			default:
+				continue;
+			}
+		}
+		return total;
 	}
 }

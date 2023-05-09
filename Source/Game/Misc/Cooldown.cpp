@@ -5,17 +5,17 @@ using namespace std::chrono;
 namespace game_framework
 {
 	high_resolution_clock::time_point Cooldown::gameClock;
+	high_resolution_clock::time_point Cooldown::gamePauseBegin;
+	double Cooldown::gamePauseTime;
 
 	Cooldown::Cooldown()
-	{
-		gameClock = high_resolution_clock::now();
-	}
+	{}
 
 	Cooldown::~Cooldown() {}
 
-	void Cooldown::initCooldown(double cooldown)
+	void Cooldown::updateGameClock()
 	{
-		_cooldown = cooldown;
+		gameClock = high_resolution_clock::now() - std::chrono::duration_cast<std::chrono::steady_clock::duration>(std::chrono::duration<double>(gamePauseTime));
 	}
 
 	high_resolution_clock::time_point Cooldown::getGameClock()
@@ -26,6 +26,27 @@ namespace game_framework
 	long unsigned int Cooldown::getGameClockForPRNGSeed()
 	{
 		return (static_cast<long unsigned int>(gameClock.time_since_epoch().count()));
+	}
+
+	void Cooldown::initGamePauseTime()
+	{
+		gamePauseTime = 0;
+	}
+
+	void Cooldown::pauseClockBegin()
+	{
+		gamePauseBegin = high_resolution_clock::now();
+	}
+
+	void Cooldown::pauseClockEnd()
+	{
+		// seconds
+		gamePauseTime += duration_cast<duration<double>>(high_resolution_clock::now() - gamePauseBegin).count();
+	}
+
+	void Cooldown::initCooldown(double cooldown)
+	{
+		_cooldown = cooldown;
 	}
 
 	double Cooldown::getCooldown()
@@ -54,13 +75,8 @@ namespace game_framework
 		return 0;
 	}
 
-	void Cooldown::updateGameClock()
-	{
-		gameClock = high_resolution_clock::now();
-	}
-
 	void Cooldown::startCooldown()
 	{
-		_lastUse = high_resolution_clock::now();
+		_lastUse = high_resolution_clock::now() - std::chrono::duration_cast<std::chrono::steady_clock::duration>(std::chrono::duration<double>(gamePauseTime));
 	}
 }

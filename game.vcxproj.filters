@@ -174,9 +174,6 @@
     <ClCompile Include="Source\Game\Zombies\Zombie.cpp">
       <Filter>MyGame\Zombies</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\Misc\Bullet\PuffShroomBullet.cpp">
-      <Filter>MyGame\Misc\Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Game\Plants\Threepeater.cpp">
       <Filter>MyGame\Plants</Filter>
     </ClCompile>
@@ -185,6 +182,15 @@
     </ClCompile>
     <ClCompile Include="Source\Game\Misc\Lawnmower.cpp">
       <Filter>MyGame\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Background\CheckBox.cpp">
+      <Filter>MyGame\Backgrounds</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Plants\ScaredyShroom.cpp">
+      <Filter>MyGame\Plants</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Misc\Bullet\ShroomBullet.cpp">
+      <Filter>MyGame\Misc\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -292,6 +298,12 @@
     </ClInclude>
     <ClInclude Include="Source\Game\Misc\Lawnmower.h">
       <Filter>MyGame\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Background\CheckBox.h">
+      <Filter>MyGame\Backgrounds</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameMode\GameMapsEnum.h">
+      <Filter>MyGame\GameMode</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

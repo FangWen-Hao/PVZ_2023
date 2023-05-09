@@ -32,7 +32,8 @@ namespace game_framework
 		picker.init();
 
 		// initialize the startGameButton.
-		startGameButton.init(START_GAME_BMP_FILEPATH, background.GetWidth() + 5, 0);
+		startGameButton.init(START_GAME_BMP_FILEPATH, 0, 0);
+		startGameButton.SetTopLeft(picker.GetLeft() + ((picker.GetWidth() - startGameButton.GetWidth()) / 2), picker.GetTop() + picker.GetHeight() - startGameButton.GetHeight() - 20); // 20 because of padding from bottom
 		shovelButton.init({ SHOVEL_BUTTON_FILEPATH }, background.GetWidth() + 5, 0);
 		startGameButton.SetFrameIndexOfBitmap(2);
 

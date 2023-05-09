@@ -31,10 +31,9 @@
     - The suns' position is determined by the game's PRNG (Pseudo Random Number Generator), which uses system clock.
 4. Once a sun is clicked, the sun is added to the sun counter.
 5. Zombies spawn in the right part of the screen and they walk to the left.
-    - The lane they walk in is determined by the game's PRNG for now.
 6. Plants can be planted on the lane and can attack the zombies.
-    - Plants that be planted and used: `Peashooter`, `Snowpea`, `Cherrybomb`, `Wallnut`, `Repeaterpea`, `Threeshooterpea`, `Puffshroom`.
-    - Plants that be planted and can't be used: `Potatomine`, `Squash`.
+    - Plants that be planted and used: `Peashooter`, `Snowpea`, `Cherrybomb`, `Wallnut`, `Repeaterpea`, `Threeshooterpea`, `Puffshroom`, `Scaredyshroom`, `Potatomine`, `Squash`.
+    - Plants that be planted and can't be used: N/A.
     - Plants that is in WIP: `Jalapeno`, `Hypnoshroom`, `Iceshroom`, `Chomper`.
 7. The plant picker cards has three modes:
     - The plant can't be planted since the accumulated sun isn't enough to plant the plants that the player wants.
@@ -52,13 +51,19 @@
 15. Progress Bar logic. (BETA)
 16. Zombie Factory logic.
 17. If the zombies are attacked by Snowpea, then the zombie animation will turn blue and move slower.
+18. The zombies that can be generated are:
+    - Normal Zombie
+    - Conehead Zombie
+    - Buckethead Zombie
+    - Newspaper Zombie
+    - Flag Zombie
+19. In game menu logic.
 
 ## Work In Progress (Hopefully will be on Released on v2.0.0)
 
 1. If the zombies are attacked by Hypno-Shroom, then the zombie animation will turn purple and walk to the map's right side.
 2. Shrooms plant logic.
 3. Night map logic.
-4. In game menu logic.
 
 ### Bugs:
 

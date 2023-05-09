@@ -246,6 +246,7 @@
     <ClCompile Include="Source\Game\Background\Background.cpp" />
     <ClCompile Include="Source\Game\Background\Button.cpp" />
     <ClCompile Include="Source\Game\Background\CardPicker.cpp" />
+    <ClCompile Include="Source\Game\Background\CheckBox.cpp" />
     <ClCompile Include="Source\Game\Background\GameBar.cpp" />
     <ClCompile Include="Source\Game\Background\GameMenu.cpp" />
     <ClCompile Include="Source\Game\Background\ProgressBar.cpp" />
@@ -255,7 +256,7 @@
     <ClCompile Include="Source\Game\GameMode\Main_Menu.cpp" />
     <ClCompile Include="Source\Game\GameMode\Map.cpp" />
     <ClCompile Include="Source\Game\Misc\Bullet\PeaShooterBullet.cpp" />
-    <ClCompile Include="Source\Game\Misc\Bullet\PuffShroomBullet.cpp" />
+    <ClCompile Include="Source\Game\Misc\Bullet\ShroomBullet.cpp" />
     <ClCompile Include="Source\Game\Misc\Bullet\SnowPeaBullet.cpp" />
     <ClCompile Include="Source\Game\Misc\Cooldown.cpp" />
     <ClCompile Include="Source\Game\Misc\Lawnmower.cpp" />
@@ -269,6 +270,7 @@
     <ClCompile Include="Source\Game\Plants\PotatoMine.cpp" />
     <ClCompile Include="Source\Game\Plants\PuffShroom.cpp" />
     <ClCompile Include="Source\Game\Plants\RepeaterPea.cpp" />
+    <ClCompile Include="Source\Game\Plants\ScaredyShroom.cpp" />
     <ClCompile Include="Source\Game\Plants\SnowPea.cpp" />
     <ClCompile Include="Source\Game\Plants\Squash.cpp" />
     <ClCompile Include="Source\Game\Plants\SunFlower.cpp" />
@@ -298,12 +300,14 @@
     <ClInclude Include="Source\Game\Background\Background.h" />
     <ClInclude Include="Source\Game\Background\Button.h" />
     <ClInclude Include="Source\Game\Background\CardPicker.h" />
+    <ClInclude Include="Source\Game\Background\CheckBox.h" />
     <ClInclude Include="Source\Game\Background\GameBar.h" />
     <ClInclude Include="Source\Game\Background\GameMenu.h" />
     <ClInclude Include="Source\Game\Background\ProgressBar.h" />
     <ClInclude Include="Source\Game\Background\SeedCard.h" />
     <ClInclude Include="Source\Game\config.h" />
     <ClInclude Include="Source\Game\GameMode\Almanac.h" />
+    <ClInclude Include="Source\Game\GameMode\GameMapsEnum.h" />
     <ClInclude Include="Source\Game\GameMode\GameMode.h" />
     <ClInclude Include="Source\Game\GameMode\GameModeUtils.h" />
     <ClInclude Include="Source\Game\GameMode\LoadingScreen.h" />
