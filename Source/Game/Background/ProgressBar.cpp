@@ -39,6 +39,7 @@ void ProgressBar::updateCount()
 	zombiesKilled++;
 
 	double progress = ((double)zombiesKilled) * ((double)PROGRESS_BAR_STATES) / ((double)totalZombies);
+	int progressInt = (int)progress;
 	image.SetFrameIndexOfBitmap((int)progress); // progress will be TRUNCATED
 }
 

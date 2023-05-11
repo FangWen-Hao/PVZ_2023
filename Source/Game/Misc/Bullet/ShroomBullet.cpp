@@ -25,6 +25,9 @@ void PuffShroomBullet::onMove()
 {
 	ShroomBullet::onMove();
 
-	if (GetLeft() + GetWidth() > RIGHT_TILES_POSITION_ON_MAP.at(_plantCol + 3))
+	int col = _plantCol + 3;
+	if (col > 8) col = 8;
+
+	if (GetLeft() + GetWidth() > RIGHT_TILES_POSITION_ON_MAP.at(col))
 		outOfRange = true;
 }

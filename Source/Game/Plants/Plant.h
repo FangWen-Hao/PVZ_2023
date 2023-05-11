@@ -178,7 +178,8 @@ namespace game_framework
 			bool hasZombieInRow = false;
 
 			for (Zombie* zombie : *zombies) {
-				if (!zombie->isDead() && zombie->row() == _row) {
+				if (findObjInVector(*zombies, zombie) &&
+					!zombie->isDead() && zombie->row() == _row && zombie->col() >= _col) {
 					hasZombieInRow = true;
 					break;
 				}

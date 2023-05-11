@@ -5,6 +5,7 @@
 #include "../Library/audio.h"
 #include "../Library/gameutil.h"
 #include "../Library/gamecore.h"
+#include "Utils/GameModeUtils.h"
 #include "GameMode/Main_Menu.h"
 #include "mygame.h"
 

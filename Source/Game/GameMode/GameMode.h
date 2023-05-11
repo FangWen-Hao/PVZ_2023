@@ -1,6 +1,5 @@
 #pragma once
 #include "../Background/Background.h"
-#include "GameMapsEnum.h"
 #include <atltypes.h>
 
 namespace game_framework {

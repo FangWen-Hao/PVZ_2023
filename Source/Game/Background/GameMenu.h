@@ -32,7 +32,18 @@ namespace game_framework
 		"Resources/In Game Menu/BMP/restartLevel1.bmp"
 	};
 
+	const vector<string> PREVIOUS_LEVEL_BTN_BITMAPS{
+		"Resources/In Game Menu/BMP/previousLevel.bmp",
+	};
+
+	const vector<string> NEXT_LEVEL_BTN_BITMAPS{ 
+		"Resources/In Game Menu/BMP/nextLevel.bmp",
+
+	};
+
 	const string GAME_MENU_BACKGROUND_BITMAP = "Resources/In Game Menu/BMP/wholeMenuEmpty.bmp";
+
+	const int GAME_MENU_BTNS_PADDING = 43;
 
 	class GameMenu
 	{
@@ -40,10 +51,10 @@ namespace game_framework
 		GameMenu() {};
 		~GameMenu() {};
 
-		void init();
+		void init(int previousLevel, int currentLevel, int nextLevel);
 		void show();
 		void onHover(CPoint coords);
-		int onClick(CPoint coords, int currentLevel);
+		int onClick(CPoint coords);
 
 		bool getIsGamePaused();
 
@@ -57,11 +68,16 @@ namespace game_framework
 		static bool isMusicOn;
 		static bool isSoundFXOn;
 		bool isGamePaused = false;
+		int previousLevel;
+		int currentLevel;
+		int nextLevel;
 
 		CMovingBitmap background;
 		Button menuCallerBtn;
 		CheckBox musicChkBox;
 		CheckBox soundFXChkBox;
+		Button previousLvlBtn;
+		Button nextLvlBtn;
 		Button restartLvlBtn;
 		Button mainMenuBtn;
 		Button backToGameBtn;

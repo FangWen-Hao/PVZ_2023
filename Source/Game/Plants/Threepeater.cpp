@@ -33,12 +33,15 @@ Threepeater::Threepeater(CPoint pos) : ShootingPlant(PLANT::THREE_PEATER, Threep
 
 void Threepeater::attack(vector<Bullet*>* bullets)
 {
+	// MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(_row - 1) + animate.GetTop() - MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(_row)
+	// is so we can have all 3 bullets at the same height relative to the row's limits.
 	bullets->push_back(
-		new PeaShooterBullet(MIDDLE_TILES_POSITION_ON_MAP.at(_col), MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(_row - 1), _damage));
+		new PeaShooterBullet(animate.GetLeft() + animate.GetWidth(), MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(_row - 1) + animate.GetTop() - MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(_row), _damage));
+	// animate.GetTop() == MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(_row) + const A [where A is either positive or negative], therefore to get const A we do animate - pos
 	bullets->push_back(
-		new PeaShooterBullet(MIDDLE_TILES_POSITION_ON_MAP.at(_col), MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(_row), _damage));
+		new PeaShooterBullet(animate.GetLeft() + animate.GetWidth(), animate.GetTop(), _damage));  
 	bullets->push_back(
-		new PeaShooterBullet(MIDDLE_TILES_POSITION_ON_MAP.at(_col), MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(_row + 1), _damage));
+		new PeaShooterBullet(animate.GetLeft() + animate.GetWidth(), MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(_row + 1) + animate.GetTop() - MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(_row), _damage));
 }
 
 void Threepeater::onMove(vector<Bullet*>* bullets, vector<Sun*>* suns, vector<Zombie*>* zombies) {
@@ -47,7 +50,8 @@ void Threepeater::onMove(vector<Bullet*>* bullets, vector<Sun*>* suns, vector<Zo
 	bool hasZombieInRow = false;
 
 	for (Zombie* zombie : *zombies) {
-		if (!zombie->isDead() && (zombie->row() == _row - 1 ||
+		if (findObjInVector(*zombies, zombie) &&
+			!zombie->isDead() && (zombie->row() == _row - 1 ||
 			zombie->row() == _row ||
 			zombie->row() == _row + 1)) {
 			hasZombieInRow = true;

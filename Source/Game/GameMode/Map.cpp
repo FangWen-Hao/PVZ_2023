@@ -4,26 +4,36 @@
 // #include "GameMenu.h"
 // #include "ProgressBar.h"
 // #include "Lanes.h"
+#include "../Utils/GameModeConsts.h"
 #include "../Misc/NormalSun.h"
-#include "GameModeUtils.h"
+#include "../Utils/GameModeUtils.h"
+#include "../Utils/EntitiesUtil.h"
 #include "Maps/Tile_Positions.h"
 #include "../Plants/Plant.h"
 #include "../Zombies/Zombie.h"
 #include <algorithm>
-#include "Maps/Zombies_Spawn_Instruction.h"
+#include "../config.h"
 
 namespace game_framework {
 
-	Map::Map(vector<vector<int>> zombiesSpawningInstructions)
+	Map::Map(vector<vector<int>> zombiesSpawningInstructions,
+		string messageBitmap,
+		double sunProductionCooldownVal,
+		unsigned int maxSunsFallen,
+		int startingSunHeight,
+		int startingSunsAmmount,
+		bool isDay)
+
 	{
 		SetUpGameBoard();
 
-		// temp code
-		// NormalZombie *nz = new NormalZombie();
-		// nz->onInit();
-		// zombies.push_back(nz);
-
 		this->zombiesSpawningInstructions = zombiesSpawningInstructions;
+		this->sunProductionCooldownVal = sunProductionCooldownVal;
+		this->maxSunsFallen = maxSunsFallen;
+		this->startingSunHeight = startingSunHeight;
+		this->startingSunsAmmount = startingSunsAmmount;
+		this->isDay = isDay;
+		endGameMsg.init(messageBitmap);
 	}
 
 	void Map::SetUpGameBoard()
@@ -49,14 +59,14 @@ namespace game_framework {
 
 	void Map::DeleteEntities()
 	{
-		for (unsigned int i = 0; i < displayedSuns.size(); i++)
+		for (Sun* sun : displayedSuns)
 		{
-			delete displayedSuns.at(i);
+			deleteObjInVector(&displayedSuns, sun);
 		}
 
-		for (unsigned i = 0; i < zombies.size(); i++)
+		for (Zombie* zomb : zombies)
 		{
-			delete zombies.at(i);
+			deleteObjInVector(&zombies, zomb);
 		}
 
 		for (int row = 0; row < 5; row++)
@@ -75,6 +85,10 @@ namespace game_framework {
 		}
 
 		// delete vector bullets
+		for (Bullet* bullet : bullets)
+		{
+			deleteObjInVector(&bullets, bullet);
+		}
 	}
 
 	void Map::init()
@@ -88,22 +102,27 @@ namespace game_framework {
 
 	void Map::InitGameBoard()
 	{
-		sunProductionCooldown.initCooldown(10);
+		sunProductionCooldown.initCooldown(sunProductionCooldownVal);
 
 
 		for (int row = 0; row < 5; row++)
 		{
 			lawnmowers.at(row)->init(row);
 		}
+
+		note.LoadBitmapByString({ NOTE_BITMAP } /*TODO:, color*/);
+		note.SetTopLeft(RESOLUTION_X + 10, RESOLUTION_Y + 10);
 	}
 
 	void Map::InitUI()
 	{
 		background.init(MAP_BG_DAY);
-		bar.init(sunsAmount);
+		bar.init(startingSunsAmmount);
 		shovelCursor.LoadBitmapByString({ SHOVEL_CURSOR_BITMAP }, RGB(255, 255, 255));
-		menu.init();
-		progress.init(countTotalZombies(), 0);
+		int currentLevel = getCurrentLevel() - LEVEL_1 + 1;
+		progress.init(countTotalZombies(), currentLevel);
+		menu.init(getPreviousLevel(), getCurrentLevel(), getNextLevel());
+		gameOver.init();
 	}
 
 	void Map::show()
@@ -111,6 +130,13 @@ namespace game_framework {
 		background.show();
 		ShowEntities();
 		ShowUI();
+		gameOver.show();
+
+		if (noteWasClicked)
+		{
+			endGameMsg.ShowBitmap();
+		}
+
 	}
 
 	void Map::ShowEntities()
@@ -123,14 +149,17 @@ namespace game_framework {
 		}
 
 		for (Sun* sun : displayedSuns) {
+			if (!findObjInVector(displayedSuns, sun)) continue;
 			sun->show();
 		}
 
 		for (Zombie* zombie : zombies) {
+			if (!findObjInVector(zombies, zombie)) continue;
 			zombie->onShow();
 		}
 
 		for (Bullet* bullet : bullets) {
+			if (!findObjInVector(bullets, bullet)) continue;
 			bullet->onShow();
 		}
 
@@ -141,6 +170,7 @@ namespace game_framework {
 				lawnmower->show();
 			}
 		}
+		note.ShowBitmap();
 	}
 
 	void Map::ShowUI()
@@ -259,7 +289,7 @@ namespace game_framework {
 	{
 		for (Zombie* zombie : zombies)
 		{
-			if (zombie == nullptr) continue;
+			if ((!findObjInVector(zombies, zombie)) || zombie == nullptr) continue;
 
 			zombie->onMove(&plants);
 
@@ -276,12 +306,25 @@ namespace game_framework {
 					zombie->setHp(0);
 				}
 			}
-
-			if (zombie->isDead() && zombie->isDeadDone())
+			else if (lawnmowers.at(zombie->row()) == nullptr
+				&& zombie->left() <= LEFT_TILES_POSITION_ON_MAP.at(0)
+				&& !zombie->isDead())
 			{
-				zombies.erase(remove(zombies.begin(), zombies.end(), zombie), zombies.end());
-				delete zombie;
-				progress.updateCount();
+				gameOver.triggerGameOver();
+			}
+
+			if (zombie->isDead())
+			{
+				if (progress.getRemainingZombies() == 1)
+				{
+					note.SetTopLeft(zombie->left(), zombie->top());
+				}
+
+				if (zombie->isDeadDone())
+				{
+					deleteObjInVector(&zombies, zombie);
+					progress.updateCount();
+				}
 			}
 		}
 	}
@@ -290,13 +333,12 @@ namespace game_framework {
 	{
 		for (Bullet* bullet : bullets)
 		{
-			if (bullet == nullptr) continue;
+			if ((!findObjInVector(bullets, bullet)) || bullet == nullptr) continue;
 
 			bullet->onMove();
 			if (bullet->detectCollison(&zombies) || bullet->isOutOfRange())
 			{
-				bullets.erase(remove(bullets.begin(), bullets.end(), bullet), bullets.end());
-				delete bullet;
+				deleteObjInVector(&bullets, bullet);
 			}
 		}
 	}
@@ -325,32 +367,52 @@ namespace game_framework {
 	
 	int Map::OnLClick(CPoint coords)
 	{
-
-		if (menu.getIsGamePaused())
+		// if the game was lost or won, then don't allow the user to access the menu.
+		if (noteWasClicked)
 		{
-			int returnCode = menu.onClick(coords, 0);
-
-			if (returnCode != MENU_NO_BTN_ACTION_REJECTED && returnCode != MENU_NO_BTN_ACTION_ACCEPTED)
-				return returnCode;
+			return getNextLevel();
 		}
-		else
-		{
-			menu.onClick(coords, 0);
-			if (!bar.hasGameStarted())
-			{
-				bar.onClick(coords);
-				return 0;
-			}
 
-			if (bar.hasGameStarted())
-			{
-				AddSunOnClick(coords);
-				CreatePlantOnClick(coords);
-			}
+		if (gameOver.getIsGameOver())
+		{
+			return gameOver.onClick(getCurrentLevel());
 		}
 		
+		// if the menu is open, then don't allow the user to click anything else.
+		if (menu.getIsGamePaused())
+		{
+			return menu.onClick(coords);
+		}
 
-		return 0;
+
+		menu.onClick(coords);
+
+		// allow the user to click the menu if the game is over but the user hasn't picked up the note.
+		if (progress.isGameComplete())
+		{
+			if (coords.x < (note.GetLeft() + note.GetWidth()) && coords.x > note.GetLeft()
+				&& coords.y < (note.GetTop() + note.GetHeight()) && coords.y > note.GetTop())
+			{
+				noteWasClicked = true;
+				return MENU_NO_BTN_ACTION_ACCEPTED;
+			}
+			return MENU_NO_BTN_ACTION_ACCEPTED;
+		}
+
+		// otherwise, if the game is in progress then the user can click anything.
+		if (!bar.hasGameStarted())
+		{
+			bar.onClick(coords);
+			return MENU_NO_BTN_ACTION_ACCEPTED;
+		}
+
+		if (bar.hasGameStarted())
+		{
+			AddSunOnClick(coords);
+			CreatePlantOnClick(coords);
+		}
+
+		return MENU_NO_BTN_ACTION_ACCEPTED;
 	}
 
 	int Map::OnRClick(CPoint coords)
@@ -482,11 +544,12 @@ namespace game_framework {
 	{
 		for (Sun* sun : displayedSuns)
 		{
-			if (coords.x < (sun->GetLeft() + sun->GetWidth()) && coords.x > sun->GetLeft()
+			if (findObjInVector(displayedSuns, sun)
+				&& coords.x < (sun->GetLeft() + sun->GetWidth()) && coords.x > sun->GetLeft()
 				&& coords.y < (sun->GetTop() + sun->GetHeight()) && coords.y > sun->GetTop())
 			{
 				bar.addSuns(sun->getValue());
-				removeSunFromVector(sun);
+				deleteObjInVector(&displayedSuns, sun);
 				break;
 			}
 		}
@@ -518,28 +581,23 @@ namespace game_framework {
 
 		for (Sun* sun : displayedSuns)
 		{
-			if (sun->update() == Sun_status::INVALID)
+			if (findObjInVector(displayedSuns, sun)
+				&& sun->update() == Sun_status::INVALID)
 			{
-				removeSunFromVector(sun);
+				deleteObjInVector(&displayedSuns, sun);
 			}
 		}
 
 		if (!sunProductionCooldown.isOnCooldown()
-			&& displayedSuns.size() <= MAX_SUNS_FALLEN)
+			&& displayedSuns.size() <= maxSunsFallen)
 		{
 			displayedSuns.push_back(new NormalSun());
 			displayedSuns.back()->init(MIDDLE_TILES_POSITION_ON_MAP.at(integerPRNG(0, 8)),
-				FALLING_SUN_INITIAL_POSITION,
+				startingSunHeight,
 				MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(integerPRNG(0, 4)));
 
 			sunProductionCooldown.startCooldown();
 		}
-	}
-
-	void Map::removeSunFromVector(Sun* sun)
-	{
-		displayedSuns.erase(remove(displayedSuns.begin(), displayedSuns.end(), sun), displayedSuns.end());
-		delete sun;
 	}
 
 	CPoint Map::_mousePos2TilePos(CPoint coords)
@@ -606,20 +664,20 @@ namespace game_framework {
 					zombie = new ConeheadZombie();
 					break;
 
-				// case ZOMBIE_TYPE::FLAG:
-				// 	zombie = new FlagZombie();
-				// 	break;
+				case ZOMBIE_INSTRUCTION_TYPE::FLAG:
+				 	zombie = new FlagZombie();
+				 	break;
 
-				// case ZOMBIE_TYPE::NEWSPAPER:
-				// 	zombie = new NewspaperZombie();
-				// 	break;
+				case ZOMBIE_INSTRUCTION_TYPE::NEWSPAPER:
+				 	zombie = new NewspaperZombie();
+				 	break;
 
-				// case ZOMBIE_TYPE::NEWSPAPERNOPAPER:
-				// 	zombie = new NewpaperZombieNoPaper();
-				// 	break;
+				case ZOMBIE_INSTRUCTION_TYPE::NEWSPAPERNOPAPER:
+				 	zombie = new NewpaperZombieNoPaper();
+				 	break;
 
 				default:
-					return nullptr;
+					continue;
 				}
 
 				zombiesSpawningInstructions.at(i).at(3) = 1;

@@ -33,7 +33,7 @@ RepeaterPea::RepeaterPea(CPoint pos) : ShootingPlant(PLANT::REPEATER_PEA, Repeat
 void RepeaterPea::attack(vector<Bullet*>* bullets)
 {
 	bullets->push_back(
-		new PeaShooterBullet(MIDDLE_TILES_POSITION_ON_MAP.at(_col), MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(_row), _damage));
+		new PeaShooterBullet(animate.GetLeft() + animate.GetWidth() + 10, animate.GetTop(), _damage));
 	bullets->push_back(
-		new PeaShooterBullet(LEFT_TILES_POSITION_ON_MAP.at(_col), MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(_row), _damage));
+		new PeaShooterBullet(animate.GetLeft() + animate.GetWidth(), animate.GetTop(), _damage));
 }

@@ -40,7 +40,7 @@
 
 #include "Background/Background.h"
 #include "GameMode/GameMode.h"
-#include "GameMode/GameModeUtils.h"
+#include "Utils/GameModeConsts.h"
 
 // Try putting
 

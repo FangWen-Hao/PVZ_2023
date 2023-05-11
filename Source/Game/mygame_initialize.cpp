@@ -6,8 +6,10 @@
 #include "../Library/gameutil.h"
 #include "../Library/gamecore.h"
 #include "mygame.h"
+#include "Background/GameMenu.h"
 
 using namespace game_framework;
+
 /////////////////////////////////////////////////////////////////////////////
 // 這個class為遊戲的遊戲開頭畫面物件
 /////////////////////////////////////////////////////////////////////////////
@@ -58,6 +60,8 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
+	GameMenu::setIsMusicOn(true);
+	GameMenu::setIsSoundFXOn(true);
 	GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
 }
 

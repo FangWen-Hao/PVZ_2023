@@ -1,10 +1,12 @@
-#include "GameMode.h"
-#include "Main_Menu.h"
-#include "Map.h"
-#include "Almanac.h"
-#include "LoadingScreen.h"
+#pragma once
+#include "../GameMode/GameMode.h"
+#include "GameModeConsts.h"
+#include "../GameMode/Main_Menu.h"
+#include "../GameMode/Map.h"
+#include "../GameMode/Maps/MapsDependencies.h"
+#include "../GameMode/Almanac.h"
+#include "../GameMode/LoadingScreen.h"
 #include "../Misc/Cooldown.h"
-#include "Maps/Zombies_Spawn_Instruction.h"
 
 using namespace std;
 namespace game_framework {
@@ -19,7 +21,24 @@ namespace game_framework {
 		switch (newGameMode)
 		{
 		case ADVENTURE_MODE_BTN:
-			GameModePtr = new Map(DEMO);
+		case LEVEL_1:
+			GameModePtr = new Level1();
+			break;
+
+		case LEVEL_2:
+			GameModePtr = new Level2();
+			break;
+
+		case LEVEL_3:
+			GameModePtr = new Level3();
+			break;
+
+		case LEVEL_4:
+			GameModePtr = new Level4();
+			break;
+
+		case LEVEL_5:
+			GameModePtr = new Level5();
 			break;
 
 		case ALMANAC_BTN:

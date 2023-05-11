@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Plant.h"
+#include "../Utils/EntitiesUtil.h"
 
 using namespace game_framework;
 
@@ -26,10 +27,18 @@ void PuffShroom::onMove(vector<Bullet*>* bullets, vector<Sun*>* suns, vector<Zom
 	bool hasZombieInAttackRange = false;
 
 	for (Zombie* zombie : *zombies) {
-		if (!zombie->isDead() && zombie->row() == _row && zombie->col() != -1 &&
-			zombie->right() <= RIGHT_TILES_POSITION_ON_MAP.at(_col + 3)) {
-			hasZombieInAttackRange = true;
-			break;
+		if (findObjInVector(*zombies, zombie)
+			&& !zombie->isDead() && zombie->row() == _row && zombie->col() != -1) {
+			if (_col + 3 > 8)
+			{
+				hasZombieInAttackRange = true;
+				break;
+			}
+			else if ((zombie->right() - zombie->width() / 2) <= RIGHT_TILES_POSITION_ON_MAP.at(_col + 3))
+			{
+				hasZombieInAttackRange = true;
+				break;
+			}
 		}
 	}
 
@@ -43,5 +52,5 @@ void PuffShroom::onMove(vector<Bullet*>* bullets, vector<Sun*>* suns, vector<Zom
 void PuffShroom::attack(vector<Bullet*>* bullets)
 {
 	bullets->push_back(
-		new PuffShroomBullet(MIDDLE_TILES_POSITION_ON_MAP.at(_col), MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(_row), _damage, _col));
+		new PuffShroomBullet(animate.GetLeft() + animate.GetWidth(), animate.GetTop(), _damage, _col));
 }

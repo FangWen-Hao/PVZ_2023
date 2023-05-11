@@ -2,6 +2,7 @@
 
 #include "../../../Library/gameutil.h"
 #include "../../Zombies/Zombie.h"
+#include "../../Utils/EntitiesUtil.h"
 
 namespace game_framework
 {
@@ -22,7 +23,8 @@ namespace game_framework
 		virtual void onShow(double factor = 1) { ShowBitmap(factor); }
 		virtual bool detectCollison(vector<Zombie*>* zombies) {
 			for (Zombie* zombie : *zombies) {
-				if (!zombie->isDead() && 
+				if (findObjInVector(*zombies, zombie) &&
+					!zombie->isDead() && 
 					GetLeft() < zombie->right() && (GetLeft() + GetWidth()) > zombie->left() &&
 					GetTop() < zombie->bottom() && (GetTop() + GetHeight()) > zombie->top()) {
 					zombie->beingAttacked(_damage);

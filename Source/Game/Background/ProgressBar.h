@@ -48,7 +48,7 @@ namespace game_framework {
 		"Resources/Misc/Progress Bar/progress10.bmp",
 	};
 
-	const int PROGRESS_BAR_STATES = PROGRESS_BAR_BITMAPS.size();
+	const int PROGRESS_BAR_STATES = PROGRESS_BAR_BITMAPS.size() - 1;
 
 	class ProgressBar
 	{
@@ -66,8 +66,9 @@ namespace game_framework {
 		void setLevel(int numb) { level = numb; }
 
 		int getTotalZombies() { return totalZombies; }
-		int getZombiesKilled() { return totalZombies; }
+		int getZombiesKilled() { return zombiesKilled; }
 		int getLevel() { return level; }
+		int getRemainingZombies() { return totalZombies - zombiesKilled; }
 
 	private:
 		void drawCurrentLevel();
