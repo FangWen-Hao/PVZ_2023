@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "LoadingScreen.h"
+#include "../Utils/GameModeConsts.h"
 
 namespace game_framework {
 	LoadingScreen::LoadingScreen()

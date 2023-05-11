@@ -7,8 +7,6 @@ using namespace std;
 namespace game_framework
 {
 
-
-
 	class GameBar
 	{
 	public:

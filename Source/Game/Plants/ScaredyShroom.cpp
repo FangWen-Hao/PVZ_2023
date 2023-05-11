@@ -61,6 +61,8 @@ void ScaredyShroom::onMove(vector<Bullet*>* bullets, vector<Sun*>* suns, vector<
 	bool hasZombieInRow = false;
 
 	for (Zombie* zombie : *zombies) {
+		if (!findObjInVector(*zombies, zombie)) continue;
+
 		int zombieRow = zombie->row();
 		int zombieCol = zombie->col();
 
@@ -93,5 +95,5 @@ void ScaredyShroom::onShow()
 void ScaredyShroom::attack(vector<Bullet*>* bullets)
 {
 	bullets->push_back(
-		new ShroomBullet(MIDDLE_TILES_POSITION_ON_MAP.at(_col), MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(_row), _damage));
+		new ShroomBullet(animate.GetLeft() + animate.GetWidth(), animate.GetTop(), _damage));
 }

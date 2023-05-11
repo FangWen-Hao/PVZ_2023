@@ -38,6 +38,9 @@
     <Filter Include="MyGame\Misc\Bullet">
       <UniqueIdentifier>{eebe3294-67c3-489d-b9fc-4fe38b89698e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MyGame\Utils">
+      <UniqueIdentifier>{a5ff1f45-6bc2-41de-9dbb-f22a8971e0ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="RES\GAME.RC2">
@@ -192,6 +195,9 @@
     <ClCompile Include="Source\Game\Misc\Bullet\ShroomBullet.cpp">
       <Filter>MyGame\Misc\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Background\GameOver.cpp">
+      <Filter>MyGame\Backgrounds</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Library\audio.h">
@@ -237,9 +243,6 @@
       <Filter>MyGame\GameMode</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\GameMode\GameMode.h">
-      <Filter>MyGame\GameMode</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\GameMode\GameModeUtils.h">
       <Filter>MyGame\GameMode</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\GameMode\Almanac.h">
@@ -293,17 +296,41 @@
     <ClInclude Include="Source\Game\Misc\Bullet\Bullet.h">
       <Filter>MyGame\Misc\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\GameMode\Maps\Zombies_Spawn_Instruction.h">
-      <Filter>MyGame\GameMode\Maps</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Game\Misc\Lawnmower.h">
       <Filter>MyGame\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameMode\Maps\Level_1.h">
+      <Filter>MyGame\GameMode\Maps</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Background\CheckBox.h">
       <Filter>MyGame\Backgrounds</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\GameMode\GameMapsEnum.h">
-      <Filter>MyGame\GameMode</Filter>
+    <ClInclude Include="Source\Game\GameMode\Maps\Level_2.h">
+      <Filter>MyGame\GameMode\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameMode\Maps\Level_3.h">
+      <Filter>MyGame\GameMode\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameMode\Maps\Level_4.h">
+      <Filter>MyGame\GameMode\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameMode\Maps\MapsDependencies.h">
+      <Filter>MyGame\GameMode\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameMode\Maps\Level_5.h">
+      <Filter>MyGame\GameMode\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Background\GameOver.h">
+      <Filter>MyGame\Backgrounds</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Utils\GameModeConsts.h">
+      <Filter>MyGame\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Utils\GameModeUtils.h">
+      <Filter>MyGame\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Utils\EntitiesUtil.h">
+      <Filter>MyGame\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

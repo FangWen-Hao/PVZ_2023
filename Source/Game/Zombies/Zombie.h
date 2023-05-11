@@ -131,16 +131,19 @@ namespace game_framework
 	};
 
 	class FlagZombie : public Zombie {
+	public:
 		FlagZombie();
 		~FlagZombie() {}
 	};
 
 	class NewspaperZombie : public Zombie {
+	public:
 		NewspaperZombie();
 		~NewspaperZombie() {}
 	};
 
 	class NewpaperZombieNoPaper : public Zombie {
+	public:
 		NewpaperZombieNoPaper();
 		~NewpaperZombieNoPaper() {}
 	};

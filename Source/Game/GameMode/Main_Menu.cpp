@@ -4,6 +4,7 @@
 #include "../../Library/gameutil.h"
 #include "../Background/Button.h"
 #include "Main_Menu.h"
+#include "../Utils/GameModeConsts.h"
 
 using namespace game_framework;
 

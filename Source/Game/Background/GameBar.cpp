@@ -200,9 +200,15 @@ namespace game_framework
 	{
 		CDC *pDC = CDDraw::GetBackCDC();
 
-		/* Print title */
-		CTextDraw::ChangeFontLog(pDC, 20, "微軟正黑體", RGB(0, 0, 0), 800);
-		CTextDraw::Print(pDC, 25, 61, to_string(_suns));
+		const int sunBarRight = background.GetLeft() + 39; // this is just try and luck finding
+		int size = 20;
+		string msg = to_string(_suns);
+
+		
+		// I have absolutely no clue at all, 0, nil, nada, on why I have to divide by 4
+		// but this makes it work so....
+		CTextDraw::ChangeFontLog(pDC, size, "微軟正黑體", RGB(0, 0, 0), 800);
+		CTextDraw::Print(pDC, sunBarRight - (msg.size() * size / 4), 61, msg);
 
 		CDDraw::ReleaseBackCDC();
 	}

@@ -3,6 +3,7 @@
 #include "../Background/GameBar.h"
 #include "../Background/GameMenu.h"
 #include "../Background/ProgressBar.h"
+#include "../Background/GameOver.h"
 #include "../Plants/Plant.h"
 #include "../Zombies/Zombie.h"
 #include "../Misc/Sun.h"
@@ -13,83 +14,100 @@ namespace game_framework {
 	const string MAP_BG_DAY = "Resources/Background/GAME/DAY/BMP/Background.bmp";
 	const string MAP_BG_NIGHT = "Resources/Background/GAME/NIGHT/BMP/Background.bmp";
 	const string SHOVEL_CURSOR_BITMAP = "Resources/Misc/Shovel/BMP/Shovel1.bmp";
-
-	const int SUN_PRODUCTION_COOLDOWN = 10;
-	const unsigned int MAX_SUNS_FALLEN = 10;
-	const int FALLING_SUN_INITIAL_POSITION = 50;
+	const string NOTE_BITMAP = "Resources/Background/Level Up/BMP/note.bmp";
 	
 	class Map : public GameMode
 	{
 	public:
-		Map(vector<vector<int>> zombiesSpawningInstructions);
+		Map(vector<vector<int>> zombiesSpawningInstructions,
+			string messageBitmap,
+			double sunProductionCooldownVal = 10,
+			unsigned int maxSunsFallen = 10,
+			int startingSunHeight = 50,
+			int sunsAmount = 50,
+			bool isDay = true);
+
 		~Map();
 
-		void init();
-		void show();
-		void OnMove();
-		void OnHover(CPoint coords);
-		int OnLClick(CPoint coords);
-		int OnRClick(CPoint coords);
+		virtual void init();
+		virtual void show();
+		virtual void OnMove();
+		virtual void OnHover(CPoint coords);
+		virtual int OnLClick(CPoint coords);
+		virtual int OnRClick(CPoint coords);
 
-		void setIsDay(bool val);
-		bool getIsDay() { return isDay; }
+		virtual void setIsDay(bool val);
+		virtual bool getIsDay() { return isDay; }
 
-	private:
+	protected:
 		// Constructor helper methods
-		void SetUpGameBoard();
+		virtual void SetUpGameBoard();
 
 		// Destructor helper methods
-		void DeleteEntities();
+		virtual void DeleteEntities();
 
 		// Init helper methods
-		void InitUI();
-		void InitGameBoard();
+		virtual void InitUI();
+		virtual void InitGameBoard();
 
 		// Show helper methods
-		void ShowEntities();
-		void ShowUI();
+		virtual void ShowEntities();
+		virtual void ShowUI();
 
 		// OnHover helper methods
-		void OnHoverCursor(CPoint &coords);
+		virtual void OnHoverCursor(CPoint &coords);
 
 		// OnMove helper methods
-		void sunFactoryLogic();
-		void CreateZombieOnInstruction();
-		void collisionDetection(vector<Zombie*>*);
-		void UpdatePlantsState();
-		void UpdateZombiesState();
-		void UpdateBulletsState();
-		void UpdateLawnmowers();
+		virtual void sunFactoryLogic();
+		virtual void CreateZombieOnInstruction();
+		virtual void collisionDetection(vector<Zombie*>*);
+		virtual void UpdatePlantsState();
+		virtual void UpdateZombiesState();
+		virtual void UpdateBulletsState();
+		virtual void UpdateLawnmowers();
 
 		// OnClick helper methods
-		void AddSunOnClick(CPoint &coords);
-		void CreatePlantOnClick(const CPoint &coords);
+		virtual void AddSunOnClick(CPoint &coords);
+		virtual void CreatePlantOnClick(const CPoint &coords);
 
 		// Helpers Helper methods
-		Zombie* zombieFactory();
-		CPoint _mousePos2TilePos(CPoint);
-		void removeSunFromVector(Sun*);
-		int countTotalZombies();
+		virtual Zombie* zombieFactory();
+		virtual CPoint _mousePos2TilePos(CPoint);
+		virtual int countTotalZombies();
 		
-		// Stats attributes
-		int ZombiesKilled = 0;
-		int sunsAmount = 50;
-		bool isDay;
+
+		// inheritance
+		double sunProductionCooldownVal; //default is 10; this changes by map
+		unsigned int maxSunsFallen; //default is 10; this changes
+		int startingSunHeight; // default is  50; this changes
+		int startingSunsAmmount; //default is 50;
+		bool isDay; // default is true
+
+		// forced inheritance
+		virtual int getPreviousLevel() = 0;
+		virtual int getCurrentLevel() = 0;
+		virtual int getNextLevel() = 0;
+		
 		
 		// Game Logic attributes
 		Cooldown sunProductionCooldown;
 		// vector<Lane> lanes;
-		vector<Sun*> displayedSuns;
-		vector<Zombie*> zombies;
-		vector<vector<int>> zombiesSpawningInstructions;
-		vector<vector<Plant*>> plants;
-		vector<Bullet*> bullets;
-		vector<Lawnmower*> lawnmowers;
+		vector<Sun*> displayedSuns; //delets
+		vector<Zombie*> zombies; // deletes
+		vector<vector<int>> zombiesSpawningInstructions; // this changes
+		vector<vector<Plant*>> plants; // nullptr
+		vector<Bullet*> bullets; // delete
+		vector<Lawnmower*> lawnmowers; // nullptr
+
+		CMovingBitmap note;
+		Background endGameMsg;
+		bool noteWasClicked = false;
 
 		// UI Elements attributes
 		GameBar bar;
 		GameMenu menu;
 		ProgressBar progress;
+		GameOver gameOver;
 		CMovingBitmap shovelCursor;
 		Plant* currentSelectPlant = nullptr;
 		SEED_CARD_TYPE currentSelectedSeedCard = REFUSED;

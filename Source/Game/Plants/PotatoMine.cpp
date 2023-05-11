@@ -36,7 +36,8 @@ void PotatoMine::onMove(vector<Bullet*>* bullets, vector<Sun*>* suns, vector<Zom
 	else
 	{
 		for (Zombie* zombie : *zombies) {
-			if (zombie->row() == _row && zombie->col() == _col)
+			if (findObjInVector(*zombies, zombie) && 
+				zombie->row() == _row && zombie->col() == _col)
 			{
 				if (!isBoom)
 				{
