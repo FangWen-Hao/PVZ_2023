@@ -60,9 +60,9 @@ namespace game_framework
 			"Resources/Plants/Cards/BMP/card_snowpea_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_snowpea_cooldown1.bmp",
 			"Resources/Plants/Cards/BMP/card_snowpea_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_snowpea_cooldown3.bmp"},
 
-			{"Resources/Plants/Cards/BMP/card_chomper_alive.bmp", "Resources/Plants/Cards/BMP/card_chomper_unable.bmp",
-			"Resources/Plants/Cards/BMP/card_chomper_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_chomper_cooldown1.bmp",
-			"Resources/Plants/Cards/BMP/card_chomper_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_chomper_cooldown3.bmp"},
+			// {"Resources/Plants/Cards/BMP/card_chomper_alive.bmp", "Resources/Plants/Cards/BMP/card_chomper_unable.bmp",
+			// "Resources/Plants/Cards/BMP/card_chomper_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_chomper_cooldown1.bmp",
+			// "Resources/Plants/Cards/BMP/card_chomper_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_chomper_cooldown3.bmp"},
 
 			{"Resources/Plants/Cards/BMP/card_repeaterpea_alive.bmp", "Resources/Plants/Cards/BMP/card_repeaterpea_unable.bmp",
 			"Resources/Plants/Cards/BMP/card_repeaterpea_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_repeaterpea_cooldown1.bmp",
@@ -76,17 +76,17 @@ namespace game_framework
 			"Resources/Plants/Cards/BMP/card_sunshroom_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_sunshroom_cooldown1.bmp",
 			"Resources/Plants/Cards/BMP/card_sunshroom_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_sunshroom_cooldown3.bmp"}, // sun_shroom
 
-			{"Resources/Plants/Cards/BMP/card_hypnoshroom_alive.bmp", "Resources/Plants/Cards/BMP/card_hypnoshroom_unable.bmp",
-			"Resources/Plants/Cards/BMP/card_hypnoshroom_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_hypnoshroom_cooldown1.bmp",
-			"Resources/Plants/Cards/BMP/card_hypnoshroom_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_hypnoshroom_cooldown3.bmp"}, // hypno-shroom
+			// {"Resources/Plants/Cards/BMP/card_hypnoshroom_alive.bmp", "Resources/Plants/Cards/BMP/card_hypnoshroom_unable.bmp",
+			// "Resources/Plants/Cards/BMP/card_hypnoshroom_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_hypnoshroom_cooldown1.bmp",
+			// "Resources/Plants/Cards/BMP/card_hypnoshroom_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_hypnoshroom_cooldown3.bmp"}, // hypno-shroom
 
 			{"Resources/Plants/Cards/BMP/card_scaredyshroom_alive.bmp", "Resources/Plants/Cards/BMP/card_scaredyshroom_unable.bmp",
 			"Resources/Plants/Cards/BMP/card_scaredyshroom_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_scaredyshroom_cooldown1.bmp",
 			"Resources/Plants/Cards/BMP/card_scaredyshroom_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_scaredyshroom_cooldown3.bmp"}, // scaredy-shroom
 
-			{"Resources/Plants/Cards/BMP/card_iceshroom_alive.bmp", "Resources/Plants/Cards/BMP/card_iceshroom_unable.bmp",
-			"Resources/Plants/Cards/BMP/card_iceshroom_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_iceshroom_cooldown1.bmp",
-			"Resources/Plants/Cards/BMP/card_iceshroom_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_iceshroom_cooldown3.bmp"}, // ice-shroom
+			// {"Resources/Plants/Cards/BMP/card_iceshroom_alive.bmp", "Resources/Plants/Cards/BMP/card_iceshroom_unable.bmp",
+			// "Resources/Plants/Cards/BMP/card_iceshroom_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_iceshroom_cooldown1.bmp",
+			// "Resources/Plants/Cards/BMP/card_iceshroom_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_iceshroom_cooldown3.bmp"}, // ice-shroom
 
 			{"Resources/Plants/Cards/BMP/card_squash_alive.bmp", "Resources/Plants/Cards/BMP/card_squash_unable.bmp",
 			"Resources/Plants/Cards/BMP/card_squash_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_squash_cooldown1.bmp",
@@ -96,13 +96,13 @@ namespace game_framework
 			"Resources/Plants/Cards/BMP/card_threepeashooter_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_threepeashooter_cooldown1.bmp",
 			"Resources/Plants/Cards/BMP/card_threepeashooter_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_threepeashooter_cooldown3.bmp"}, // Three-peater
 
-			{"Resources/Plants/Cards/BMP/card_jalapeno_alive.bmp", "Resources/Plants/Cards/BMP/card_jalapeno_unable.bmp",
-			"Resources/Plants/Cards/BMP/card_jalapeno_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_jalapeno_cooldown1.bmp",
-			"Resources/Plants/Cards/BMP/card_jalapeno_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_jalapeno_cooldown3.bmp"}, // Jalapeno
+			// {"Resources/Plants/Cards/BMP/card_jalapeno_alive.bmp", "Resources/Plants/Cards/BMP/card_jalapeno_unable.bmp",
+			// "Resources/Plants/Cards/BMP/card_jalapeno_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_jalapeno_cooldown1.bmp",
+			// "Resources/Plants/Cards/BMP/card_jalapeno_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_jalapeno_cooldown3.bmp"}, // Jalapeno
 
-			{"Resources/Plants/Cards/BMP/card_spikeweed_alive.bmp", "Resources/Plants/Cards/BMP/card_spikeweed_unable.bmp",
-			"Resources/Plants/Cards/BMP/card_spikeweed_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_spikeweed_cooldown1.bmp",
-			"Resources/Plants/Cards/BMP/card_spikeweed_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_spikeweed_cooldown3.bmp"}, // spike_weed
+			// {"Resources/Plants/Cards/BMP/card_spikeweed_alive.bmp", "Resources/Plants/Cards/BMP/card_spikeweed_unable.bmp",
+			// "Resources/Plants/Cards/BMP/card_spikeweed_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_spikeweed_cooldown1.bmp",
+			// "Resources/Plants/Cards/BMP/card_spikeweed_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_spikeweed_cooldown3.bmp"}, // spike_weed
 
 		};
 		const vector<vector<int>> CARDS_DATA {

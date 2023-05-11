@@ -32,9 +32,9 @@
 4. Once a sun is clicked, the sun is added to the sun counter.
 5. Zombies spawn in the right part of the screen and they walk to the left.
 6. Plants can be planted on the lane and can attack the zombies.
-    - Plants that be planted and used: `Peashooter`, `Snowpea`, `Cherrybomb`, `Wallnut`, `Repeaterpea`, `Threeshooterpea`, `Puffshroom`, `Scaredyshroom`, `Potatomine`, `Squash`.
+    - Plants that be planted and used: `Peashooter`, `Sunflower`, `Cherrybomb`, `Wallnut`, `Potatomine`, `Snowpea`, `Repeaterpea`, `Puffshroom`, `Scaredyshroom`, `Squash`, and `Threeshooterpea`.
     - Plants that be planted and can't be used: N/A.
-    - Plants that is in WIP: `Jalapeno`, `Hypnoshroom`, `Iceshroom`, `Chomper`.
+    - WIP Plants: `Jalapeno`, `Hypnoshroom`, `Iceshroom`, `Chomper` and `SpikeWeed`.
 7. The plant picker cards has three modes:
     - The plant can't be planted since the accumulated sun isn't enough to plant the plants that the player wants.
     - The plant can be planted since the sun is accumulated and the cooldown has passed.
@@ -57,7 +57,14 @@
     - Buckethead Zombie
     - Newspaper Zombie
     - Flag Zombie
-19. In game menu logic.
+19. In game menu logic.The in-game menu allows the user to:
+  - go back to the previous level by pressing the button if the previous level isn't the main menu.
+  - Skip the current level and go to the next one if the next level isn't the main menu.
+  - Restart the current map.
+  - go back to the main menu.
+20. Level ending added
+  - If the user loses the game, then a game over screen will be displayed and the user can click anywhere on screen to restart the level
+  - If the user completes the level, then a note will drop from the last zombie and the user can only clcik that. When clicking it, the note will occupy the full screen to allow the user to read it. After reading it, the user can click anywhere to proceed to the next level.
 
 ## Work In Progress (Hopefully will be on Released on v2.0.0)
 
