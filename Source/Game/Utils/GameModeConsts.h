@@ -28,4 +28,12 @@ namespace game_framework
 		FLAG, // 5
 		NEWSPAPERNOPAPER,
 	};
+
+	const map<int, int> LEVEL_SETS_BOUNDERIES
+	{
+		// indicates when a set starts
+		// {set, starting level}
+		{1, 1},
+		{2, 6},
+	};
 }

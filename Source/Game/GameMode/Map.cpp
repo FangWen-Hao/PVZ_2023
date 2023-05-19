@@ -119,8 +119,7 @@ namespace game_framework {
 		background.init(MAP_BG_DAY);
 		bar.init(startingSunsAmmount);
 		shovelCursor.LoadBitmapByString({ SHOVEL_CURSOR_BITMAP }, RGB(255, 255, 255));
-		int currentLevel = getCurrentLevel() - LEVEL_1 + 1;
-		progress.init(countTotalZombies(), currentLevel);
+		progress.init(countTotalZombies());
 		menu.init(getPreviousLevel(), getCurrentLevel(), getNextLevel());
 		gameOver.init();
 	}
@@ -179,7 +178,8 @@ namespace game_framework {
 		menu.show();
 		if (bar.hasGameStarted())
 		{
-			progress.show();
+			int currentLevel = getCurrentLevel() - LEVEL_1 + 1;
+			progress.show(currentLevel);
 
 			if (currentSelectPlant != nullptr) {
 				currentSelectPlant->onShow();
