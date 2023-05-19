@@ -198,6 +198,12 @@
     <ClCompile Include="Source\Game\Background\GameOver.cpp">
       <Filter>MyGame\Backgrounds</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Misc\Music.cpp">
+      <Filter>MyGame\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Misc\Sfx.cpp">
+      <Filter>MyGame\Misc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Library\audio.h">
@@ -331,6 +337,12 @@
     </ClInclude>
     <ClInclude Include="Source\Game\Utils\EntitiesUtil.h">
       <Filter>MyGame\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Misc\Music.h">
+      <Filter>MyGame\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Misc\Sfx.h">
+      <Filter>MyGame\Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
