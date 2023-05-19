@@ -32,9 +32,10 @@ namespace game_framework {
 		virtual void init();
 		virtual void show();
 		virtual void OnMove();
-		virtual void OnHover(CPoint coords);
-		virtual int OnLClick(CPoint coords);
-		virtual int OnRClick(CPoint coords);
+		virtual void OnKeyUp(UINT);
+		virtual void OnHover(CPoint);
+		virtual int OnLClick(CPoint);
+		virtual int OnRClick(CPoint);
 
 		virtual void setIsDay(bool val);
 		virtual bool getIsDay() { return isDay; }

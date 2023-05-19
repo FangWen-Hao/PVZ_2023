@@ -23,9 +23,14 @@ namespace game_framework {
 		// Animation logic here?
 	}
 
+	void LoadingScreen::OnKeyUp(UINT nChar)
+	{
+	}
+
 	void LoadingScreen::OnHover(CPoint coords)
 	{
 	}
+
 	int LoadingScreen::OnLClick(CPoint coords)
 	{
 		if (isDone)

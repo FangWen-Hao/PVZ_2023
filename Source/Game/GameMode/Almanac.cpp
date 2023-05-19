@@ -25,6 +25,10 @@ namespace game_framework {
 
 	}
 
+	void Almanac::OnKeyUp(UINT nChar)
+	{
+	}
+
 	void Almanac::OnHover(CPoint coords)
 	{
 	}

@@ -44,6 +44,10 @@ void MainMenu::OnMove()
 	// however I don't think we need to do anything for main menu.cpp, do we?
 }
 
+void MainMenu::OnKeyUp(UINT nChar)
+{
+}
+
 void MainMenu::OnHover(CPoint coords)
 {
 	for (unsigned int i = 0; i < MenuButtons.size(); i++)

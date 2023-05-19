@@ -244,6 +244,33 @@ namespace game_framework {
 		}
 	}
 
+	void Map::OnKeyUp(UINT nChar)
+	{
+		const char KEY_D = 0x44;
+		const char KEY_L = 0x4C;
+		const char KEY_S = 0x53;
+		const char KEY_Z = 0x5A;
+
+		switch (nChar)
+		{
+		case KEY_D:
+			for (Zombie* zombie : zombies)
+				zombie->setHp(0);
+			break;
+		case KEY_L:
+			// TODO : jump to next level
+			break;
+		case KEY_S:
+			bar.addSuns(500);
+			break;
+		case KEY_Z:
+			// TODO : add zombies moving speed
+			break;
+		default:
+			break;
+		}
+	}
+
 	void Map::CreateZombieOnInstruction()
 	{
 		Zombie* zomb = zombieFactory();
@@ -474,6 +501,10 @@ namespace game_framework {
 		case SEED_CARD_TYPE::WALL_NUT:
 			if (bar.getSuns() >= WallNut::price)
 				currentSelectPlant = new WallNut(coords);
+			break;
+		case SEED_CARD_TYPE::JALAPENO:
+			if (bar.getSuns() >= Jalapeno::price)
+				currentSelectPlant = new Jalapeno(coords);
 			break;
 		case SEED_CARD_TYPE::SHOVEL:
 			shovelCursor.SetTopLeft(coords.x, coords.y);

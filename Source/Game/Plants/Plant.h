@@ -225,9 +225,6 @@ namespace game_framework
 		static const int price = 50;
 
 		void onShow() override;
-
-	protected:
-
 	private:
 		const int brokenThreshold1 = 2666;
 		const int brokenThreshold2 = 1333;
@@ -253,9 +250,8 @@ namespace game_framework
 		void PlaceDown(int, int) override;
 		void onMove(vector<Bullet*>*, vector<Sun*>*, vector<Zombie*>*) override;
 		void onShow() override;
-
 	protected:
-		bool boom = false;
+		bool isBoom = false;
 		CMovingBitmap boomAnimate;
 	};
 
@@ -269,7 +265,6 @@ namespace game_framework
 		static const int price = 25;
 
 		void onMove(vector<Bullet*>*, vector<Sun*>*, vector<Zombie*>*) override;
-
 	private:
 		bool isBoom = false;
 	};
@@ -285,10 +280,25 @@ namespace game_framework
 		void PlaceDown(int, int) override;
 		void onMove(vector<Bullet*>*, vector<Sun*>*, vector<Zombie*>*) override;
 		void onShow() override;
-
 	private:
 		bool isActivate = false;
 		CMovingBitmap activeAnimate;
+	};
+
+	class Jalapeno : public DisposablePlant
+	{
+	public:
+		Jalapeno(CPoint);
+		~Jalapeno() {}
+
+		static const int price = 125;
+
+		void PlaceDown(int, int) override;
+		void onMove(vector<Bullet*>*, vector<Sun*>*, vector<Zombie*>*) override;
+		void onShow() override;
+	private:
+		bool isExplode = false;
+		CMovingBitmap explodeAnimate;
 	};
 	//////////////////////////////////////////////////
 
@@ -383,7 +393,6 @@ namespace game_framework
 		void onMove(vector<Bullet*>*, vector<Sun*>*, vector<Zombie*>*) override;
 		void onShow() override;
 		void attack(vector<Bullet*>*) override;
-
 	private:
 		bool isCrying = false;
 		CMovingBitmap cryAnimate;
@@ -411,17 +420,6 @@ namespace game_framework
 		IceShroom();
 		~IceShroom();
 	};
-
-	class Jalapeno : public Plant
-	{
-	public:
-		Jalapeno();
-		~Jalapeno();
-	};
-
-	
-
-	
 
 	class Spikeweed : public Plant
 	{
