@@ -431,50 +431,75 @@ namespace game_framework {
 		CPoint pos = _mousePos2TilePos(coords);
 		switch (card)
 		{
-		case SEED_CARD_TYPE::CHERRY_BOMB:
-			if (bar.getSuns() >= CherryBomb::price)
-				currentSelectPlant = new CherryBomb(coords);
-			break;
 		case SEED_CARD_TYPE::PEA_SHOOTER:
 			if (bar.getSuns() >= PeaShooter::price)
 				currentSelectPlant = new PeaShooter(coords);
-			break;
-		case SEED_CARD_TYPE::REPEATER_PEA:
-			if (bar.getSuns() >= RepeaterPea::price)
-				currentSelectPlant = new RepeaterPea(coords);
-			break;
-		case SEED_CARD_TYPE::THREE_PEATER:
-			if (bar.getSuns() >= Threepeater::price)
-				currentSelectPlant = new Threepeater(coords);
-			break;
-		case SEED_CARD_TYPE::POTATO_MINE:
-			if (bar.getSuns() >= PotatoMine::price)
-				currentSelectPlant = new PotatoMine(coords);
-			break;
-		case SEED_CARD_TYPE::PUFF_SHROOM:
-			if (bar.getSuns() >= PuffShroom::price)
-				currentSelectPlant = new PuffShroom(coords);
-			break;
-		case SEED_CARD_TYPE::SCAREDY_SHROOM:
-			if (bar.getSuns() >= ScaredyShroom::price)
-				currentSelectPlant = new ScaredyShroom(coords);
-			break;
-		case SEED_CARD_TYPE::SNOW_PEA:
-			if (bar.getSuns() >= SnowPea::price)
-				currentSelectPlant = new SnowPea(coords);
-			break;
-		case SEED_CARD_TYPE::SQUASH:
-			if (bar.getSuns() >= Squash::price)
-				currentSelectPlant = new Squash(coords);
 			break;
 		case SEED_CARD_TYPE::SUN_FLOWER:
 			if (bar.getSuns() >= SunFlower::price)
 				currentSelectPlant = new SunFlower(coords);
 			break;
+		case SEED_CARD_TYPE::CHERRY_BOMB:
+			if (bar.getSuns() >= CherryBomb::price)
+				currentSelectPlant = new CherryBomb(coords);
+			break;
 		case SEED_CARD_TYPE::WALL_NUT:
 			if (bar.getSuns() >= WallNut::price)
 				currentSelectPlant = new WallNut(coords);
 			break;
+		case SEED_CARD_TYPE::POTATO_MINE:
+			if (bar.getSuns() >= PotatoMine::price)
+				currentSelectPlant = new PotatoMine(coords);
+			break;
+		case SEED_CARD_TYPE::SNOW_PEA:
+			if (bar.getSuns() >= SnowPea::price)
+				currentSelectPlant = new SnowPea(coords);
+			break;
+		// case SEED_CARD_TYPE::CHOMPER:
+		//	if (bar.getSuns() >= Chomper::price)
+		//		currentSelectPlant = new Chomper(coords);
+		//	break;
+		case SEED_CARD_TYPE::REPEATER_PEA:
+			if (bar.getSuns() >= RepeaterPea::price)
+				currentSelectPlant = new RepeaterPea(coords);
+			break;
+		case SEED_CARD_TYPE::PUFF_SHROOM:
+			if (bar.getSuns() >= PuffShroom::price)
+				currentSelectPlant = new PuffShroom(coords);
+			break;
+		// case SEED_CARD_TYPE::SUN_SHROOM:
+		//	if(bar.getSuns() >= Sunshroom::price)
+		//		currentSelectPlant = new Sunshroom(coords);
+		//	break;
+		// case SEED_CARD_TYPE::HYPNO_SHROOM:
+		//	if(bar.getSuns() >= Hypnoshroom::price)
+		//		currentSelectPlant = new Sunshroom(coords);
+		//	break;
+		case SEED_CARD_TYPE::SCAREDY_SHROOM:
+			if (bar.getSuns() >= ScaredyShroom::price)
+				currentSelectPlant = new ScaredyShroom(coords);
+			break;
+		// case SEED_CARD_TYPE::ICE_SHROOM:
+		//	if(bar.getSuns() >= Iceshroom::price)
+		//		currentSelectPlant = new Iceshroom(coords);
+		//	break;
+		case SEED_CARD_TYPE::SQUASH:
+			if (bar.getSuns() >= Squash::price)
+				currentSelectPlant = new Squash(coords);
+			break;
+		case SEED_CARD_TYPE::THREE_PEATER:
+			if (bar.getSuns() >= Threepeater::price)
+				currentSelectPlant = new Threepeater(coords);
+			break;
+		// case SEED_CARD_TYPE::JALAPENO:
+		//	if(bar.getSuns() >= Jalapeno::price)
+		//		currentSelectPlant = new Jalapeno(coords);
+		//	break;
+		// case SEED_CARD_TYPE::SPIKE_WEED:
+		//	if(bar.getSuns() >= Spikeweed::price)
+		//		currentSelectPlant = new Spikeweed(coords);
+		//	break;
+
 		case SEED_CARD_TYPE::SHOVEL:
 			shovelCursor.SetTopLeft(coords.x, coords.y);
 
