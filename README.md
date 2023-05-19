@@ -79,6 +79,13 @@ Priority: Uh just follow the list
 ### Bugs:
 
 1. Memory Leak: TBD.
+2. `Exception thrown: read access violation. ${ptr}-> was 0xDDDDDDDD`. Where ${ptr} can either be:
+  - A `Sun` pointer inside the `vector` of Suns pointers in the logic of `Map`.
+  - A `Zombie` pointer inside the `vector` of Zombie pointers in the logic of `Map`.
+  - A `Bullet` pointer inside the `vector` of Bullet pointers in the logic of `Map`.
+  - Example:
+    - ![read_access_violation_example.png](assets/read_access_violation_example.png)
+  - While we have 2 static template methods that we believe should mitigate this problem, these were last second additions and as such we are unsure if this problem persists.
 
 #### Links  
 [GitLab: TA files](http://140.124.183.78/gitlab/109000000/oopl2023s/-/tree/master)  

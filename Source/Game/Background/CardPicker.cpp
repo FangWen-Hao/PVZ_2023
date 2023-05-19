@@ -44,14 +44,18 @@ void CardPicker::init()
 
 	int cardLeft = LEFT + CARD_LEFT;
 	int cardTop = TOP + CARD_TOP;
+	int iterator = -1;
 
-	for (unsigned int i = 0; i < CARDS_BITMAPS_FILEPATH.size(); i++)
+	for (pair<vector<int>, vector<string>> cardInfo: CARDS_DATA_MAP)
 	{
-		cards.push_back(SeedCard());
-		cards.at(i).init(CARDS_BITMAPS_FILEPATH.at(i), cardLeft, cardTop, CARDS_DATA.at(i).at(0), CARDS_DATA.at(i).at(1), static_cast<SEED_CARD_TYPE>(CARDS_DATA.at(i).at(2)));
-		cardLeft += CARD_LEFT_PADDING;
+		SeedCard tmp;
+		tmp.init(static_cast<SEED_CARD_TYPE>(cardInfo.first.at(0)), cardInfo.first.at(1), cardInfo.first.at(2), cardInfo.second, cardLeft, cardTop);
+		cards.push_back(tmp);
 
-		if (i % CARD_PER_ROW == CARD_PER_ROW - 1)
+		cardLeft += CARD_LEFT_PADDING;
+		iterator++;
+
+		if (iterator % CARD_PER_ROW == CARD_PER_ROW - 1)
 		{
 			cardLeft = LEFT + CARD_LEFT;
 			cardTop += CARD_TOP_PADDING;

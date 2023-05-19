@@ -25,7 +25,7 @@ SeedCard::SeedCard(SeedCard *other)
 	this->LoadBitmapByString(_filePath);
 }
 
-void SeedCard::init(vector<string> filePath, int offsetX, int offsetY, int price, int cooldown, SEED_CARD_TYPE type)
+void SeedCard::init(SEED_CARD_TYPE type, int price, int cooldown, vector<string> filePath, int offsetX, int offsetY)
 {
 	_type = type;
 	_price = price;
