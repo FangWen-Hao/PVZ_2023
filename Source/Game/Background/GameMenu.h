@@ -58,15 +58,7 @@ namespace game_framework
 
 		bool getIsGamePaused();
 
-		static void setIsMusicOn(bool val) { isMusicOn = val; }
-		static void setIsSoundFXOn(bool val) { isSoundFXOn = val; }
-
-		static bool getIsMusicOn() { return isMusicOn; }
-		static bool getIsSoundFXOn() { return isSoundFXOn; }
-
 	private:
-		static bool isMusicOn;
-		static bool isSoundFXOn;
 		bool isGamePaused = false;
 		int previousLevel;
 		int currentLevel;

@@ -201,6 +201,9 @@
     <ClCompile Include="Source\Game\Plants\Jalapeno.cpp">
       <Filter>MyGame\Plants</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Utils\Soundboard.cpp">
+      <Filter>MyGame\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Library\audio.h">
@@ -335,11 +338,11 @@
     <ClInclude Include="Source\Game\Utils\EntitiesUtil.h">
       <Filter>MyGame\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\Misc\Music.h">
-      <Filter>MyGame\Misc</Filter>
+    <ClInclude Include="Source\Game\Utils\AudioEnums.h">
+      <Filter>MyGame\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\Misc\Sfx.h">
-      <Filter>MyGame\Misc</Filter>
+    <ClInclude Include="Source\Game\Utils\Soundboard.h">
+      <Filter>MyGame\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

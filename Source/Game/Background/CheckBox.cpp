@@ -4,13 +4,13 @@
 
 using namespace game_framework;
 
-void CheckBox::init(string unchecked, string checked, bool& boolVariable, int coordsX, int coordsY)
+void CheckBox::init(string unchecked, string checked, bool boolVariable, function<bool(void)> toggleFunc, int coordsX, int coordsY)
 {
 	LoadBitmapByString({ unchecked, checked }, RGB(255, 255, 255));
 	SetTopLeft(coordsX, coordsY);
 
-	boolVariablePtr = &boolVariable;
-	if ((*boolVariablePtr))
+	boolVariableCopy = boolVariable;
+	if (boolVariableCopy)
 	{
 		SetFrameIndexOfBitmap(1);
 	}
@@ -18,6 +18,8 @@ void CheckBox::init(string unchecked, string checked, bool& boolVariable, int co
 	{
 		SetFrameIndexOfBitmap(0);
 	}
+
+	toggle = toggleFunc;
 }
 
 void CheckBox::show()
@@ -31,8 +33,8 @@ bool CheckBox::onClick(CPoint coords)
 		&& coords.y < (GetTop() + GetHeight()) && coords.y > GetTop();
 	if (wasClicked)
 	{
-		(*boolVariablePtr) = !(*boolVariablePtr);
-		if ((*boolVariablePtr))
+		boolVariableCopy = toggle();
+		if (boolVariableCopy)
 		{
 			SetFrameIndexOfBitmap(1);
 		}
@@ -46,5 +48,5 @@ bool CheckBox::onClick(CPoint coords)
 
 bool CheckBox::isChked()
 {
-	return (*boolVariablePtr);
+	return boolVariableCopy;
 }

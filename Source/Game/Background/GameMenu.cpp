@@ -3,11 +3,9 @@
 #include "../Utils/GameModeConsts.h"
 #include "../config.h"
 #include "../Misc/Cooldown.h"
+#include "../Utils/Soundboard.h"
 
 using namespace game_framework;
-
-bool GameMenu::isMusicOn;
-bool GameMenu::isSoundFXOn;
 
 void GameMenu::init(int previousLevel, int currentLevel, int nextLevel)
 {
@@ -27,8 +25,11 @@ void GameMenu::init(int previousLevel, int currentLevel, int nextLevel)
 	menuCallerBtn.LoadBitmapByString(MENU_CALLER_BTN_BITMAPS, RGB(255, 255, 255));
 	menuCallerBtn.SetTopLeft(RESOLUTION_X - menuCallerBtn.GetWidth(), 0);
 
-	musicChkBox.init(CHKBOX_BITMAPS.at(0), CHKBOX_BITMAPS.at(1), isMusicOn, backgroundX + 205, backgroundY + 129);
-	soundFXChkBox.init(CHKBOX_BITMAPS.at(0), CHKBOX_BITMAPS.at(1), isSoundFXOn, backgroundX + 205, backgroundY + 157);
+
+	musicChkBox.init(CHKBOX_BITMAPS.at(0), CHKBOX_BITMAPS.at(1), SoundBoard::isMusicOn(), &SoundBoard::toggleMusic, backgroundX + 205, backgroundY + 129);
+	
+	
+	soundFXChkBox.init(CHKBOX_BITMAPS.at(0), CHKBOX_BITMAPS.at(1), SoundBoard::isSfxOn(), &SoundBoard::toggleSFX, backgroundX + 205, backgroundY + 157);
 
 	mainMenuBtn.LoadBitmapByString(MAIN_MENU_BTN_BITMAPS, RGB(255, 255, 255));
 	mainMenuBtn.SetTopLeft(backgroundX + 112, btnsYAlignement);
