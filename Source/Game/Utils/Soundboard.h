@@ -1,21 +1,10 @@
 #pragma once
-#include "AudioEnums.h"
-#include <map>
+#include "AudioConsts.h"
 #include <vector>
-#include <string>
 
 using namespace std;
 namespace game_framework {
-
-	const map<soundID, string> SFX_FILES = {
-
-	};
-
-	const map<soundID, string> MUSIC_FILES = {
-
-	};
-
-	class SoundBoard
+	/*static*/ class SoundBoard
 	{
 	public:
 		static void initSoundboard();
@@ -38,5 +27,11 @@ namespace game_framework {
 
 		static vector<soundID> loadedSFX;
 		static vector<soundID> loadedMusic;
+		
+		// private constructor because we want this to be a fully static class
+		// idk if we should either private them or just straight out ` = delete;`
+		SoundBoard() {}; 
+		SoundBoard(const SoundBoard&) {};
+		SoundBoard& operator=(const SoundBoard&) {};
 	};
 }
