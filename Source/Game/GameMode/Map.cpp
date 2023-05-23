@@ -119,8 +119,7 @@ namespace game_framework {
 		background.init(MAP_BG_DAY);
 		bar.init(startingSunsAmmount);
 		shovelCursor.LoadBitmapByString({ SHOVEL_CURSOR_BITMAP }, RGB(255, 255, 255));
-		int currentLevel = getCurrentLevel() - LEVEL_1 + 1;
-		progress.init(countTotalZombies(), currentLevel);
+		progress.init(countTotalZombies());
 		menu.init(getPreviousLevel(), getCurrentLevel(), getNextLevel());
 		gameOver.init();
 	}
@@ -179,7 +178,8 @@ namespace game_framework {
 		menu.show();
 		if (bar.hasGameStarted())
 		{
-			progress.show();
+			int currentLevel = getCurrentLevel() - LEVEL_1 + 1;
+			progress.show(currentLevel);
 
 			if (currentSelectPlant != nullptr) {
 				currentSelectPlant->onShow();
@@ -244,6 +244,33 @@ namespace game_framework {
 		}
 	}
 
+	void Map::OnKeyUp(UINT nChar)
+	{
+		const char KEY_D = 0x44;
+		const char KEY_L = 0x4C;
+		const char KEY_S = 0x53;
+		const char KEY_Z = 0x5A;
+
+		switch (nChar)
+		{
+		case KEY_D:
+			for (Zombie* zombie : zombies)
+				zombie->setHp(0);
+			break;
+		case KEY_L:
+			// TODO : jump to next level
+			break;
+		case KEY_S:
+			bar.addSuns(500);
+			break;
+		case KEY_Z:
+			// TODO : add zombies moving speed
+			break;
+		default:
+			break;
+		}
+	}
+
 	void Map::CreateZombieOnInstruction()
 	{
 		Zombie* zomb = zombieFactory();
@@ -284,7 +311,7 @@ namespace game_framework {
 			}
 		}
 	}
-	 
+
 	void Map::UpdateZombiesState()
 	{
 		for (Zombie* zombie : zombies)
@@ -364,7 +391,7 @@ namespace game_framework {
 			}
 		}
 	}
-	
+
 	int Map::OnLClick(CPoint coords)
 	{
 		// if the game was lost or won, then don't allow the user to access the menu.
@@ -377,7 +404,7 @@ namespace game_framework {
 		{
 			return gameOver.onClick(getCurrentLevel());
 		}
-		
+
 		// if the menu is open, then don't allow the user to click anything else.
 		if (menu.getIsGamePaused())
 		{
@@ -431,49 +458,25 @@ namespace game_framework {
 		CPoint pos = _mousePos2TilePos(coords);
 		switch (card)
 		{
-		case SEED_CARD_TYPE::CHERRY_BOMB:
-			if (bar.getSuns() >= CherryBomb::price)
-				currentSelectPlant = new CherryBomb(coords);
-			break;
 		case SEED_CARD_TYPE::PEA_SHOOTER:
 			if (bar.getSuns() >= PeaShooter::price)
 				currentSelectPlant = new PeaShooter(coords);
-			break;
-		case SEED_CARD_TYPE::REPEATER_PEA:
-			if (bar.getSuns() >= RepeaterPea::price)
-				currentSelectPlant = new RepeaterPea(coords);
-			break;
-		case SEED_CARD_TYPE::THREE_PEATER:
-			if (bar.getSuns() >= Threepeater::price)
-				currentSelectPlant = new Threepeater(coords);
-			break;
-		case SEED_CARD_TYPE::POTATO_MINE:
-			if (bar.getSuns() >= PotatoMine::price)
-				currentSelectPlant = new PotatoMine(coords);
-			break;
-		case SEED_CARD_TYPE::PUFF_SHROOM:
-			if (bar.getSuns() >= PuffShroom::price)
-				currentSelectPlant = new PuffShroom(coords);
-			break;
-		case SEED_CARD_TYPE::SCAREDY_SHROOM:
-			if (bar.getSuns() >= ScaredyShroom::price)
-				currentSelectPlant = new ScaredyShroom(coords);
-			break;
-		case SEED_CARD_TYPE::SNOW_PEA:
-			if (bar.getSuns() >= SnowPea::price)
-				currentSelectPlant = new SnowPea(coords);
-			break;
-		case SEED_CARD_TYPE::SQUASH:
-			if (bar.getSuns() >= Squash::price)
-				currentSelectPlant = new Squash(coords);
 			break;
 		case SEED_CARD_TYPE::SUN_FLOWER:
 			if (bar.getSuns() >= SunFlower::price)
 				currentSelectPlant = new SunFlower(coords);
 			break;
+		case SEED_CARD_TYPE::CHERRY_BOMB:
+			if (bar.getSuns() >= CherryBomb::price)
+				currentSelectPlant = new CherryBomb(coords);
+			break;
 		case SEED_CARD_TYPE::WALL_NUT:
 			if (bar.getSuns() >= WallNut::price)
 				currentSelectPlant = new WallNut(coords);
+			break;
+		case SEED_CARD_TYPE::JALAPENO:
+			if (bar.getSuns() >= Jalapeno::price)
+				currentSelectPlant = new Jalapeno(coords);
 			break;
 		case SEED_CARD_TYPE::SHOVEL:
 			shovelCursor.SetTopLeft(coords.x, coords.y);
@@ -510,7 +513,7 @@ namespace game_framework {
 					delete currentSelectPlant;
 					currentSelectPlant = nullptr;
 				}
-				
+
 				break;
 			}
 
@@ -651,7 +654,7 @@ namespace game_framework {
 						zombiesSpawningInstructions.at(i).at(3) = 1;
 					}
 					return nullptr;
-				
+
 				case ZOMBIE_INSTRUCTION_TYPE::NORMAL:
 					zombie = new NormalZombie();
 					break;

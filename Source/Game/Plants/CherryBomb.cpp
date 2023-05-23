@@ -30,6 +30,7 @@ CherryBomb::CherryBomb(CPoint pos) : DisposablePlant(PLANT::CHERRY_BOMB, CherryB
 
 	_hp = 300;
 }
+
 void CherryBomb::PlaceDown(int row, int col)
 {
 	DisposablePlant::PlaceDown(row, col);
@@ -51,9 +52,9 @@ void CherryBomb::onMove(vector<Bullet*>* bullets, vector<Sun*>* suns, vector<Zom
 			if (findObjInVector(*zombies, zombie) &&
 				zombie->row() == _row && zombie->col() == _col)
 			{
-				if (!boom)
+				if (!isBoom)
 				{
-					boom = true;
+					isBoom = true;
 					boomAnimate.ToggleAnimation();
 				}
 				else if (boomAnimate.IsAnimationDone())
@@ -68,7 +69,7 @@ void CherryBomb::onMove(vector<Bullet*>* bullets, vector<Sun*>* suns, vector<Zom
 
 void CherryBomb::onShow()
 {
-	if (boom)
+	if (isBoom)
 		boomAnimate.ShowBitmap();
 	else
 		animate.ShowBitmap();

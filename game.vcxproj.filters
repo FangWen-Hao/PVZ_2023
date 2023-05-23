@@ -198,11 +198,8 @@
     <ClCompile Include="Source\Game\Background\GameOver.cpp">
       <Filter>MyGame\Backgrounds</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\Misc\Music.cpp">
-      <Filter>MyGame\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Misc\Sfx.cpp">
-      <Filter>MyGame\Misc</Filter>
+    <ClCompile Include="Source\Game\Plants\Jalapeno.cpp">
+      <Filter>MyGame\Plants</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

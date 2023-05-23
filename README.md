@@ -32,9 +32,9 @@
 4. Once a sun is clicked, the sun is added to the sun counter.
 5. Zombies spawn in the right part of the screen and they walk to the left.
 6. Plants can be planted on the lane and can attack the zombies.
-    - Plants that be planted and used: `Peashooter`, `Sunflower`, `Cherrybomb`, `Wallnut`, `Potatomine`, `Snowpea`, `Repeaterpea`, `Puffshroom`, `Scaredyshroom`, `Squash`, and `Threeshooterpea`.
+    - Plants that be planted and used: `Peashooter`, `Snowpea`, `Cherrybomb`, `Wallnut`, `Repeaterpea`, `Threeshooterpea`, `Puffshroom`, `Scaredyshroom`, `Potatomine`, `Squash`.
     - Plants that be planted and can't be used: N/A.
-    - WIP Plants: `Jalapeno`, `Hypnoshroom`, `Iceshroom`, `Chomper` and `SpikeWeed`.
+    - Plants that is in WIP: `Jalapeno`, `Hypnoshroom`, `Iceshroom`, `Chomper`.
 7. The plant picker cards has three modes:
     - The plant can't be planted since the accumulated sun isn't enough to plant the plants that the player wants.
     - The plant can be planted since the sun is accumulated and the cooldown has passed.
@@ -57,20 +57,24 @@
     - Buckethead Zombie
     - Newspaper Zombie
     - Flag Zombie
-19. In game menu logic.The in-game menu allows the user to:
-  - go back to the previous level by pressing the button if the previous level isn't the main menu.
-  - Skip the current level and go to the next one if the next level isn't the main menu.
-  - Restart the current map.
-  - go back to the main menu.
-20. Level ending added
-  - If the user loses the game, then a game over screen will be displayed and the user can click anywhere on screen to restart the level
-  - If the user completes the level, then a note will drop from the last zombie and the user can only clcik that. When clicking it, the note will occupy the full screen to allow the user to read it. After reading it, the user can click anywhere to proceed to the next level.
+19. In game menu logic.
 
-## Work In Progress (Hopefully will be on Released on v2.0.0)
+## Work In Progress (Hopefully will be on Released on v3.0.0)
 
-1. If the zombies are attacked by Hypno-Shroom, then the zombie animation will turn purple and walk to the map's right side.
-2. Shrooms plant logic.
-3. Night map logic.
+1. `Jalapeno`, `Hypnoshroom`, `Iceshroom`, `Chomper` plant logic.
+2. Night map logic.
+3. If the zombies are attacked by Hypno-Shroom, then the zombie animation will turn purple and walk to the map's right side.
+4. Settings
+  - SFX, Music
+5. About Us Page and button on main menu.
+6. Almanac of both plants and the Zombies.
+7. The initial screen explains the usage and tricks of buttons and mouse.
+  - Remove the intial `next level` and `previous level` to be a hidden key in keyboard. An example of what i mean (https://drive.google.com/file/d/1BafHwmZFrR9QU9Uv6BnK-93CcsRJw4mY/view?usp=share_link)
+8. Report
+  - Game Architecture Diagram (Example: https://drive.google.com/file/d/1mgaSa8rH2oY45Ke2r-ry9RKDD-02uBrF/view?usp=share_link)
+  - STILL NEEDS A LOT OF WORK (cue uncle roger accent)
+
+Priority: Uh just follow the list
 
 ### Bugs:
 
@@ -87,3 +91,4 @@
 [GitLab: TA files](http://140.124.183.78/gitlab/109000000/oopl2023s/-/tree/master)  
 [GitHub: TA files](https://github.com/ntut-xuan/OOPL2023s)  
 [Toggl](https://toggl.com/track)
+[Drive](https://drive.google.com/drive/folders/1uUO3JXzw1orwGERktGzvPsLrcVoiPjgu?usp=sharing)

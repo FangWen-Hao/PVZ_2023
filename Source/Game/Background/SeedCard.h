@@ -24,6 +24,7 @@ namespace game_framework {
 		CHOMPER,
 		REPEATER_PEA,
 		PUFF_SHROOM,
+		SUN_SHROOM,
 		HYPNO_SHROOM,
 		SCAREDY_SHROOM,
 		ICE_SHROOM,
@@ -40,7 +41,7 @@ namespace game_framework {
 		SeedCard();
 		SeedCard(SeedCard *other);
 		~SeedCard();
-		void init(vector<string> filePath, int offsetX, int offsetY, int price, int cooldown, SEED_CARD_TYPE type);
+		void init(SEED_CARD_TYPE type, int price, int cooldown, vector<string> filePath, int offsetX, int offsetY);
 		void show();
 		void unshow();
 		SEED_CARD_TYPE clicked();
