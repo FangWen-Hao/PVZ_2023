@@ -338,10 +338,10 @@
     <ClInclude Include="Source\Game\Utils\EntitiesUtil.h">
       <Filter>MyGame\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\Utils\AudioEnums.h">
+    <ClInclude Include="Source\Game\Utils\Soundboard.h">
       <Filter>MyGame\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\Utils\Soundboard.h">
+    <ClInclude Include="Source\Game\Utils\AudioConsts.h">
       <Filter>MyGame\Utils</Filter>
     </ClInclude>
   </ItemGroup>

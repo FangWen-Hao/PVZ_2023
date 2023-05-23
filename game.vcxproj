@@ -331,7 +331,7 @@
     <ClInclude Include="Source\Game\Plants\Plant.h" />
     <ClInclude Include="Source\Game\Terrain\Lane.h" />
     <ClInclude Include="Source\Game\Terrain\Tile.h" />
-    <ClInclude Include="Source\Game\Utils\AudioEnums.h" />
+    <ClInclude Include="Source\Game\Utils\AudioConsts.h" />
     <ClInclude Include="Source\Game\Utils\EntitiesUtil.h" />
     <ClInclude Include="Source\Game\Utils\GameModeConsts.h" />
     <ClInclude Include="Source\Game\Utils\GameModeUtils.h" />
