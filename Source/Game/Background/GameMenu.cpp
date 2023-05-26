@@ -130,7 +130,7 @@ void GameMenu::onHover(CPoint coords)
 	
 }
 
-int GameMenu::onClick(CPoint coords)
+int GameMenu::onClick(CPoint coords, bool isDay)
 {
 	if (!isGamePaused)
 	{
@@ -139,6 +139,14 @@ int GameMenu::onClick(CPoint coords)
 		{
 			isGamePaused = true;
 			Cooldown::pauseClockBegin();
+
+			if (isDay)
+				SoundBoard::stopSound(soundID::DAY_MAP);
+			else
+			SoundBoard::stopSound(soundID::NIGHT_MAP);
+
+			SoundBoard::playMusic(soundID::CHOOSE_YOUR_SEEDS, true);
+
 			return MENU_NO_BTN_ACTION_ACCEPTED;
 		}
 	}
@@ -174,6 +182,14 @@ int GameMenu::onClick(CPoint coords)
 		{
 			isGamePaused = false;
 			Cooldown::pauseClockEnd();
+
+			SoundBoard::stopSound(soundID::CHOOSE_YOUR_SEEDS);
+
+			if (isDay)
+				SoundBoard::playMusic(soundID::DAY_MAP, true);
+			else
+				SoundBoard::playMusic(soundID::NIGHT_MAP, true);
+
 			return MENU_NO_BTN_ACTION_ACCEPTED;
 		}
 

@@ -8,8 +8,8 @@ using namespace game_framework;
 bool SoundBoard::sfxOn;
 bool SoundBoard::musicOn;
 
-vector<soundID> SoundBoard::loadedSFX;
-vector<soundID> SoundBoard::loadedMusic;
+vector<SoundInfo> SoundBoard::loadedSFX;
+vector<SoundInfo> SoundBoard::loadedMusic;
 
 
 void SoundBoard::initSoundboard()
@@ -22,22 +22,30 @@ bool SoundBoard::playSfx(soundID id, bool repeat)
 {
 	// takes a soundID as value and returns true if the sound was played, otherwise return false
 	if (SFX_FILES.count(id) == 0)
-		return false; // the sound isnt an SFX, return false
+		return false; // the sound isnt a music, return false
 
-	if (!findObjInVector(loadedSFX, id))
+	SoundInfo sfx = SFX_FILES.at(id);
+
+	if (!findObjInVector(loadedSFX, sfx))
 	{
 		// the file hasnt been loaded yet, therefore load it.
-		char *cstr = new char[SFX_FILES.at(id).length() + 1];
-		strcpy(cstr, SFX_FILES.at(id).c_str());
+		char *cstr = new char[sfx.getFilePath().length() + 1];
+		strcpy(cstr, sfx.getFilePath().c_str());
 
-		CAudio::Instance()->Load((unsigned)id, cstr);
+		CAudio::Instance()->Load(convertEnum(sfx.getId()), cstr);
 
 		delete[] cstr;
-		loadedSFX.push_back(id);
+		loadedSFX.push_back(sfx);
 	}
 
+	// track the sound as playing regardless if the sound is on or off.
+	auto it = find(loadedSFX.begin(), loadedSFX.end(), sfx);
+	it->play(repeat);
+
 	if (sfxOn)
-		CAudio::Instance()->Play((unsigned)id, repeat);
+	{
+		CAudio::Instance()->Play(convertEnum(it->getId()), repeat);
+	}
 
 	return true;
 }
@@ -48,20 +56,28 @@ bool SoundBoard::playMusic(soundID id, bool repeat)
 	if (MUSIC_FILES.count(id) == 0)
 		return false; // the sound isnt a music, return false
 
-	if (!findObjInVector(loadedMusic, id))
+	SoundInfo song = MUSIC_FILES.at(id);
+
+	if (!findObjInVector(loadedMusic, song))
 	{
 		// the file hasnt been loaded yet, therefore load it.
-		char *cstr = new char[MUSIC_FILES.at(id).length() + 1];
-		strcpy(cstr, MUSIC_FILES.at(id).c_str());
+		char *cstr = new char[song.getFilePath().length() + 1];
+		strcpy(cstr, song.getFilePath().c_str());
 
-		CAudio::Instance()->Load((unsigned)id, cstr);
+		CAudio::Instance()->Load(convertEnum(song.getId()), cstr);
 
 		delete[] cstr;
-		loadedMusic.push_back(id);
+		loadedMusic.push_back(song);
 	}
 
+	// track the sound as playing regardless if the sound is on or off.
+	auto it = find(loadedMusic.begin(), loadedMusic.end(), song);
+	it->play(repeat);
+
 	if (musicOn)
-		CAudio::Instance()->Play((unsigned)id, repeat);
+	{
+		CAudio::Instance()->Play(convertEnum(it->getId()), repeat);
+	}
 	
 	return true;
 }
@@ -69,10 +85,27 @@ bool SoundBoard::playMusic(soundID id, bool repeat)
 
 bool SoundBoard::stopSound(soundID id)
 {
-	if (findObjInVector(loadedSFX, id) || findObjInVector(loadedMusic, id))
+	if (SFX_FILES.count(id) == 0 && MUSIC_FILES.count(id) == 0)
+		return false; 
+
+
+	SoundInfo sound;
+
+	if (MUSIC_FILES.count(id) == 0)
+		sound = SFX_FILES.at(id);
+	else
+		sound = MUSIC_FILES.at(id);
+
+	if (findObjInVector(loadedSFX, sound) || findObjInVector(loadedMusic, sound))
 	{
+		auto it = find(loadedMusic.begin(), loadedMusic.end(), sound);
+
+		if (it == loadedMusic.end()) // it isnt in loaded music, search for loadedSFX
+			it = find(loadedSFX.begin(), loadedSFX.end(), sound);
+
 		// the id has been loaded, therefore stop the sound
-		CAudio::Instance()->Stop((unsigned)id);
+		it->stop(); // untrack the sound
+		CAudio::Instance()->Stop(convertEnum(it->getId()));
 		return true;
 	}
 	
@@ -87,9 +120,23 @@ bool SoundBoard::toggleSFX()
 	if (!sfxOn && !loadedSFX.empty())
 	{
 		// if it is false, then stop all sfx sounds
-		for (soundID id : loadedSFX)
+		for (SoundInfo sound : loadedSFX)
 		{
-			CAudio::Instance()->Stop((unsigned)id);
+			CAudio::Instance()->Stop(convertEnum(sound.getId()));
+		}
+	}
+	else if (sfxOn && !loadedSFX.empty())
+	{
+		for (SoundInfo sound : loadedSFX)
+		{
+			// if the sound is still supposed to be playing, then play it
+			if (sound.isBeingPlayed()) 
+			{
+				// if the sound is supposed to be playing, then play it.
+				sound.play(sound.getRepeatStatus());
+				CAudio::Instance()->Play(convertEnum(sound.getId()), sound.getRepeatStatus());
+			}
+			
 		}
 	}
 
@@ -104,9 +151,23 @@ bool SoundBoard::toggleMusic()
 	if (!musicOn && !loadedMusic.empty())
 	{
 		// if it is false, then stop all sfx sounds
-		for (soundID id : loadedMusic)
+		for (SoundInfo sound : loadedMusic)
 		{
-			CAudio::Instance()->Stop((unsigned)id);
+			CAudio::Instance()->Stop(convertEnum(sound.getId()));
+		}
+	}
+	else if (musicOn && !loadedMusic.empty())
+	{
+		for (SoundInfo sound : loadedMusic)
+		{
+			// if the sound is still supposed to be playing, then play it
+			if (sound.isBeingPlayed())
+			{
+				// if the sound is supposed to be playing, then play it.
+				sound.play(sound.getRepeatStatus());
+				CAudio::Instance()->Play(convertEnum(sound.getId()), sound.getRepeatStatus());
+			}
+
 		}
 	}
 

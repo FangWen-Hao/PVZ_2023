@@ -5,6 +5,7 @@
 #include "../Background/Button.h"
 #include "Main_Menu.h"
 #include "../Utils/GameModeConsts.h"
+#include "../Utils/Soundboard.h"
 
 using namespace game_framework;
 
@@ -14,6 +15,7 @@ MainMenu::MainMenu() : GameMode()
 
 MainMenu::~MainMenu()
 {
+	SoundBoard::stopSound(soundID::MAIN_MENU);
 }
 
 void MainMenu::init()
@@ -26,6 +28,8 @@ void MainMenu::init()
 						        MENU_BUTTONS_BITMAP_FILEPATH.at(i).at(1).at(0),
 						        MENU_BUTTONS_BITMAP_FILEPATH.at(i).at(1).at(1));
 	}
+
+	SoundBoard::playMusic(soundID::MAIN_MENU, true);
 }
 
 void MainMenu::show()

@@ -54,7 +54,7 @@ namespace game_framework
 		void init(int previousLevel, int currentLevel, int nextLevel);
 		void show();
 		void onHover(CPoint coords);
-		int onClick(CPoint coords);
+		int onClick(CPoint coords, bool isDay = false);
 
 		bool getIsGamePaused();
 

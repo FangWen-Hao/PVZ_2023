@@ -1,9 +1,5 @@
 #include "stdafx.h"
-// #include "../Terrain/Lane.h"
 #include "../Background/GameBar.h"
-// #include "GameMenu.h"
-// #include "ProgressBar.h"
-// #include "Lanes.h"
 #include "../Utils/GameModeConsts.h"
 #include "../Misc/NormalSun.h"
 #include "../Utils/GameModeUtils.h"
@@ -13,6 +9,7 @@
 #include "../Zombies/Zombie.h"
 #include <algorithm>
 #include "../config.h"
+#include "../Utils/Soundboard.h"
 
 namespace game_framework {
 
@@ -408,11 +405,11 @@ namespace game_framework {
 		// if the menu is open, then don't allow the user to click anything else.
 		if (menu.getIsGamePaused())
 		{
-			return menu.onClick(coords);
+			return menu.onClick(coords, isDay);
 		}
 
 
-		menu.onClick(coords);
+		menu.onClick(coords, isDay);
 
 		// allow the user to click the menu if the game is over but the user hasn't picked up the note.
 		if (progress.isGameComplete())
@@ -429,7 +426,7 @@ namespace game_framework {
 		// otherwise, if the game is in progress then the user can click anything.
 		if (!bar.hasGameStarted())
 		{
-			bar.onClick(coords);
+			bar.pickCardsOnClick(coords, isDay);
 			return MENU_NO_BTN_ACTION_ACCEPTED;
 		}
 
@@ -529,6 +526,7 @@ namespace game_framework {
 				&& currentSelectedSeedCard != SEED_CARD_TYPE::SHOVEL)
 			{
 				// plant plant
+				SoundBoard::playSfx(soundID::SFX_PLANTED_PLANT);
 				currentSelectPlant->PlaceDown(pos.y, pos.x);
 				plants[pos.y][pos.x] = currentSelectPlant;
 
@@ -551,6 +549,7 @@ namespace game_framework {
 				&& coords.x < (sun->GetLeft() + sun->GetWidth()) && coords.x > sun->GetLeft()
 				&& coords.y < (sun->GetTop() + sun->GetHeight()) && coords.y > sun->GetTop())
 			{
+				SoundBoard::playSfx(soundID::SFX_SUN_PICKED);
 				bar.addSuns(sun->getValue());
 				deleteObjInVector(&displayedSuns, sun);
 				break;

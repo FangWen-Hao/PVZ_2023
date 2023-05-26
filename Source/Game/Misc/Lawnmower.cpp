@@ -2,6 +2,7 @@
 #include "Lawnmower.h"
 #include "../GameMode/Maps/Tile_Positions.h"
 #include "../config.h"
+#include "../Utils/Soundboard.h"
 
 using namespace game_framework;
 void Lawnmower::init(int row)
@@ -18,6 +19,7 @@ void Lawnmower::show()
 
 void Lawnmower::activate()
 {
+	SoundBoard::playSfx(soundID::SFX_LAWNMOWER);
 	bitmap.SetAnimation(100, false);
 	bitmap.ToggleAnimation();
 }

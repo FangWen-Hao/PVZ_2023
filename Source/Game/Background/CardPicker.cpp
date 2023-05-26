@@ -5,6 +5,7 @@
 #include "../../Library/gameutil.h"
 #include "SeedCard.h"
 #include "CardPicker.h"
+#include "../Utils/Soundboard.h"
 
 using namespace std;
 using namespace game_framework;
@@ -95,6 +96,7 @@ SeedCard* CardPicker::OnClick(CPoint coords)
 			// card was selected
 			if (cards.at(i).clicked() != SEED_CARD_TYPE::REFUSED)
 			{
+				// SoundBoard::playSfx(soundID::plantPicked);
 				return &(cards.at(i));
 			}
 		}

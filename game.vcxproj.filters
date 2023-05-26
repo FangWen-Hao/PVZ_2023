@@ -204,6 +204,9 @@
     <ClCompile Include="Source\Game\Utils\Soundboard.cpp">
       <Filter>MyGame\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Utils\SoundInfo.cpp">
+      <Filter>MyGame\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Library\audio.h">
@@ -342,6 +345,9 @@
       <Filter>MyGame\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Utils\AudioConsts.h">
+      <Filter>MyGame\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\Utils\SoundInfo.h">
       <Filter>MyGame\Utils</Filter>
     </ClInclude>
   </ItemGroup>
