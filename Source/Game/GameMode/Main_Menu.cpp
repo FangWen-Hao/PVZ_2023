@@ -6,6 +6,7 @@
 #include "Main_Menu.h"
 #include "../Utils/GameModeConsts.h"
 #include "../Utils/Soundboard.h"
+#include "../../Library/audio.h"
 
 using namespace game_framework;
 
@@ -15,7 +16,8 @@ MainMenu::MainMenu() : GameMode()
 
 MainMenu::~MainMenu()
 {
-	SoundBoard::stopSound(soundID::MAIN_MENU);
+	// SoundBoard::stopSound(soundID::MAIN_MENU);
+	CAudio::Instance()->Stop(1);
 }
 
 void MainMenu::init()
@@ -29,7 +31,10 @@ void MainMenu::init()
 						        MENU_BUTTONS_BITMAP_FILEPATH.at(i).at(1).at(1));
 	}
 
-	SoundBoard::playMusic(soundID::MAIN_MENU, true);
+	// SoundBoard::playMusic(soundID::MAIN_MENU, true); // does not work either
+
+	CAudio::Instance()->Load(1, "Resources/Music/02. Main Menu.wav"); // does not work
+	CAudio::Instance()->Play(1, true);
 }
 
 void MainMenu::show()
