@@ -32,9 +32,9 @@
 4. Once a sun is clicked, the sun is added to the sun counter.
 5. Zombies spawn in the right part of the screen and they walk to the left.
 6. Plants can be planted on the lane and can attack the zombies.
-    - Plants that be planted and used: `Peashooter`, `Snowpea`, `Cherrybomb`, `Wallnut`, `Repeaterpea`, `Threeshooterpea`, `Puffshroom`, `Scaredyshroom`, `Potatomine`, `Squash`.
+    - Plants that be planted and used: `Peashooter`, `Snowpea`, `Cherrybomb`, `Wallnut`, `Repeaterpea`, `Threeshooterpea`, `Puffshroom`, `Scaredyshroom`, `Potatomine`, `Squash`, `Jalapeno`, `Iceshroom`.
     - Plants that be planted and can't be used: N/A.
-    - Plants that is in WIP: `Jalapeno`, `Hypnoshroom`, `Iceshroom`, `Chomper`.
+    - Plants that is in WIP: `Hypnoshroom`, `Chomper`.
 7. The plant picker cards has three modes:
     - The plant can't be planted since the accumulated sun isn't enough to plant the plants that the player wants.
     - The plant can be planted since the sun is accumulated and the cooldown has passed.
@@ -61,7 +61,7 @@
 
 ## Work In Progress (Hopefully will be on Released on v3.0.0)
 
-1. `Jalapeno`, `Hypnoshroom`, `Iceshroom`, `Chomper` plant logic.
+1. `Hypnoshroom`, `Chomper` plant logic.
 2. Night map logic.
 3. If the zombies are attacked by Hypno-Shroom, then the zombie animation will turn purple and walk to the map's right side.
 4. Settings
