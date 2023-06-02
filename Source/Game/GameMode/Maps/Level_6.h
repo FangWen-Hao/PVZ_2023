@@ -5,7 +5,7 @@
 
 namespace game_framework
 {
-	const vector<vector<int>> Level_1_zombie_instruction {
+	const vector<vector<int>> Level_6_zombie_instruction{
 		// {zombie type, zombie time to spawn in seconds, zombie row pos, zombie has spawned}
 		// Normal & flag only
 
@@ -13,20 +13,20 @@ namespace game_framework
 		// {(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 0, 2, 0}, // tmp
 		// {(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 60, 2, 0}, // tmp
 
-		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 30, 2, 0},
-		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 50, 0, 0},
-		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 70, 1, 0},
-		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 90, 3, 0},
-		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 110, 4, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 30, 0, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 50, 1, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 70, 2, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 90, 4, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 110, 2, 0},
 		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 130, 0, 0},
-		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 131, 2, 0},
-		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 132, 4, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 131, 3, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 132, 0, 0},
 		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 150, 1, 0},
 		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 151, 3, 0},
 		{(int)ZOMBIE_INSTRUCTION_TYPE::WAVE_CHKPOINT, 180, 0, 0},
 
 		// final wave
-		{(int)ZOMBIE_INSTRUCTION_TYPE::FLAG, 180, 0, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 180, 0, 0},
 		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 182, 0, 0},
 
 		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 180, 1, 0},
@@ -34,29 +34,29 @@ namespace game_framework
 
 		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 180, 2, 0},
 		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 182, 2, 0},
-		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 184, 2, 0},
 
 		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 180, 3, 0},
 		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 182, 3, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 184, 3, 0},
 
-		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 180, 4, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::FLAG, 180, 4, 0},
 		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 182, 4, 0},
 		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 184, 4, 0},
 	};
 
-	const string LEVEL_1_MSG_BITMAP = "Resources/Background/Level Up/BMP/Level1-1.bmp";
+	const string LEVEL_6_MSG_BITMAP = "Resources/Background/Level Up/BMP/Level2-1.bmp";
 
-	class Level1 : public Map
+	class Level6 : public Map
 	{
 	public:
-		Level1() : Map(Level_1_zombie_instruction, LEVEL_1_MSG_BITMAP, true) {};
+		Level6() : Map(Level_6_zombie_instruction, LEVEL_6_MSG_BITMAP, false) {};
 
-		~Level1() {};
+		~Level6() {};
 
 	protected:
-		int getPreviousLevel() { return MENU_BTN; }
-		int getCurrentLevel() { return LEVEL_1; }
-		int getNextLevel() { return LEVEL_2; }
+		int getPreviousLevel() { return LEVEL_5; }
+		int getCurrentLevel() { return LEVEL_6; }
+		int getNextLevel() { return LEVEL_7; }
 	};
 
 }

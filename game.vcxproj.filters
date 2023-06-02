@@ -341,6 +341,21 @@
     <ClInclude Include="Source\Game\GameMode\AboutUs.h">
       <Filter>MyGame\GameMode</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\GameMode\Maps\Level_6.h">
+      <Filter>MyGame\GameMode\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameMode\Maps\Level_7.h">
+      <Filter>MyGame\GameMode\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameMode\Maps\Level_8.h">
+      <Filter>MyGame\GameMode\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameMode\Maps\Level_9.h">
+      <Filter>MyGame\GameMode\Maps</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameMode\Maps\Level_10.h">
+      <Filter>MyGame\GameMode\Maps</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\Core\game.rc">

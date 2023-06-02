@@ -5,7 +5,7 @@
 
 namespace game_framework
 {
-	const vector<vector<int>> Level_5_zombie_instruction{
+	const vector<vector<int>> Level_10_zombie_instruction{
 		// {zombie type, zombie time to spawn in seconds, zombie row pos, zombie has spawned}
 		// Normal, flag, newspaper, cone & buckethead
 
@@ -99,19 +99,19 @@ namespace game_framework
 		// TODO: we need third wave.
 	};
 
-	const string LEVEL_5_MSG_BITMAP = "Resources/Background/Level Up/BMP/Level1-5.bmp";
+	const string LEVEL_10_MSG_BITMAP = "Resources/Background/Level Up/BMP/Level2-5.bmp";
 
-	class Level5 : public Map
+	class Level10 : public Map
 	{
 	public:
-		Level5() : Map(Level_5_zombie_instruction, LEVEL_5_MSG_BITMAP, true) {};
+		Level10() : Map(Level_10_zombie_instruction, LEVEL_10_MSG_BITMAP, false) {};
 
-		~Level5() {};
+		~Level10() {};
 
 	protected:
-		int getPreviousLevel() { return LEVEL_4; }
-		int getCurrentLevel() { return LEVEL_5; }
-		int getNextLevel() { return LEVEL_6; }
+		int getPreviousLevel() { return LEVEL_9; }
+		int getCurrentLevel() { return LEVEL_10; }
+		int getNextLevel() { return MENU_BTN; }
 	};
 
 }

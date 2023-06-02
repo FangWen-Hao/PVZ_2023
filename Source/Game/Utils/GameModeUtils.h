@@ -41,6 +41,26 @@ namespace game_framework {
 			GameModePtr = new Level5();
 			break;
 
+		case LEVEL_6:
+			GameModePtr = new Level6();
+			break;
+
+		case LEVEL_7:
+			GameModePtr = new Level7();
+			break;
+
+		case LEVEL_8:
+			GameModePtr = new Level8();
+			break;
+
+		case LEVEL_9:
+			GameModePtr = new Level9();
+			break;
+
+		case LEVEL_10:
+			GameModePtr = new Level10();
+			break;
+
 		case ABOUT_US:
 			GameModePtr = new AboutUs();
 			break;

@@ -13,7 +13,12 @@ namespace game_framework
 		LEVEL_3,
 		LEVEL_4,
 		LEVEL_5,
-		LOADING = 12,
+		LEVEL_6, 
+		LEVEL_7,
+		LEVEL_8,
+		LEVEL_9,
+		LEVEL_10,
+		LOADING,
 	};
 
 	const enum class ZOMBIE_INSTRUCTION_TYPE
