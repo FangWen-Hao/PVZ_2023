@@ -82,7 +82,7 @@ namespace game_framework
 	class Level2 : public Map
 	{
 	public:
-		Level2() : Map(Level_2_zombie_instruction, LEVEL_2_MSG_BITMAP) {};
+		Level2() : Map(Level_2_zombie_instruction, LEVEL_2_MSG_BITMAP, true) {};
 
 		~Level2() {};
 

@@ -4,7 +4,7 @@
 
 using namespace game_framework;
 
-SnowPea::SnowPea(CPoint pos) : ShootingPlant(PLANT::SNOW_PEA, SnowPea::price, 7.5, 20, 1.5)
+SnowPea::SnowPea(CPoint pos, bool isDay) : ShootingPlant(PLANT::SNOW_PEA, SnowPea::price, 7.5, isDay, 20, 1.5)
 {
 	animate.LoadBitmapByString({
 		"Resources/Plants/SnowPea/BMP/SnowPea_0.bmp",
@@ -13,7 +13,7 @@ SnowPea::SnowPea(CPoint pos) : ShootingPlant(PLANT::SNOW_PEA, SnowPea::price, 7.
 		"Resources/Plants/SnowPea/BMP/SnowPea_3.bmp",
 		"Resources/Plants/SnowPea/BMP/SnowPea_4.bmp",
 		"Resources/Plants/SnowPea/BMP/SnowPea_5.bmp",
-		}, RGB(255, 255, 255));
+	}, RGB(255, 255, 255));
 
 	animate.SetAnimation(100, false);
 	animate.SetTopLeft(pos.x, pos.y);

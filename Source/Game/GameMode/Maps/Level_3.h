@@ -88,7 +88,7 @@ namespace game_framework
 	class Level3 : public Map
 	{
 	public:
-		Level3() : Map(Level_3_zombie_instruction, LEVEL_3_MSG_BITMAP) {};
+		Level3() : Map(Level_3_zombie_instruction, LEVEL_3_MSG_BITMAP, true) {};
 
 		~Level3() {};
 

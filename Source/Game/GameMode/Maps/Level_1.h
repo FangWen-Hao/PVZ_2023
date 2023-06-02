@@ -49,7 +49,7 @@ namespace game_framework
 	class Level1 : public Map
 	{
 	public:
-		Level1() : Map(Level_1_zombie_instruction, LEVEL_1_MSG_BITMAP) {};
+		Level1() : Map(Level_1_zombie_instruction, LEVEL_1_MSG_BITMAP, false) {};
 
 		~Level1() {};
 

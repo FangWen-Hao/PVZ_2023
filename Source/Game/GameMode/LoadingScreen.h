@@ -1,8 +1,11 @@
 #pragma once
 #include "GameMode.h"
+#include "../Misc/Cooldown.h"
 
 namespace game_framework {
-	const string loadingBackgroundFilePath = "Resources/Background/Loading/Loading.bmp";
+	const vector<string> loadingBackgroundFilePath = { "Resources/Background/Loading/Loading0.bmp", "Resources/Background/Loading/Loading1.bmp" };
+
+	const double LOADING_TIME = 5.0;
 
 	class LoadingScreen : public GameMode
 	{
@@ -18,9 +21,9 @@ namespace game_framework {
 		int OnLClick(CPoint);
 		int OnRClick(CPoint);
 
-		bool getIsDone();
-
 	private:
-		bool isDone;
+		int getIsDone();
+
+		Cooldown loadingTime;
 	};
 }

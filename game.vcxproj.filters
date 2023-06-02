@@ -90,9 +90,6 @@
     <ClCompile Include="Source\Game\GameMode\Main_Menu.cpp">
       <Filter>MyGame\GameMode</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\GameMode\Almanac.cpp">
-      <Filter>MyGame\GameMode</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Game\GameMode\Map.cpp">
       <Filter>MyGame\GameMode</Filter>
     </ClCompile>
@@ -201,6 +198,12 @@
     <ClCompile Include="Source\Game\Plants\Jalapeno.cpp">
       <Filter>MyGame\Plants</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Plants\IceShroom.cpp">
+      <Filter>MyGame\Plants</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\GameMode\AboutUs.cpp">
+      <Filter>MyGame\GameMode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Library\audio.h">
@@ -246,9 +249,6 @@
       <Filter>MyGame\GameMode</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\GameMode\GameMode.h">
-      <Filter>MyGame\GameMode</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\GameMode\Almanac.h">
       <Filter>MyGame\GameMode</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\GameMode\Map.h">
@@ -334,6 +334,9 @@
     </ClInclude>
     <ClInclude Include="Source\Game\Utils\EntitiesUtil.h">
       <Filter>MyGame\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameMode\AboutUs.h">
+      <Filter>MyGame\GameMode</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

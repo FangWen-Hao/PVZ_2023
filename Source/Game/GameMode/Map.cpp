@@ -18,11 +18,11 @@ namespace game_framework {
 
 	Map::Map(vector<vector<int>> zombiesSpawningInstructions,
 		string messageBitmap,
+		bool isDay,
 		double sunProductionCooldownVal,
 		unsigned int maxSunsFallen,
 		int startingSunHeight,
-		int startingSunsAmmount,
-		bool isDay)
+		int startingSunsAmmount)
 
 	{
 		SetUpGameBoard();
@@ -93,7 +93,6 @@ namespace game_framework {
 
 	void Map::init()
 	{
-		isDay = true;
 		InitUI();
 
 		// Sun is obtained from [...] and falls from the sky approximately every 10 seconds when it is daytime. -> https://plantsvszombies.fandom.com/wiki/Sun
@@ -116,7 +115,9 @@ namespace game_framework {
 
 	void Map::InitUI()
 	{
-		background.init(MAP_BG_DAY);
+		if (isDay) background.init(MAP_BG_DAY);
+		else background.init(MAP_BG_NIGHT);
+
 		bar.init(startingSunsAmmount);
 		shovelCursor.LoadBitmapByString({ SHOVEL_CURSOR_BITMAP }, RGB(255, 255, 255));
 		progress.init(countTotalZombies());
@@ -232,7 +233,8 @@ namespace game_framework {
 
 		if (bar.hasGameStarted())
 		{
-			sunFactoryLogic();
+			if (isDay) sunFactoryLogic();
+
 			bar.move();
 
 			CreateZombieOnInstruction();
@@ -458,25 +460,57 @@ namespace game_framework {
 		CPoint pos = _mousePos2TilePos(coords);
 		switch (card)
 		{
+		case SEED_CARD_TYPE::CHERRY_BOMB:
+			if (bar.getSuns() >= CherryBomb::price)
+				currentSelectPlant = new CherryBomb(coords, isDay);
+			break;
 		case SEED_CARD_TYPE::PEA_SHOOTER:
 			if (bar.getSuns() >= PeaShooter::price)
-				currentSelectPlant = new PeaShooter(coords);
+				currentSelectPlant = new PeaShooter(coords, isDay);
+			break;
+		case SEED_CARD_TYPE::REPEATER_PEA:
+			if (bar.getSuns() >= RepeaterPea::price)
+				currentSelectPlant = new RepeaterPea(coords, isDay);
+			break;
+		case SEED_CARD_TYPE::THREE_PEATER:
+			if (bar.getSuns() >= Threepeater::price)
+				currentSelectPlant = new Threepeater(coords, isDay);
+			break;
+		case SEED_CARD_TYPE::POTATO_MINE:
+			if (bar.getSuns() >= PotatoMine::price)
+				currentSelectPlant = new PotatoMine(coords, isDay);
+			break;
+		case SEED_CARD_TYPE::PUFF_SHROOM:
+			if (bar.getSuns() >= PuffShroom::price)
+				currentSelectPlant = new PuffShroom(coords, isDay);
+			break;
+		case SEED_CARD_TYPE::SCAREDY_SHROOM:
+			if (bar.getSuns() >= ScaredyShroom::price)
+				currentSelectPlant = new ScaredyShroom(coords, isDay);
+			break;
+		case SEED_CARD_TYPE::SNOW_PEA:
+			if (bar.getSuns() >= SnowPea::price)
+				currentSelectPlant = new SnowPea(coords, isDay);
+			break;
+		case SEED_CARD_TYPE::SQUASH:
+			if (bar.getSuns() >= Squash::price)
+				currentSelectPlant = new Squash(coords, isDay);
 			break;
 		case SEED_CARD_TYPE::SUN_FLOWER:
 			if (bar.getSuns() >= SunFlower::price)
-				currentSelectPlant = new SunFlower(coords);
-			break;
-		case SEED_CARD_TYPE::CHERRY_BOMB:
-			if (bar.getSuns() >= CherryBomb::price)
-				currentSelectPlant = new CherryBomb(coords);
+				currentSelectPlant = new SunFlower(coords, isDay);
 			break;
 		case SEED_CARD_TYPE::WALL_NUT:
 			if (bar.getSuns() >= WallNut::price)
-				currentSelectPlant = new WallNut(coords);
+				currentSelectPlant = new WallNut(coords, isDay);
 			break;
 		case SEED_CARD_TYPE::JALAPENO:
 			if (bar.getSuns() >= Jalapeno::price)
-				currentSelectPlant = new Jalapeno(coords);
+				currentSelectPlant = new Jalapeno(coords, isDay);
+			break;
+		case SEED_CARD_TYPE::ICE_SHROOM:
+			if (bar.getSuns() >= IceShroom::price)
+				currentSelectPlant = new IceShroom(coords, isDay);
 			break;
 		case SEED_CARD_TYPE::SHOVEL:
 			shovelCursor.SetTopLeft(coords.x, coords.y);

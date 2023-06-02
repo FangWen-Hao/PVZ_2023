@@ -4,7 +4,7 @@
 
 using namespace game_framework;
 
-ScaredyShroom::ScaredyShroom(CPoint pos) : ShootingPlant(PLANT::SCAREDY_SHROOM, ScaredyShroom::price, 7.5, 20, 1.5)
+ScaredyShroom::ScaredyShroom(CPoint pos, bool isDay) : ShootingPlant(PLANT::SCAREDY_SHROOM, ScaredyShroom::price, 7.5, isDay, 20, 1.5)
 {
 	animate.LoadBitmapByString({
 		"Resources/Plants/ScaredyShroom/BMP/ScaredyShroom/ScaredyShroom_0.bmp",
