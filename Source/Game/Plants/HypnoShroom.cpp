@@ -27,19 +27,19 @@ HypnoShroom::HypnoShroom(CPoint pos, bool isDay) : DisposablePlant(PLANT::HYPNO_
 	}, RGB(255, 255, 255));
 
 	sleepAnimate.LoadBitmapByString({
-		"Resources/Plants/HypnoShroomSleep/BMP/HypnoShroomSleep/HypnoShroomSleep0.bmp",
-		"Resources/Plants/HypnoShroomSleep/BMP/HypnoShroomSleep/HypnoShroomSleep1.bmp",
-		"Resources/Plants/HypnoShroomSleep/BMP/HypnoShroomSleep/HypnoShroomSleep2.bmp",
-		"Resources/Plants/HypnoShroomSleep/BMP/HypnoShroomSleep/HypnoShroomSleep3.bmp",
-		"Resources/Plants/HypnoShroomSleep/BMP/HypnoShroomSleep/HypnoShroomSleep4.bmp",
-		"Resources/Plants/HypnoShroomSleep/BMP/HypnoShroomSleep/HypnoShroomSleep5.bmp",
-		"Resources/Plants/HypnoShroomSleep/BMP/HypnoShroomSleep/HypnoShroomSleep6.bmp",
-		"Resources/Plants/HypnoShroomSleep/BMP/HypnoShroomSleep/HypnoShroomSleep7.bmp",
-		"Resources/Plants/HypnoShroomSleep/BMP/HypnoShroomSleep/HypnoShroomSleep8.bmp",
-		"Resources/Plants/HypnoShroomSleep/BMP/HypnoShroomSleep/HypnoShroomSleep9.bmp",
-		"Resources/Plants/HypnoShroomSleep/BMP/HypnoShroomSleep/HypnoShroomSleep10.bmp",
-		"Resources/Plants/HypnoShroomSleep/BMP/HypnoShroomSleep/HypnoShroomSleep11.bmp",
-		"Resources/Plants/HypnoShroomSleep/BMP/HypnoShroomSleep/HypnoShroomSleep12.bmp",
+		"Resources/Plants/HypnoShroom/BMP/HypnoShroomSleep/HypnoShroomSleep0.bmp",
+		"Resources/Plants/HypnoShroom/BMP/HypnoShroomSleep/HypnoShroomSleep1.bmp",
+		"Resources/Plants/HypnoShroom/BMP/HypnoShroomSleep/HypnoShroomSleep2.bmp",
+		"Resources/Plants/HypnoShroom/BMP/HypnoShroomSleep/HypnoShroomSleep3.bmp",
+		"Resources/Plants/HypnoShroom/BMP/HypnoShroomSleep/HypnoShroomSleep4.bmp",
+		"Resources/Plants/HypnoShroom/BMP/HypnoShroomSleep/HypnoShroomSleep5.bmp",
+		"Resources/Plants/HypnoShroom/BMP/HypnoShroomSleep/HypnoShroomSleep6.bmp",
+		"Resources/Plants/HypnoShroom/BMP/HypnoShroomSleep/HypnoShroomSleep7.bmp",
+		"Resources/Plants/HypnoShroom/BMP/HypnoShroomSleep/HypnoShroomSleep8.bmp",
+		"Resources/Plants/HypnoShroom/BMP/HypnoShroomSleep/HypnoShroomSleep9.bmp",
+		"Resources/Plants/HypnoShroom/BMP/HypnoShroomSleep/HypnoShroomSleep10.bmp",
+		"Resources/Plants/HypnoShroom/BMP/HypnoShroomSleep/HypnoShroomSleep11.bmp",
+		"Resources/Plants/HypnoShroom/BMP/HypnoShroomSleep/HypnoShroomSleep12.bmp",
 	}, RGB(255, 255, 255));
 
 	animate.SetAnimation(100, false);
@@ -56,3 +56,4 @@ void HypnoShroom::PlaceDown(int row, int col)
 	DisposablePlant::PlaceDown(row, col);
 	sleepAnimate.SetTopLeft(animate.GetLeft(), animate.GetTop());
 }
+

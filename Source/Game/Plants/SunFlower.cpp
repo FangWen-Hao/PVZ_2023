@@ -25,7 +25,15 @@ SunFlower::SunFlower(CPoint pos, bool isDay) : GenerateSunPlant(PLANT::SUN_FLOWE
 
 void SunFlower::generateSun(vector<Sun*>* suns)
 {
-	if (!_isDay) return;
+	// Though players may be tempted to use Sunflowers in Night levels,
+	// I would strongly recommend against it, though I will cover why later 
+	// hen we talk about Sun-shrooms.
+	// It should be noted that while Day Plants are awake
+	// during both Night and Day levels, Night Plants will remain asleep
+	// during Night levels, unless players use a Coffee Bean,
+	// which is acquired much later in the series during the Roof levels.
+	// https://basicallyaverage.com/plants-vs-zombies-complete-guide/
+
 	suns->push_back(new NormalSun());
 	suns->back()->init(
 		animate.GetLeft(),
