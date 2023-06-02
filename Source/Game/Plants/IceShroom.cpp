@@ -4,7 +4,7 @@
 
 using namespace game_framework;
 
-IceShroom::IceShroom(CPoint pos, bool isDay) : DisposablePlant(PLANT::ICE_SHROOM, IceShroom::price, 50, isDay, 20, 0)
+IceShroom::IceShroom(CPoint pos, bool isDay) : DisposablePlant(PLANT::ICE_SHROOM, IceShroom::price, 50, true, isDay, 20, 0)
 {
 	animate.LoadBitmapByString({
 		"Resources/Plants/IceShroom/BMP/IceShroom/IceShroom0.bmp",

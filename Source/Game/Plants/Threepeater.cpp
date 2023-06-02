@@ -4,7 +4,7 @@
 
 using namespace game_framework;
 
-Threepeater::Threepeater(CPoint pos, bool isDay) : ShootingPlant(PLANT::THREE_PEATER, Threepeater::price, 7.5, isDay, 20, 1.5)
+Threepeater::Threepeater(CPoint pos, bool isDay) : ShootingPlant(PLANT::THREE_PEATER, Threepeater::price, 7.5, false, isDay, 20, 1.5)
 {
 	animate.LoadBitmapByString({
 		"Resources/Plants/Threepeater/BMP/Threepeater_0.bmp",

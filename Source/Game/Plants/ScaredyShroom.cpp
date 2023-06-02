@@ -4,7 +4,7 @@
 
 using namespace game_framework;
 
-ScaredyShroom::ScaredyShroom(CPoint pos, bool isDay) : ShootingPlant(PLANT::SCAREDY_SHROOM, ScaredyShroom::price, 7.5, isDay, 20, 1.5)
+ScaredyShroom::ScaredyShroom(CPoint pos, bool isDay) : ShootingPlant(PLANT::SCAREDY_SHROOM, ScaredyShroom::price, 7.5, true, isDay, 20, 1.5)
 {
 	animate.LoadBitmapByString({
 		"Resources/Plants/ScaredyShroom/BMP/ScaredyShroom/ScaredyShroom_0.bmp",
@@ -26,6 +26,25 @@ ScaredyShroom::ScaredyShroom(CPoint pos, bool isDay) : ShootingPlant(PLANT::SCAR
 		"Resources/Plants/ScaredyShroom/BMP/ScaredyShroom/ScaredyShroom_16.bmp",
 	}, RGB(255, 255, 255));
 
+	sleepAnimate.LoadBitmapByString({
+		"Resources/Plants/ScaredyShroom/BMP/ScaredyShroomSleep/ScaredyShroomSleep_0.bmp",
+		"Resources/Plants/ScaredyShroom/BMP/ScaredyShroomSleep/ScaredyShroomSleep_1.bmp",
+		"Resources/Plants/ScaredyShroom/BMP/ScaredyShroomSleep/ScaredyShroomSleep_2.bmp",
+		"Resources/Plants/ScaredyShroom/BMP/ScaredyShroomSleep/ScaredyShroomSleep_3.bmp",
+		"Resources/Plants/ScaredyShroom/BMP/ScaredyShroomSleep/ScaredyShroomSleep_4.bmp",
+		"Resources/Plants/ScaredyShroom/BMP/ScaredyShroomSleep/ScaredyShroomSleep_5.bmp",
+		"Resources/Plants/ScaredyShroom/BMP/ScaredyShroomSleep/ScaredyShroomSleep_6.bmp",
+		"Resources/Plants/ScaredyShroom/BMP/ScaredyShroomSleep/ScaredyShroomSleep_7.bmp",
+		"Resources/Plants/ScaredyShroom/BMP/ScaredyShroomSleep/ScaredyShroomSleep_8.bmp",
+		"Resources/Plants/ScaredyShroom/BMP/ScaredyShroomSleep/ScaredyShroomSleep_9.bmp",
+		"Resources/Plants/ScaredyShroom/BMP/ScaredyShroomSleep/ScaredyShroomSleep_10.bmp",
+		"Resources/Plants/ScaredyShroom/BMP/ScaredyShroomSleep/ScaredyShroomSleep_11.bmp",
+		"Resources/Plants/ScaredyShroom/BMP/ScaredyShroomSleep/ScaredyShroomSleep_12.bmp",
+		"Resources/Plants/ScaredyShroom/BMP/ScaredyShroomSleep/ScaredyShroomSleep_13.bmp",
+		"Resources/Plants/ScaredyShroom/BMP/ScaredyShroomSleep/ScaredyShroomSleep_14.bmp",
+		"Resources/Plants/ScaredyShroom/BMP/ScaredyShroomSleep/ScaredyShroomSleep_15.bmp",
+	}, RGB(255, 255, 255));
+
 	cryAnimate.LoadBitmapByString({
 		"Resources/Plants/ScaredyShroom/BMP/ScaredyShroomCry/ScaredyShroomCry_0.bmp",
 		"Resources/Plants/ScaredyShroom/BMP/ScaredyShroomCry/ScaredyShroomCry_1.bmp",
@@ -43,6 +62,9 @@ ScaredyShroom::ScaredyShroom(CPoint pos, bool isDay) : ShootingPlant(PLANT::SCAR
 	animate.SetAnimation(100, false);
 	animate.SetTopLeft(pos.x, pos.y);
 
+	sleepAnimate.SetAnimation(100, false);
+	sleepAnimate.SetTopLeft(pos.x, pos.y);
+
 	cryAnimate.SetAnimation(100, false);
 	cryAnimate.SetTopLeft(pos.x, pos.y);
 
@@ -57,6 +79,8 @@ void ScaredyShroom::PlaceDown(int row, int col)
 
 void ScaredyShroom::onMove(vector<Bullet*>* bullets, vector<Sun*>* suns, vector<Zombie*>* zombies) {
 	Plant::onMove(bullets, suns, zombies);
+
+	if (_isNightPlant && _isDay) return;
 
 	bool hasZombieInRow = false;
 
@@ -86,7 +110,9 @@ void ScaredyShroom::onMove(vector<Bullet*>* bullets, vector<Sun*>* suns, vector<
 
 void ScaredyShroom::onShow()
 {
-	if (isCrying)
+	if (_isPlaceDown && _isNightPlant && _isDay)
+		sleepAnimate.ShowBitmap();
+	else if (isCrying)
 		cryAnimate.ShowBitmap();
 	else
 		animate.ShowBitmap();
@@ -94,6 +120,7 @@ void ScaredyShroom::onShow()
 
 void ScaredyShroom::attack(vector<Bullet*>* bullets)
 {
+	if (_isNightPlant && _isDay) return;
 	bullets->push_back(
 		new ShroomBullet(animate.GetLeft() + animate.GetWidth(), animate.GetTop(), _damage));
 }

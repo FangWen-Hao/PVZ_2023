@@ -73,20 +73,27 @@ namespace game_framework
 
 			animate.SetTopLeft(MIDDLE_TILES_POSITION_ON_MAP.at(col) - width() / 2,
 				MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(row) - height() / 2);
-			
+			if (_isNightPlant)
+				sleepAnimate.SetTopLeft(MIDDLE_TILES_POSITION_ON_MAP.at(col) - width() / 2,
+					MIDDLE_LANE_POSITION_ON_SCREEN_MAP.at(row) - height() / 2);
+
 			_isPlaceDown = true;
 		}
 		virtual void onMove(vector<Bullet*>*, vector<Sun*>*, vector<Zombie*>*) { if (_hp < 0) _isDead = true; }
-		virtual void onShow() { animate.ShowBitmap(); }
+		virtual void onShow() {
+			if (_isNightPlant && _isDay) sleepAnimate.ShowBitmap();
+			else animate.ShowBitmap();
+		}
 
 	protected:
-		Plant(const PLANT_TYPE type, const PLANT name, const int price, const double coolDown, const bool isDay)
-			: _type(type), _name(name), _price(price), _coolDown(coolDown), _isDay(isDay) {}
+		Plant(const PLANT_TYPE type, const PLANT name, const int price, const double coolDown, const bool isNightPlant, const bool isDay)
+			: _type(type), _name(name), _price(price), _coolDown(coolDown), _isNightPlant(isNightPlant), _isDay(isDay) {}
 		
 		const PLANT_TYPE _type;
 		const PLANT _name;
 		const int _price;
 		const double _coolDown;
+		const bool _isNightPlant;
 		
 		int _hp;
 		int _row;
@@ -96,6 +103,7 @@ namespace game_framework
 		bool _isPlaceDown = false;
 		
 		CMovingBitmap animate;
+		CMovingBitmap sleepAnimate;
 	};
 	//////////////////////////////////////////////////
 
@@ -107,16 +115,16 @@ namespace game_framework
 	class DefensivePlant : public Plant
 	{
 	protected:
-		DefensivePlant(const PLANT name, const int price, const int coolDown, const bool isDay)
-			: Plant(PLANT_TYPE::DEFENSIVE, name, price, coolDown, isDay) {}
+		DefensivePlant(const PLANT name, const int price, const int coolDown, const bool isNightPlant, const bool isDay)
+			: Plant(PLANT_TYPE::DEFENSIVE, name, price, coolDown, isNightPlant, isDay) {}
 		~DefensivePlant() {}
 	};
 
 	class DisposablePlant : public Plant
 	{
 	protected:
-		DisposablePlant(const PLANT name, const int price, const double coolDown, const bool isDay, const int damage, const int perpareTime)
-			: Plant(PLANT_TYPE::DISPOSABLE, name, price, coolDown, isDay), _damage(damage), _perpareTime(perpareTime)
+		DisposablePlant(const PLANT name, const int price, const double coolDown, const bool isNightPlant, const bool isDay, const int damage, const int perpareTime)
+			: Plant(PLANT_TYPE::DISPOSABLE, name, price, coolDown, isNightPlant, isDay), _damage(damage), _perpareTime(perpareTime)
 		{
 			readyClock.initCooldown(_perpareTime);
 		}
@@ -156,8 +164,8 @@ namespace game_framework
 		}
 
 	protected:
-		GenerateSunPlant(const PLANT name, const int price, const double coolDown, const bool isDay, const double generateSpeed)
-			: Plant(PLANT_TYPE::GENERATE_SUN, name, price, coolDown, isDay), _generateSpeed(generateSpeed)
+		GenerateSunPlant(const PLANT name, const int price, const double coolDown, const bool isNightPlant, const bool isDay, const double generateSpeed)
+			: Plant(PLANT_TYPE::GENERATE_SUN, name, price, coolDown, isNightPlant, isDay), _generateSpeed(generateSpeed)
 		{
 			generateCooldown.initCooldown(generateSpeed);
 		}
@@ -198,8 +206,8 @@ namespace game_framework
 		}
 
 	protected:
-		ShootingPlant(const PLANT name, const int price, const double coolDown, const bool isDay, const int damage, const double attackSpeed)
-			: Plant(PLANT_TYPE::SHOOTING, name, price, coolDown, isDay), _damage(damage), _attackSpeed(attackSpeed)
+		ShootingPlant(const PLANT name, const int price, const double coolDown, const bool isNightPlant, const bool isDay, const int damage, const double attackSpeed)
+			: Plant(PLANT_TYPE::SHOOTING, name, price, coolDown, isNightPlant, isDay), _damage(damage), _attackSpeed(attackSpeed)
 		{
 			attackCooldown.initCooldown(_attackSpeed);
 		}
@@ -308,15 +316,23 @@ namespace game_framework
 		~IceShroom() {}
 
 		static const int price = 75;
-
+		
 		void PlaceDown(int, int) override;
 		void onMove(vector<Bullet*>*, vector<Sun*>*, vector<Zombie*>*) override;
 		void onShow() override;
 	private:
 		int _freezeTime;
 		int _slowTime;
+	};
 
-		CMovingBitmap sleepAnimate;
+	class HypnoShroom : public DisposablePlant
+	{
+	public:
+		HypnoShroom(CPoint, bool);
+		~HypnoShroom() {}
+
+		static const int price = 75;
+		void PlaceDown(int, int) override;
 	};
 	//////////////////////////////////////////////////
 
@@ -423,13 +439,6 @@ namespace game_framework
 	public:
 		Chomper(CPoint, bool);
 		~Chomper();
-	};
-
-	class HypnoShroom : public Plant
-	{
-	public:
-		HypnoShroom(CPoint, bool);
-		~HypnoShroom();
 	};
 
 	class Spikeweed : public Plant

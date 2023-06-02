@@ -3,7 +3,7 @@
 
 using namespace game_framework;
 
-Squash::Squash(CPoint pos, bool isDay) : DisposablePlant(PLANT::SQUASH, Squash::price, 30, isDay, 1800, 0)
+Squash::Squash(CPoint pos, bool isDay) : DisposablePlant(PLANT::SQUASH, Squash::price, 30, false, isDay, 1800, 0)
 {
 	animate.LoadBitmapByString({
 		"Resources/Plants/Squash/BMP/Squash_0.bmp",

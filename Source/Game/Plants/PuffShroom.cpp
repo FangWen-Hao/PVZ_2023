@@ -4,7 +4,7 @@
 
 using namespace game_framework;
 
-PuffShroom::PuffShroom(CPoint pos, bool isDay) : ShootingPlant(PLANT::PUFF_SHROOM, PuffShroom::price, 7.5, isDay, 20, 1.5)
+PuffShroom::PuffShroom(CPoint pos, bool isDay) : ShootingPlant(PLANT::PUFF_SHROOM, PuffShroom::price, 7.5, false, isDay, 20, 1.5)
 {
 	animate.LoadBitmapByString({
 		"Resources/Plants/PuffShroom/BMP/PuffShroom_0.bmp",

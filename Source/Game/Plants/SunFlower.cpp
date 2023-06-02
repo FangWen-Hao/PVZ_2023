@@ -4,7 +4,7 @@
 
 using namespace game_framework;
 
-SunFlower::SunFlower(CPoint pos, bool isDay) : GenerateSunPlant(PLANT::SUN_FLOWER, SunFlower::price, 7.5, isDay, 23.5)
+SunFlower::SunFlower(CPoint pos, bool isDay) : GenerateSunPlant(PLANT::SUN_FLOWER, SunFlower::price, 7.5, false, isDay, 23.5)
 {
 	animate.LoadBitmapByString({
 		"Resources/Plants/SunFlower/BMP/SunFlower_0.bmp",

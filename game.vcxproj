@@ -267,6 +267,7 @@
     <ClCompile Include="Source\Game\mygame_over.cpp" />
     <ClCompile Include="Source\Game\mygame_run.cpp" />
     <ClCompile Include="Source\Game\Plants\CherryBomb.cpp" />
+    <ClCompile Include="Source\Game\Plants\HypnoShroom.cpp" />
     <ClCompile Include="Source\Game\Plants\IceShroom.cpp" />
     <ClCompile Include="Source\Game\Plants\Jalapeno.cpp" />
     <ClCompile Include="Source\Game\Plants\PeaShooter.cpp" />

@@ -6,7 +6,7 @@
 
 using namespace game_framework;
 
-CherryBomb::CherryBomb(CPoint pos, bool isDay) : DisposablePlant(PLANT::CHERRY_BOMB, CherryBomb::price, 50, isDay, 1800, 1)
+CherryBomb::CherryBomb(CPoint pos, bool isDay) : DisposablePlant(PLANT::CHERRY_BOMB, CherryBomb::price, 50, false, isDay, 1800, 1)
 {
 	animate.LoadBitmapByString({
 		"Resources/Plants/CherryBomb/BMP/CherryBomb_0.bmp",

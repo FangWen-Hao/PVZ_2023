@@ -204,6 +204,9 @@
     <ClCompile Include="Source\Game\GameMode\AboutUs.cpp">
       <Filter>MyGame\GameMode</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Game\Plants\HypnoShroom.cpp">
+      <Filter>MyGame\Plants</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Library\audio.h">

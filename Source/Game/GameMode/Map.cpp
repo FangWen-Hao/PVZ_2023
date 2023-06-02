@@ -512,6 +512,10 @@ namespace game_framework {
 			if (bar.getSuns() >= IceShroom::price)
 				currentSelectPlant = new IceShroom(coords, isDay);
 			break;
+		case SEED_CARD_TYPE::HYPNO_SHROOM:
+			if (bar.getSuns() >= HypnoShroom::price)
+				currentSelectPlant = new HypnoShroom(coords, isDay);
+			break;
 		case SEED_CARD_TYPE::SHOVEL:
 			shovelCursor.SetTopLeft(coords.x, coords.y);
 

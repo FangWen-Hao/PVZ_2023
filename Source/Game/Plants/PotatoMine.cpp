@@ -3,7 +3,7 @@
 
 using namespace game_framework;
 
-PotatoMine::PotatoMine(CPoint pos, bool isDay) : DisposablePlant(PLANT::POTATO_MINE, PotatoMine::price, 30, isDay, 1800, 15)
+PotatoMine::PotatoMine(CPoint pos, bool isDay) : DisposablePlant(PLANT::POTATO_MINE, PotatoMine::price, 30, false, isDay, 1800, 15)
 {
 	animate.LoadBitmapByString({
 		"Resources/Plants/PotatoMine/BMP/PotatoMineInit_0.bmp",
