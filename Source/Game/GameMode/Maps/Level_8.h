@@ -23,7 +23,7 @@ namespace game_framework
 		{(int)ZOMBIE_INSTRUCTION_TYPE::WAVE_CHKPOINT, 180, 0, 0},
 
 		// middle wave
-		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 180 0, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 180, 0, 0},
 		{(int)ZOMBIE_INSTRUCTION_TYPE::CONEHEAD, 182, 0, 0},
 		
 
