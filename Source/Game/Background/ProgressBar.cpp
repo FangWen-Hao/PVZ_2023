@@ -85,4 +85,3 @@ string ProgressBar::getCurrentLevelMsg(int currentLevel)
 
 	return ret.str();
 }
-

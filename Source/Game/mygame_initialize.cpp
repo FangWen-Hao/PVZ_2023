@@ -28,7 +28,7 @@ void CGameStateInit::OnInit()
 	for (int i = 0; i < 101; i++)
 	{
 		ShowInitProgress(i, "Start Initialize...");
-		Sleep(1); // 10s sleep in total
+		Sleep(1); // 1s sleep in total
 	}
 
 	// TODO: find a BMP file of the init_screen that can be used. 
@@ -60,7 +60,6 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	SoundBoard::initSoundboard();
 	GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
 }
 
