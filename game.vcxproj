@@ -319,10 +319,15 @@
     <ClInclude Include="Source\Game\GameMode\Main_Menu.h" />
     <ClInclude Include="Source\Game\GameMode\Map.h" />
     <ClInclude Include="Source\Game\GameMode\Maps\Level_1.h" />
+    <ClInclude Include="Source\Game\GameMode\Maps\Level_10.h" />
     <ClInclude Include="Source\Game\GameMode\Maps\Level_2.h" />
     <ClInclude Include="Source\Game\GameMode\Maps\Level_3.h" />
     <ClInclude Include="Source\Game\GameMode\Maps\Level_4.h" />
     <ClInclude Include="Source\Game\GameMode\Maps\Level_5.h" />
+    <ClInclude Include="Source\Game\GameMode\Maps\Level_6.h" />
+    <ClInclude Include="Source\Game\GameMode\Maps\Level_7.h" />
+    <ClInclude Include="Source\Game\GameMode\Maps\Level_8.h" />
+    <ClInclude Include="Source\Game\GameMode\Maps\Level_9.h" />
     <ClInclude Include="Source\Game\GameMode\Maps\MapsDependencies.h" />
     <ClInclude Include="Source\Game\GameMode\Maps\Tile_Positions.h" />
     <ClInclude Include="Source\Game\Misc\Bullet\Bullet.h" />

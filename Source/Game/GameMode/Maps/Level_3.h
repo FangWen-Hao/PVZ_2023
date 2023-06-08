@@ -58,7 +58,6 @@ namespace game_framework
 		{(int)ZOMBIE_INSTRUCTION_TYPE::WAVE_CHKPOINT, 320, 0, 0},
 
 		// final wave
-		
 		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 330, 0, 0},
 		{(int)ZOMBIE_INSTRUCTION_TYPE::NEWSPAPER, 332, 0, 0},
 		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 334, 0, 0},

@@ -1,0 +1,100 @@
+#pragma once;
+#include "../../Utils/GameModeConsts.h"
+#include "../Map.h"
+#include <vector>
+
+namespace game_framework
+{
+	const vector<vector<int>> Level_8_zombie_instruction{
+		// {zombie type, zombie time to spawn in seconds, zombie row pos, zombie has spawned}
+		// Normal, flag, newspaper & cone
+
+		// starting stream
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 30, 0, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 50, 2, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 70, 1, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 90, 4, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 110, 1, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 130, 0, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 131, 4, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::CONEHEAD, 132, 3, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 150, 2, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 151, 3, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::WAVE_CHKPOINT, 180, 0, 0},
+
+		// middle wave
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 180, 0, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::CONEHEAD, 182, 0, 0},
+
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 180, 1, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 182, 1, 0},
+
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NEWSPAPER, 180, 2, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 182, 2, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 184, 2, 0},
+
+		{(int)ZOMBIE_INSTRUCTION_TYPE::FLAG, 180, 3, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 182, 3, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 184, 3, 0},
+
+		{(int)ZOMBIE_INSTRUCTION_TYPE::CONEHEAD, 180, 4, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 182, 4, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 184, 4, 0},
+
+		{(int)ZOMBIE_INSTRUCTION_TYPE::WAIT, 220, 0, 0},
+
+		// in-between stream
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 220, 3, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 220, 1, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::CONEHEAD, 240, 2, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 240, 1, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 270, 3, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::CONEHEAD, 270, 0, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 270, 4, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NEWSPAPER, 300, 2, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 300, 4, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::CONEHEAD, 300, 2, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::WAVE_CHKPOINT, 320, 0, 0},
+
+		// final wave
+
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 330, 0, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NEWSPAPER, 332, 0, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 334, 0, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NEWSPAPER, 336, 0, 0},
+
+		{(int)ZOMBIE_INSTRUCTION_TYPE::FLAG, 330, 1, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 332, 1, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::CONEHEAD, 334, 1, 0},
+
+		{(int)ZOMBIE_INSTRUCTION_TYPE::CONEHEAD, 330, 2, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 332, 2, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NEWSPAPER, 334, 2, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 336, 2, 0},
+
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 330, 2, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::CONEHEAD, 332, 2, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NEWSPAPER, 334, 2, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 336, 2, 0},
+
+		{(int)ZOMBIE_INSTRUCTION_TYPE::CONEHEAD, 330, 2, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NEWSPAPER, 332, 2, 0},
+		{(int)ZOMBIE_INSTRUCTION_TYPE::NORMAL, 334, 2, 0},
+	};
+
+	const string LEVEL_8_MSG_BITMAP = "Resources/Background/Level Up/BMP/Level2-3.bmp";
+
+	class Level8 : public Map
+	{
+	public:
+		Level8() : Map(Level_8_zombie_instruction, LEVEL_8_MSG_BITMAP, false) {};
+
+		~Level8() {};
+
+	protected:
+		int getPreviousLevel() { return LEVEL_7; }
+		int getCurrentLevel() { return LEVEL_8; }
+		int getNextLevel() { return LEVEL_9; }
+	};
+
+}
