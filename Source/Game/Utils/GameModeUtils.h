@@ -4,7 +4,7 @@
 #include "../GameMode/Main_Menu.h"
 #include "../GameMode/Map.h"
 #include "../GameMode/Maps/MapsDependencies.h"
-#include "../GameMode/Almanac.h"
+#include "../GameMode/AboutUs.h"
 #include "../GameMode/LoadingScreen.h"
 #include "../Misc/Cooldown.h"
 
@@ -41,8 +41,8 @@ namespace game_framework {
 			GameModePtr = new Level5();
 			break;
 
-		case ALMANAC_BTN:
-			GameModePtr = new Almanac();
+		case ABOUT_US:
+			GameModePtr = new AboutUs();
 			break;
 
 		case MENU_BTN:

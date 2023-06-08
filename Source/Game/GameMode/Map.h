@@ -21,11 +21,11 @@ namespace game_framework {
 	public:
 		Map(vector<vector<int>> zombiesSpawningInstructions,
 			string messageBitmap,
+			bool isDay,
 			double sunProductionCooldownVal = 10,
 			unsigned int maxSunsFallen = 10,
 			int startingSunHeight = 50,
-			int sunsAmount = 50,
-			bool isDay = true);
+			int sunsAmount = 50);
 
 		~Map();
 

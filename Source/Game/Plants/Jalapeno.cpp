@@ -4,7 +4,7 @@
 
 using namespace game_framework;
 
-Jalapeno::Jalapeno(CPoint pos) : DisposablePlant(PLANT::JALAPENO, Jalapeno::price, 50, 1800, 1)
+Jalapeno::Jalapeno(CPoint pos, bool isDay) : DisposablePlant(PLANT::JALAPENO, Jalapeno::price, 50, false, isDay, 1800, 1)
 {
 	animate.LoadBitmapByString({
 		"Resources/Plants/Jalapeno/BMP/Jalapeno/Jalapeno_0.bmp",

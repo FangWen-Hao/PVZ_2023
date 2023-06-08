@@ -4,7 +4,7 @@
 
 using namespace game_framework;
 
-PeaShooter::PeaShooter(CPoint pos) : ShootingPlant(PLANT::PEA_SHOOTER, PeaShooter::price, 7.5, 20, 1.5)
+PeaShooter::PeaShooter(CPoint pos, bool isDay) : ShootingPlant(PLANT::PEA_SHOOTER, PeaShooter::price, 7.5, false, isDay, 20, 1.5)
 {
 	animate.LoadBitmapByString({
 		"Resources/Plants/PeaShooter/BMP/Peashooter_0.bmp",

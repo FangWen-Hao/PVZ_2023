@@ -26,7 +26,7 @@ namespace game_framework{
 		const vector<vector<vector<string>>> MENU_BUTTONS_BITMAP_FILEPATH {
 			// { {Filepaths name}, {offsetX, offsetY} }
 			{ {"Resources/Misc/Buttons/Start/BMP/Adventure0.bmp", "Resources/Misc/Buttons/Start/BMP/Adventure1.bmp"}, {"382", "69" } },
-			{ {"Resources/Almanac/BMP/almanac.bmp", "Resources/Almanac/BMP/almanac.bmp"}, {"327", "426" } }
+			{ {"Resources/About us/aboutUsButton.bmp", "Resources/About us/aboutUsButton.bmp"}, {"327", "426" } }
 		};
 
 		vector<Button> MenuButtons;

@@ -16,6 +16,12 @@ void Background::init(string filePath)
 	CMovingBitmap::SetTopLeft(0, 0);
 }
 
+void game_framework::Background::init(vector<string> filePath)
+{
+	CMovingBitmap::LoadBitmapByString(filePath);
+	CMovingBitmap::SetTopLeft(0, 0);
+}
+
 void Background::show()
 {
 	ShowBitmap();

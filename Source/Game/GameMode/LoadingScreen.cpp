@@ -12,6 +12,8 @@ namespace game_framework {
 	void LoadingScreen::init()
 	{
 		background.init(loadingBackgroundFilePath);
+		loadingTime.initCooldown(LOADING_TIME);
+		loadingTime.startCooldown();
 	}
 	void LoadingScreen::show()
 	{
@@ -20,7 +22,11 @@ namespace game_framework {
 
 	void LoadingScreen::OnMove()
 	{
-		// Animation logic here?
+		Cooldown::updateGameClock();
+		loadingTime.updateGameClock();
+
+		if (!loadingTime.isOnCooldown())
+			background.SetFrameIndexOfBitmap(1);
 	}
 
 	void LoadingScreen::OnKeyUp(UINT nChar)
@@ -33,17 +39,17 @@ namespace game_framework {
 
 	int LoadingScreen::OnLClick(CPoint coords)
 	{
-		if (isDone)
-			return MENU_NO_BTN_ACTION_ACCEPTED;
-
-		return MENU_NO_BTN_ACTION_REJECTED;
+		return getIsDone();
 	}
 	int LoadingScreen::OnRClick(CPoint coords)
 	{
-		return 0;
+		return getIsDone();
 	}
-	bool LoadingScreen::getIsDone()
+	int LoadingScreen::getIsDone()
 	{
-		return isDone;
+		if (background.GetFrameIndexOfBitmap() == 1)
+			return MENU_NO_BTN_ACTION_ACCEPTED;
+
+		return MENU_NO_BTN_ACTION_REJECTED;
 	}
 }

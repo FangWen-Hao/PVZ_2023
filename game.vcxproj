@@ -252,7 +252,7 @@
     <ClCompile Include="Source\Game\Background\GameOver.cpp" />
     <ClCompile Include="Source\Game\Background\ProgressBar.cpp" />
     <ClCompile Include="Source\Game\Background\SeedCard.cpp" />
-    <ClCompile Include="Source\Game\GameMode\Almanac.cpp" />
+    <ClCompile Include="Source\Game\GameMode\AboutUs.cpp" />
     <ClCompile Include="Source\Game\GameMode\LoadingScreen.cpp" />
     <ClCompile Include="Source\Game\GameMode\Main_Menu.cpp" />
     <ClCompile Include="Source\Game\GameMode\Map.cpp" />
@@ -267,6 +267,8 @@
     <ClCompile Include="Source\Game\mygame_over.cpp" />
     <ClCompile Include="Source\Game\mygame_run.cpp" />
     <ClCompile Include="Source\Game\Plants\CherryBomb.cpp" />
+    <ClCompile Include="Source\Game\Plants\HypnoShroom.cpp" />
+    <ClCompile Include="Source\Game\Plants\IceShroom.cpp" />
     <ClCompile Include="Source\Game\Plants\Jalapeno.cpp" />
     <ClCompile Include="Source\Game\Plants\PeaShooter.cpp" />
     <ClCompile Include="Source\Game\Plants\PotatoMine.cpp" />
@@ -311,7 +313,7 @@
     <ClInclude Include="Source\Game\Background\ProgressBar.h" />
     <ClInclude Include="Source\Game\Background\SeedCard.h" />
     <ClInclude Include="Source\Game\config.h" />
-    <ClInclude Include="Source\Game\GameMode\Almanac.h" />
+    <ClInclude Include="Source\Game\GameMode\AboutUs.h" />
     <ClInclude Include="Source\Game\GameMode\GameMode.h" />
     <ClInclude Include="Source\Game\GameMode\LoadingScreen.h" />
     <ClInclude Include="Source\Game\GameMode\Main_Menu.h" />

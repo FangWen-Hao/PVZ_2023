@@ -3,7 +3,7 @@
 
 using namespace game_framework;
 
-WallNut::WallNut(CPoint pos) : DefensivePlant(PLANT::WALL_NUT, WallNut::price, 30)
+WallNut::WallNut(CPoint pos, bool isDay) : DefensivePlant(PLANT::WALL_NUT, WallNut::price, 30, false, isDay)
 {
 	animate.LoadBitmapByString({
 		"Resources/Plants/WallNut/BMP/WallNut/WallNut_0.bmp",
