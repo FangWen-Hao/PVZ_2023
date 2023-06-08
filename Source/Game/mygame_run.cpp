@@ -64,12 +64,12 @@ void CGameStateRun::OnLButtonDown(UINT nFlags, CPoint point)  // 處理滑鼠的
 	{
 		NextMode = res;
 		isLoading = true;
-		changeGameMode(mode, LOADING);
+		changeGameMode(&mode, LOADING);
 	}
 	else if(isLoading
 			&& res == MENU_NO_BTN_ACTION_ACCEPTED)
 	{
-		changeGameMode(mode, NextMode);
+		changeGameMode(&mode, NextMode);
 		NextMode = MENU_NO_BTN_ACTION_REJECTED;
 		isLoading = false;
 	}

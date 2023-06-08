@@ -17,6 +17,7 @@ namespace game_framework
 		void show();
 		void move();
 		void onHover(CPoint coords);
+		void pickCardsOnClick(CPoint coords, bool isDay);
 		SEED_CARD_TYPE onClick(CPoint coords);
 		void setSeedCardCooldown(SEED_CARD_TYPE cardType);
 		

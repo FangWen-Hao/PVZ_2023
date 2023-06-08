@@ -7,7 +7,7 @@ namespace game_framework {
 	{
 	public:
 		GameMode() {};
-		~GameMode() {};
+		virtual ~GameMode() {};
 		virtual void init() = 0;
 		virtual void show() = 0;
 		virtual void OnMove() = 0;

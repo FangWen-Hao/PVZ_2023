@@ -59,23 +59,6 @@
     - Flag Zombie
 19. In game menu logic.
 
-## Work In Progress (Hopefully will be on Released on v3.0.0)
-
-1. `Hypnoshroom`, `Chomper` plant logic.
-2. Night map logic.
-3. If the zombies are attacked by Hypno-Shroom, then the zombie animation will turn purple and walk to the map's right side.
-4. Settings
-  - SFX, Music
-5. About Us Page and button on main menu.
-6. Almanac of both plants and the Zombies.
-7. The initial screen explains the usage and tricks of buttons and mouse.
-  - Remove the intial `next level` and `previous level` to be a hidden key in keyboard. An example of what i mean (https://drive.google.com/file/d/1BafHwmZFrR9QU9Uv6BnK-93CcsRJw4mY/view?usp=share_link)
-8. Report
-  - Game Architecture Diagram (Example: https://drive.google.com/file/d/1mgaSa8rH2oY45Ke2r-ry9RKDD-02uBrF/view?usp=share_link)
-  - STILL NEEDS A LOT OF WORK (cue uncle roger accent)
-
-Priority: Uh just follow the list
-
 ### Bugs:
 
 1. Memory Leak: TBD.
@@ -86,6 +69,61 @@ Priority: Uh just follow the list
   - Example:
     - ![read_access_violation_example.png](assets/read_access_violation_example.png)
   - While we have 2 static template methods that we believe should mitigate this problem, these were last second additions and as such we are unsure if this problem persists.
+
+## Release v3.0.0
+
+1. Working main menu and transition screens.
+2. Player can pick the 8 plants they want to use through the use of the plant picker.
+3. Player can click on the suns falling from the sky by clicking on them.
+    - The suns' position is determined by the game's PRNG (Pseudo Random Number Generator), which uses system clock.
+4. Once a sun is clicked, the sun is added to the sun counter.
+5. Zombies spawn in the right part of the screen and they walk to the left.
+6. Plants can be planted on the lane and can attack the zombies.
+    - Plants that be planted and used: `Peashooter`, `Snowpea`, `Cherrybomb`, `Wallnut`, `Repeaterpea`, `Threeshooterpea`, `Puffshroom`, `Scaredyshroom`, `Potatomine`, `Squash`, `Jalapeno`, `Iceshroom`.
+    - Plants that be planted and can't be used: N/A.
+    - Plants that is in WIP: `Hypnoshroom`, `Chomper`.
+7. The plant picker cards has three modes:
+    - The plant can't be planted since the accumulated sun isn't enough to plant the plants that the player wants.
+    - The plant can be planted since the sun is accumulated and the cooldown has passed.
+    - The plant can't be planted since the card needs to pass the cooldown time.
+8. The plants will not put out bullets if there is no zombies detected in the lane.
+9. The Sunflower can properly put out sun.
+10. The plants and zombies can detect their presence; Hence the zombie will stop and start eating the plants away when they can detect the plants.
+11. The game is playable on Fullscreen or minimized screen.
+12. Plants Cancelation logic:
+    - If the plants chosen are incorrect, then by `clicking right` then it will cancel the chosen plant.
+    - If the plants chosen are planted on the square that has plant, then the logic will cancel the chosen plant.
+13. Shovel logic: Removes the plants that has been planted on the map.
+14. Landmower logic.
+15. Progress Bar logic. (BETA)
+16. Zombie Factory logic.
+17. If the zombies are attacked by Snowpea, then the zombie animation will turn blue and move slower.
+18. The zombies that can be generated are:
+    - Normal Zombie
+    - Conehead Zombie
+    - Buckethead Zombie
+    - Newspaper Zombie
+    - Flag Zombie
+19. In game menu logic.
+20. About Us Page and button on main menu.
+21. Night map logic.
+
+
+## Work In Progress (Hopefully will be on Released on v3.0.0)
+
+1. `Hypnoshroom`, `Chomper` plant logic.
+<!-- 3. If the zombies are attacked by Hypno-Shroom, then the zombie animation will turn purple and walk to the map's right side. -->
+4. Settings
+  - SFX, Music
+7. The initial screen explains the usage and tricks of buttons and mouse.
+
+8. Report
+  - Game Architecture Diagram (Example: https://drive.google.com/file/d/1mgaSa8rH2oY45Ke2r-ry9RKDD-02uBrF/view?usp=share_link)
+
+### Bugs:
+
+1. Memory Leak: TBD.
+2. CAudio error.
 
 #### Links  
 [GitLab: TA files](http://140.124.183.78/gitlab/109000000/oopl2023s/-/tree/master)  

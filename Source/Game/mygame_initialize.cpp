@@ -6,7 +6,7 @@
 #include "../Library/gameutil.h"
 #include "../Library/gamecore.h"
 #include "mygame.h"
-#include "Background/GameMenu.h"
+#include "Utils/Soundboard.h"
 
 using namespace game_framework;
 
@@ -60,8 +60,7 @@ void CGameStateInit::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CGameStateInit::OnLButtonDown(UINT nFlags, CPoint point)
 {
-	GameMenu::setIsMusicOn(true);
-	GameMenu::setIsSoundFXOn(true);
+	SoundBoard::initSoundboard();
 	GotoGameState(GAME_STATE_RUN);		// 切換至GAME_STATE_RUN
 }
 

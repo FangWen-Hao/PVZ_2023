@@ -56,7 +56,6 @@ void IceShroom::PlaceDown(int row, int col)
 void IceShroom::onMove(vector<Bullet*>* bullets, vector<Sun*>* suns, vector<Zombie*>* zombies)
 {
 	if (_isDay) return;
-	// freeze all zombies	https://plantsvszombies.fandom.com/wiki/Ice-shroom
 }
 
 void IceShroom::onShow()

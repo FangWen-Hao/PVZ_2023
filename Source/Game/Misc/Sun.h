@@ -14,7 +14,7 @@ namespace game_framework
 	{
 	public:
 		Sun();
-		~Sun() {};
+		virtual ~Sun() {};
 
 		int width() { return GetWidth(); }
 		int height() { return GetHeight(); }

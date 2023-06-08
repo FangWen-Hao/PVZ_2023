@@ -5,6 +5,7 @@
 #include "../../Library/gameutil.h"
 #include "SeedCard.h"
 #include "CardPicker.h"
+#include "../Utils/Soundboard.h"
 
 using namespace std;
 using namespace game_framework;

@@ -281,6 +281,8 @@
     <ClCompile Include="Source\Game\Plants\Threepeater.cpp" />
     <ClCompile Include="Source\Game\Plants\WallNut.cpp" />
     <ClCompile Include="Source\Game\Terrain\Lane.cpp" />
+    <ClCompile Include="Source\Game\Utils\Soundboard.cpp" />
+    <ClCompile Include="Source\Game\Utils\SoundInfo.cpp" />
     <ClCompile Include="Source\Game\Zombies\BucketheadZombie.cpp" />
     <ClCompile Include="Source\Game\Zombies\ConeheadZombie.cpp" />
     <ClCompile Include="Source\Game\Zombies\FlagZombie.cpp" />
@@ -337,9 +339,12 @@
     <ClInclude Include="Source\Game\Plants\Plant.h" />
     <ClInclude Include="Source\Game\Terrain\Lane.h" />
     <ClInclude Include="Source\Game\Terrain\Tile.h" />
+    <ClInclude Include="Source\Game\Utils\AudioConsts.h" />
     <ClInclude Include="Source\Game\Utils\EntitiesUtil.h" />
     <ClInclude Include="Source\Game\Utils\GameModeConsts.h" />
     <ClInclude Include="Source\Game\Utils\GameModeUtils.h" />
+    <ClInclude Include="Source\Game\Utils\Soundboard.h" />
+    <ClInclude Include="Source\Game\Utils\SoundInfo.h" />
     <ClInclude Include="Source\Game\Zombies\Zombie.h" />
     <ClInclude Include="Source\Library\audio.h" />
     <ClInclude Include="Source\Library\gamecore.h" />

@@ -25,9 +25,9 @@ namespace game_framework {
 			double sunProductionCooldownVal = 10,
 			unsigned int maxSunsFallen = 10,
 			int startingSunHeight = 50,
-			int startingSunsAmmount = 50);
+			int sunsAmount = 50);
 
-		~Map();
+		virtual ~Map();
 
 		virtual void init();
 		virtual void show();

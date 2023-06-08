@@ -56,6 +56,7 @@ void CherryBomb::onMove(vector<Bullet*>* bullets, vector<Sun*>* suns, vector<Zom
 				{
 					isBoom = true;
 					boomAnimate.ToggleAnimation();
+					SoundBoard::playSfx(soundID::SFX_CHERRYBOMB);
 				}
 				else if (boomAnimate.IsAnimationDone())
 				{
