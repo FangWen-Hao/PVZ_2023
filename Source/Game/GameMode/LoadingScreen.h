@@ -5,7 +5,7 @@
 namespace game_framework {
 	const vector<string> loadingBackgroundFilePath = { "Resources/Background/Loading/Loading0.bmp", "Resources/Background/Loading/Loading1.bmp" };
 
-	const double LOADING_TIME = 1.0;
+	const double LOADING_TIME = 5.0;
 
 	class LoadingScreen : public GameMode
 	{
