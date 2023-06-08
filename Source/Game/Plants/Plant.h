@@ -7,6 +7,7 @@
 #include "../Misc/Sun.h"
 #include "../Zombies/Zombie.h"
 #include "../Misc/Bullet/Bullet.h"
+#include "../Utils/Soundboard.h"
 
 using namespace std;
 
@@ -46,11 +47,11 @@ namespace game_framework
 	class Plant
 	{
 	public:
-		~Plant() {}
+		virtual ~Plant() {}
 
 		PLANT_TYPE type() { return _type; }
 		PLANT name() { return _name; }
-		
+
 		int price() { return _price; }
 		int width() { return animate.GetWidth(); }
 		int height() { return animate.GetHeight(); }
@@ -60,7 +61,7 @@ namespace game_framework
 		int bottom() { return top() + height(); }
 		int row() { return _row; }
 		int col() { return _col; }
-		
+
 		bool isDead() { return _isDead; }
 
 		void SetTopLeft(CPoint pos) { animate.SetTopLeft(pos.x, pos.y); }
@@ -88,20 +89,20 @@ namespace game_framework
 	protected:
 		Plant(const PLANT_TYPE type, const PLANT name, const int price, const double coolDown, const bool isNightPlant, const bool isDay)
 			: _type(type), _name(name), _price(price), _coolDown(coolDown), _isNightPlant(isNightPlant), _isDay(isDay) {}
-		
+
 		const PLANT_TYPE _type;
 		const PLANT _name;
 		const int _price;
 		const double _coolDown;
 		const bool _isNightPlant;
-		
+
 		int _hp;
 		int _row;
 		int _col;
 		bool _isDay;
 		bool _isDead = false;
 		bool _isPlaceDown = false;
-		
+
 		CMovingBitmap animate;
 		CMovingBitmap sleepAnimate;
 	};
@@ -117,7 +118,7 @@ namespace game_framework
 	protected:
 		DefensivePlant(const PLANT name, const int price, const int coolDown, const bool isNightPlant, const bool isDay)
 			: Plant(PLANT_TYPE::DEFENSIVE, name, price, coolDown, isNightPlant, isDay) {}
-		~DefensivePlant() {}
+		virtual ~DefensivePlant() {}
 	};
 
 	class DisposablePlant : public Plant
@@ -128,7 +129,7 @@ namespace game_framework
 		{
 			readyClock.initCooldown(_perpareTime);
 		}
-		~DisposablePlant() {}
+		virtual ~DisposablePlant() {}
 
 		virtual void PlaceDown(int row, int col) override {
 			Plant::PlaceDown(row, col);
@@ -169,7 +170,7 @@ namespace game_framework
 		{
 			generateCooldown.initCooldown(generateSpeed);
 		}
-		~GenerateSunPlant() {}
+		virtual ~GenerateSunPlant() {}
 
 		const double _generateSpeed;
 		Cooldown generateCooldown;
@@ -211,8 +212,8 @@ namespace game_framework
 		{
 			attackCooldown.initCooldown(_attackSpeed);
 		}
-		~ShootingPlant() {}
-		
+		virtual ~ShootingPlant() {}
+
 		const int _damage;
 		const double _attackSpeed;
 		Cooldown attackCooldown;
@@ -228,7 +229,7 @@ namespace game_framework
 	{
 	public:
 		WallNut(CPoint, bool);
-		~WallNut() {}
+		virtual ~WallNut() {}
 
 		static const int price = 50;
 
@@ -251,7 +252,7 @@ namespace game_framework
 	{
 	public:
 		CherryBomb(CPoint, bool);
-		~CherryBomb() {}
+		virtual ~CherryBomb() {}
 
 		static const int price = 150;
 
@@ -268,7 +269,7 @@ namespace game_framework
 	{
 	public:
 		PotatoMine(CPoint, bool);
-		~PotatoMine() {}
+		virtual ~PotatoMine() {}
 
 		static const int price = 25;
 
@@ -281,7 +282,7 @@ namespace game_framework
 	{
 	public:
 		Squash(CPoint, bool);
-		~Squash() {}
+		virtual ~Squash() {}
 
 		static const int price = 50;
 
@@ -297,7 +298,7 @@ namespace game_framework
 	{
 	public:
 		Jalapeno(CPoint, bool);
-		~Jalapeno() {}
+		virtual ~Jalapeno() {}
 
 		static const int price = 125;
 
@@ -313,10 +314,10 @@ namespace game_framework
 	{
 	public:
 		IceShroom(CPoint, bool);
-		~IceShroom() {}
+		virtual ~IceShroom() {}
 
 		static const int price = 75;
-		
+
 		void PlaceDown(int, int) override;
 		void onMove(vector<Bullet*>*, vector<Sun*>*, vector<Zombie*>*) override;
 		void onShow() override;
@@ -329,7 +330,7 @@ namespace game_framework
 	{
 	public:
 		HypnoShroom(CPoint, bool);
-		~HypnoShroom() {}
+		virtual ~HypnoShroom() {}
 
 		static const int price = 75;
 		void PlaceDown(int, int) override;
@@ -345,7 +346,7 @@ namespace game_framework
 	{
 	public:
 		SunFlower(CPoint, bool);
-		~SunFlower() {}
+		virtual ~SunFlower() {}
 
 		static const int price = 50;
 
@@ -362,7 +363,7 @@ namespace game_framework
 	{
 	public:
 		PeaShooter(CPoint, bool);
-		~PeaShooter() {}
+		virtual ~PeaShooter() {}
 
 		static const int price = 100;
 
@@ -373,7 +374,7 @@ namespace game_framework
 	{
 	public:
 		RepeaterPea(CPoint, bool);
-		~RepeaterPea() {}
+		virtual ~RepeaterPea() {}
 
 		static const int price = 200;
 
@@ -384,7 +385,7 @@ namespace game_framework
 	{
 	public:
 		Threepeater(CPoint, bool);
-		~Threepeater() {}
+		virtual ~Threepeater() {}
 
 		static const int price = 325;
 
@@ -396,7 +397,7 @@ namespace game_framework
 	{
 	public:
 		SnowPea(CPoint, bool);
-		~SnowPea() {}
+		virtual ~SnowPea() {}
 
 		static const int price = 175;
 
@@ -407,10 +408,10 @@ namespace game_framework
 	{
 	public:
 		PuffShroom(CPoint, bool);
-		~PuffShroom() {}
+		virtual ~PuffShroom() {}
 
 		static const int price = 0;
-		
+
 		void onMove(vector<Bullet*>*, vector<Sun*>*, vector<Zombie*>*) override;
 		void attack(vector<Bullet*>*) override;
 	};
@@ -419,7 +420,7 @@ namespace game_framework
 	{
 	public:
 		ScaredyShroom(CPoint, bool);
-		~ScaredyShroom() {}
+		virtual ~ScaredyShroom() {}
 
 		static const int price = 25;
 
@@ -438,14 +439,14 @@ namespace game_framework
 	{
 	public:
 		Chomper(CPoint, bool);
-		~Chomper();
+		virtual ~Chomper();
 	};
 
 	class Spikeweed : public Plant
 	{
 	public:
 		Spikeweed(CPoint, bool);
-		~Spikeweed();
+		virtual ~Spikeweed();
 	};
 	*/
 }

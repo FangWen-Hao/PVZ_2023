@@ -5,6 +5,7 @@
 #include "../Background/Button.h"
 #include "Main_Menu.h"
 #include "../Utils/GameModeConsts.h"
+#include "../Utils/Soundboard.h"
 
 using namespace game_framework;
 
@@ -26,6 +27,9 @@ void MainMenu::init()
 						        MENU_BUTTONS_BITMAP_FILEPATH.at(i).at(1).at(0),
 						        MENU_BUTTONS_BITMAP_FILEPATH.at(i).at(1).at(1));
 	}
+
+	if (!SoundBoard::isSoundBeingPlayed(soundID::MAIN_MENU))
+		SoundBoard::playMusic(soundID::MAIN_MENU, true);
 }
 
 void MainMenu::show()

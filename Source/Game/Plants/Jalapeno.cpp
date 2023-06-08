@@ -61,6 +61,7 @@ void Jalapeno::onMove(vector<Bullet*>* bullets, vector<Sun*>* suns, vector<Zombi
 				{
 					isExplode = true;
 					explodeAnimate.ToggleAnimation();
+					SoundBoard::playSfx(soundID::SFX_JALAPENO);
 				} 
 				else if (isExplode && explodeAnimate.IsAnimationDone() && zombie->row() == _row)
 				{

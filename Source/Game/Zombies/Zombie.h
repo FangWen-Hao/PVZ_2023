@@ -27,7 +27,7 @@ namespace game_framework
 	class Zombie
 	{
 	public:
-		~Zombie() {}
+		virtual ~Zombie() {}
 
 		ZOMBIE_TYPE type() { return _type; }
 		
@@ -115,36 +115,36 @@ namespace game_framework
 	class NormalZombie : public Zombie {
 	public:
 		NormalZombie();
-		~NormalZombie() {}
+		virtual ~NormalZombie() {}
 	};
 
 	class BucketheadZombie : public Zombie {
 	public:
 		BucketheadZombie();
-		~BucketheadZombie() {}
+		virtual ~BucketheadZombie() {}
 	};
 
 	class ConeheadZombie : public Zombie {
 	public:
 		ConeheadZombie();
-		~ConeheadZombie() {}
+		virtual ~ConeheadZombie() {}
 	};
 
 	class FlagZombie : public Zombie {
 	public:
 		FlagZombie();
-		~FlagZombie() {}
+		virtual ~FlagZombie() {}
 	};
 
 	class NewspaperZombie : public Zombie {
 	public:
 		NewspaperZombie();
-		~NewspaperZombie() {}
+		virtual ~NewspaperZombie() {}
 	};
 
 	class NewpaperZombieNoPaper : public Zombie {
 	public:
 		NewpaperZombieNoPaper();
-		~NewpaperZombieNoPaper() {}
+		virtual ~NewpaperZombieNoPaper() {}
 	};
 }

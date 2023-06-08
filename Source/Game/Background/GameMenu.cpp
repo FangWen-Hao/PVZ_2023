@@ -3,11 +3,9 @@
 #include "../Utils/GameModeConsts.h"
 #include "../config.h"
 #include "../Misc/Cooldown.h"
+#include "../Utils/Soundboard.h"
 
 using namespace game_framework;
-
-bool GameMenu::isMusicOn;
-bool GameMenu::isSoundFXOn;
 
 void GameMenu::init(int previousLevel, int currentLevel, int nextLevel)
 {
@@ -27,8 +25,11 @@ void GameMenu::init(int previousLevel, int currentLevel, int nextLevel)
 	menuCallerBtn.LoadBitmapByString(MENU_CALLER_BTN_BITMAPS, RGB(255, 255, 255));
 	menuCallerBtn.SetTopLeft(RESOLUTION_X - menuCallerBtn.GetWidth(), 0);
 
-	musicChkBox.init(CHKBOX_BITMAPS.at(0), CHKBOX_BITMAPS.at(1), isMusicOn, backgroundX + 205, backgroundY + 129);
-	soundFXChkBox.init(CHKBOX_BITMAPS.at(0), CHKBOX_BITMAPS.at(1), isSoundFXOn, backgroundX + 205, backgroundY + 157);
+
+	musicChkBox.init(CHKBOX_BITMAPS.at(0), CHKBOX_BITMAPS.at(1), SoundBoard::isMusicOn(), &SoundBoard::toggleMusic, backgroundX + 205, backgroundY + 129);
+	
+	
+	soundFXChkBox.init(CHKBOX_BITMAPS.at(0), CHKBOX_BITMAPS.at(1), SoundBoard::isSfxOn(), &SoundBoard::toggleSFX, backgroundX + 205, backgroundY + 157);
 
 	mainMenuBtn.LoadBitmapByString(MAIN_MENU_BTN_BITMAPS, RGB(255, 255, 255));
 	mainMenuBtn.SetTopLeft(backgroundX + 112, btnsYAlignement);
@@ -129,7 +130,7 @@ void GameMenu::onHover(CPoint coords)
 	
 }
 
-int GameMenu::onClick(CPoint coords)
+int GameMenu::onClick(CPoint coords, bool isDay, bool gameStarted)
 {
 	if (!isGamePaused)
 	{
@@ -138,6 +139,17 @@ int GameMenu::onClick(CPoint coords)
 		{
 			isGamePaused = true;
 			Cooldown::pauseClockBegin();
+
+			if (gameStarted)
+			{
+				if (isDay)
+					SoundBoard::stopSound(soundID::DAY_MAP);
+				else
+				SoundBoard::stopSound(soundID::NIGHT_MAP);
+
+				SoundBoard::playMusic(soundID::CHOOSE_YOUR_SEEDS, true);
+			}
+
 			return MENU_NO_BTN_ACTION_ACCEPTED;
 		}
 	}
@@ -173,6 +185,16 @@ int GameMenu::onClick(CPoint coords)
 		{
 			isGamePaused = false;
 			Cooldown::pauseClockEnd();
+
+			if (gameStarted)
+			{
+				SoundBoard::stopSound(soundID::CHOOSE_YOUR_SEEDS);
+
+				if (isDay)
+					SoundBoard::playMusic(soundID::DAY_MAP, true);
+				else
+					SoundBoard::playMusic(soundID::NIGHT_MAP, true);
+			}
 			return MENU_NO_BTN_ACTION_ACCEPTED;
 		}
 

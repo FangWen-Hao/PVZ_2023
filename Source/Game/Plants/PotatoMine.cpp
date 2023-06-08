@@ -43,6 +43,7 @@ void PotatoMine::onMove(vector<Bullet*>* bullets, vector<Sun*>* suns, vector<Zom
 				{
 					isBoom = true;
 					animate.ToggleAnimation();
+					SoundBoard::playSfx(soundID::SFX_POTATO_MINE);
 				}
 				else if (animate.IsAnimationDone())
 				{

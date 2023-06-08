@@ -13,6 +13,7 @@
 #include <string>
 #include <afxwin.h>
 #include "GameBar.h"
+#include "../Utils/Soundboard.h"
 
 namespace game_framework
 {
@@ -36,7 +37,7 @@ namespace game_framework
 		startGameButton.SetTopLeft(picker.GetLeft() + ((picker.GetWidth() - startGameButton.GetWidth()) / 2), picker.GetTop() + picker.GetHeight() - startGameButton.GetHeight() - 20); // 20 because of padding from bottom
 		shovelButton.init({ SHOVEL_BUTTON_FILEPATH }, background.GetWidth() + 5, 0);
 		startGameButton.SetFrameIndexOfBitmap(2);
-
+		SoundBoard::playMusic(soundID::CHOOSE_YOUR_SEEDS, true);
 	}
 
 	void GameBar::show()
@@ -77,10 +78,8 @@ namespace game_framework
 		}
 	}
 
-
-	SEED_CARD_TYPE GameBar::onClick(CPoint coords)
+	void GameBar::pickCardsOnClick(CPoint coords, bool isDay)
 	{
-		// WIP
 		if (!gameStarted)
 		{
 			if (_selectedCards >= _maxNumberOfCards
@@ -92,8 +91,14 @@ namespace game_framework
 				background.UnshowBitmap();
 				picker.unshow();
 				startGameButton.UnshowBitmap();
+				SoundBoard::stopSound(soundID::CHOOSE_YOUR_SEEDS);
+
+				if (isDay)
+					SoundBoard::playMusic(soundID::DAY_MAP, true);
+				else
+					SoundBoard::playMusic(soundID::NIGHT_MAP, true);
+
 				// updateCardsFrames();
-				return SEED_CARD_TYPE::REFUSED; // tmp
 			}
 
 			if (coords.x < (picker.GetLeft() + picker.GetWidth()) && coords.x > picker.GetLeft()
@@ -124,12 +129,18 @@ namespace game_framework
 						else
 							startGameButton.SetFrameIndexOfBitmap(2);
 					}
-					
+
 				}
-					
+
 			}
 		}
-		else
+	}
+
+
+	SEED_CARD_TYPE GameBar::onClick(CPoint coords)
+	{
+		// WIP
+		if (gameStarted)
 		{
 			if (coords.x < (shovelButton.GetLeft() + shovelButton.GetWidth()) && coords.x > shovelButton.GetLeft()
 				&& coords.y < (shovelButton.GetTop() + shovelButton.GetHeight()) && coords.y > shovelButton.GetTop())

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "GameOver.h"
+#include "../Utils/Soundboard.h"
 
 using namespace game_framework;
 
@@ -12,7 +13,11 @@ void GameOver::init()
 void GameOver::show()
 {
 	if (isGameOver)
+	{
 		gameOverBg.show();
+		SoundBoard::playMusic(soundID::LOSE_MUSIC, false);
+	}
+		
 }
 
 void GameOver::triggerGameOver()

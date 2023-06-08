@@ -54,19 +54,11 @@ namespace game_framework
 		void init(int previousLevel, int currentLevel, int nextLevel);
 		void show();
 		void onHover(CPoint coords);
-		int onClick(CPoint coords);
+		int onClick(CPoint coords, bool isDay, bool gameStarted);
 
 		bool getIsGamePaused();
 
-		static void setIsMusicOn(bool val) { isMusicOn = val; }
-		static void setIsSoundFXOn(bool val) { isSoundFXOn = val; }
-
-		static bool getIsMusicOn() { return isMusicOn; }
-		static bool getIsSoundFXOn() { return isSoundFXOn; }
-
 	private:
-		static bool isMusicOn;
-		static bool isSoundFXOn;
 		bool isGamePaused = false;
 		int previousLevel;
 		int currentLevel;
