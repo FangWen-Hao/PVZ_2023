@@ -20,7 +20,6 @@ namespace game_framework
 
 		void initCooldown(double cooldown);
 
-		double getCooldown();
 		double getCooldown() const { return _cooldown; }
 		high_resolution_clock::time_point getLastUse();
 		int getCoolDownProgressInPercentage();

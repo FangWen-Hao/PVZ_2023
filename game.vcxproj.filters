@@ -198,19 +198,20 @@
     <ClCompile Include="Source\Game\Plants\Jalapeno.cpp">
       <Filter>MyGame\Plants</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\Plants\IceShroom.cpp">
-      <Filter>MyGame\Plants</Filter>
+    <ClCompile Include="Source\Game\Utils\Soundboard.cpp">
+      <Filter>MyGame\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Game\Utils\SoundInfo.cpp">
+      <Filter>MyGame\Utils</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\GameMode\AboutUs.cpp">
       <Filter>MyGame\GameMode</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\Plants\HypnoShroom.cpp">
       <Filter>MyGame\Plants</Filter>
-    <ClCompile Include="Source\Game\Utils\Soundboard.cpp">
-      <Filter>MyGame\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Game\Utils\SoundInfo.cpp">
-      <Filter>MyGame\Utils</Filter>
+    <ClCompile Include="Source\Game\Plants\IceShroom.cpp">
+      <Filter>MyGame\Plants</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -343,8 +344,6 @@
     <ClInclude Include="Source\Game\Utils\EntitiesUtil.h">
       <Filter>MyGame\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Game\GameMode\AboutUs.h">
-      <Filter>MyGame\GameMode</Filter>
     <ClInclude Include="Source\Game\Utils\Soundboard.h">
       <Filter>MyGame\Utils</Filter>
     </ClInclude>
@@ -353,6 +352,9 @@
     </ClInclude>
     <ClInclude Include="Source\Game\Utils\SoundInfo.h">
       <Filter>MyGame\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Game\GameMode\AboutUs.h">
+      <Filter>MyGame\GameMode</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

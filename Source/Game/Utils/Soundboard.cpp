@@ -10,7 +10,7 @@ bool SoundBoard::musicOn;
 
 vector<SoundInfo> SoundBoard::loadedSFX;
 vector<SoundInfo> SoundBoard::loadedMusic;
-
+soundID SoundBoard::currentMusic;
 
 void SoundBoard::initSoundboard()
 {
@@ -73,6 +73,8 @@ bool SoundBoard::playMusic(soundID id, bool repeat)
 	// track the sound as playing regardless if the sound is on or off.
 	auto it = find(loadedMusic.begin(), loadedMusic.end(), song);
 	it->play(repeat);
+	if (SoundBoard::currentMusic != soundID::EMPTY) CAudio::Instance()->Stop(convertEnum(currentMusic));
+	SoundBoard::currentMusic = it->getId();
 
 	if (musicOn)
 	{
@@ -80,6 +82,31 @@ bool SoundBoard::playMusic(soundID id, bool repeat)
 	}
 	
 	return true;
+}
+
+bool SoundBoard::isSoundBeingPlayed(soundID id)
+{
+	if (SFX_FILES.count(id) == 0 && MUSIC_FILES.count(id) == 0)
+		return false;
+
+
+	SoundInfo sound;
+
+	if (MUSIC_FILES.count(id) == 0)
+		sound = SFX_FILES.at(id);
+	else
+		sound = MUSIC_FILES.at(id);
+
+	if (findObjInVector(loadedSFX, sound) || findObjInVector(loadedMusic, sound))
+	{
+		auto it = find(loadedMusic.begin(), loadedMusic.end(), sound);
+
+		if (it == loadedMusic.end()) // it isnt in loaded music, search for loadedSFX
+			it = find(loadedSFX.begin(), loadedSFX.end(), sound);
+
+		return it->isBeingPlayed();
+	}
+	return false;
 }
 
 
@@ -105,6 +132,7 @@ bool SoundBoard::stopSound(soundID id)
 
 		// the id has been loaded, therefore stop the sound
 		it->stop(); // untrack the sound
+		if (SoundBoard::currentMusic == it->getId())	currentMusic = soundID::EMPTY;
 		CAudio::Instance()->Stop(convertEnum(it->getId()));
 		return true;
 	}
@@ -150,7 +178,7 @@ bool SoundBoard::toggleMusic()
 
 	if (!musicOn && !loadedMusic.empty())
 	{
-		// if it is false, then stop all sfx sounds
+		// if it is false, then stop all music sounds
 		for (SoundInfo sound : loadedMusic)
 		{
 			CAudio::Instance()->Stop(convertEnum(sound.getId()));
@@ -158,17 +186,13 @@ bool SoundBoard::toggleMusic()
 	}
 	else if (musicOn && !loadedMusic.empty())
 	{
-		for (SoundInfo sound : loadedMusic)
+		if (currentMusic != soundID::EMPTY)
 		{
-			// if the sound is still supposed to be playing, then play it
-			if (sound.isBeingPlayed())
-			{
-				// if the sound is supposed to be playing, then play it.
-				sound.play(sound.getRepeatStatus());
-				CAudio::Instance()->Play(convertEnum(sound.getId()), sound.getRepeatStatus());
-			}
-
+			SoundInfo sound = MUSIC_FILES.at(currentMusic);
+			if (findObjInVector(loadedMusic, sound))
+				CAudio::Instance()->Play(convertEnum(currentMusic), true);
 		}
+		
 	}
 
 	return musicOn;

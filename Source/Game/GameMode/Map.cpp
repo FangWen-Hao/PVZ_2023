@@ -261,6 +261,7 @@ namespace game_framework {
 			break;
 		case KEY_S:
 			bar.addSuns(500);
+			SoundBoard::playSfx(soundID::SFX_SUN_PICKED);
 			break;
 		case KEY_Z:
 			// TODO : add zombies moving speed
@@ -344,6 +345,13 @@ namespace game_framework {
 				if (progress.getRemainingZombies() == 1)
 				{
 					note.SetTopLeft(zombie->left(), zombie->top());
+
+					if (isDay)
+						SoundBoard::stopSound(soundID::DAY_MAP);
+					else
+						SoundBoard::stopSound(soundID::NIGHT_MAP);
+
+					SoundBoard::playMusic(soundID::ON_NOTE_UI, true);
 				}
 
 				if (zombie->isDeadDone())
@@ -357,13 +365,33 @@ namespace game_framework {
 
 	void Map::UpdateBulletsState()
 	{
+		bool collided;
 		for (Bullet* bullet : bullets)
 		{
 			if ((!findObjInVector(bullets, bullet)) || bullet == nullptr) continue;
 
 			bullet->onMove();
-			if (bullet->detectCollison(&zombies) || bullet->isOutOfRange())
+			collided = bullet->detectCollison(&zombies);
+			if (collided || bullet->isOutOfRange())
 			{
+				if (collided)
+				{
+					int splatSound = integerPRNG(1, 3);
+					switch (splatSound)
+					{
+					case 1:
+						SoundBoard::playSfx(soundID::SFX_SPLAT_1);
+					case 2:
+						SoundBoard::playSfx(soundID::SFX_SPLAT_2);
+					case 3:
+						SoundBoard::playSfx(soundID::SFX_SPLAT_3);
+
+
+					default:
+						break;
+					}
+				}
+
 				deleteObjInVector(&bullets, bullet);
 			}
 		}
@@ -407,11 +435,11 @@ namespace game_framework {
 		// if the menu is open, then don't allow the user to click anything else.
 		if (menu.getIsGamePaused())
 		{
-			return menu.onClick(coords, isDay);
+			return menu.onClick(coords, isDay, bar.hasGameStarted());
 		}
 
 
-		menu.onClick(coords, isDay);
+		menu.onClick(coords, isDay, bar.hasGameStarted());
 
 		// allow the user to click the menu if the game is over but the user hasn't picked up the note.
 		if (progress.isGameComplete())

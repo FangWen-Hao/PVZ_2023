@@ -49,11 +49,6 @@ namespace game_framework
 		_cooldown = cooldown;
 	}
 
-	double Cooldown::getCooldown()
-	{
-		return _cooldown;
-	}
-
 	high_resolution_clock::time_point Cooldown::getLastUse()
 	{
 		return _lastUse;

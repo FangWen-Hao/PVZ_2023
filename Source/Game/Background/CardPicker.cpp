@@ -96,7 +96,6 @@ SeedCard* CardPicker::OnClick(CPoint coords)
 			// card was selected
 			if (cards.at(i).clicked() != SEED_CARD_TYPE::REFUSED)
 			{
-				// SoundBoard::playSfx(soundID::plantPicked);
 				return &(cards.at(i));
 			}
 		}
