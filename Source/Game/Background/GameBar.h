@@ -27,6 +27,8 @@ namespace game_framework
 		bool hasGameStarted(void);
 		high_resolution_clock::time_point getGameStartedTime();
 
+		void resetCardsCooldown();
+
 	private:
 		void drawSun();
 		void setSelectedCards();

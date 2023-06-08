@@ -7,6 +7,12 @@
 #include "../Utils/GameModeConsts.h"
 #include "../Utils/Soundboard.h"
 
+// Includes for gamecore.h
+#include "../Core/Resource.h"
+#include <mmsystem.h>
+#include <ddraw.h>
+#include "../../Library/gamecore.h"
+
 using namespace game_framework;
 
 MainMenu::MainMenu() : GameMode()
@@ -39,6 +45,8 @@ void MainMenu::show()
 	{
 		MenuButtons.at(i).show();
 	}
+
+	drawCheatSheet();
 }
 
 void MainMenu::OnMove()
@@ -89,4 +97,25 @@ int MainMenu::OnLClick(CPoint coords)
 int MainMenu::OnRClick(CPoint coords)
 {
 	return 0;
+}
+
+void MainMenu::drawCheatSheet()
+{
+	CDC *pDC = CDDraw::GetBackCDC();
+
+	const int size = 14;
+	const int xPadding = 5;
+	int YPadding = 5;
+
+	for (string msg : CHEAT_MSGS)
+	{
+		// I have absolutely no clue at all, 0, nil, nada, on why I have to divide by 4
+		// but this makes it work so....
+		CTextDraw::ChangeFontLog(pDC, size, "微軟正黑體", RGB(0, 0, 0), 800);
+		CTextDraw::Print(pDC, xPadding, YPadding, msg);
+
+		YPadding += 10;
+	}
+
+	CDDraw::ReleaseBackCDC();
 }

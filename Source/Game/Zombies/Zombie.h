@@ -58,6 +58,10 @@ namespace game_framework
 		virtual void onMove(vector<vector<Plant*>>*);
 		virtual void onShow();
 
+		virtual void setDoubleSpeed() { moveCooldown.initCooldown(_moveSpeed / PX_PER_TILES * 2); }
+		virtual void setNormalSpeed() { moveCooldown.initCooldown(_moveSpeed / PX_PER_TILES); }
+		virtual void setHalfSpeed() { moveCooldown.initCooldown(_moveSpeed / PX_PER_TILES / 2); }
+
 	protected:
 		Zombie(const ZOMBIE_TYPE type, const int damage, const double attackSpeed, const double moveSpeed)
 			: _type(type), _damage(damage), _attackSpeed(attackSpeed), _moveSpeed(moveSpeed)

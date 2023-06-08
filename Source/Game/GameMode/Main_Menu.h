@@ -29,6 +29,21 @@ namespace game_framework{
 			{ {"Resources/About us/aboutUsButton.bmp", "Resources/About us/aboutUsButton.bmp"}, {"327", "426" } }
 		};
 
+		const vector<string> CHEAT_MSGS {
+			"List of cheat codes",
+			"Q + Left Click: Go to the previous level",
+			"W : Add 500 suns",
+			"E + Left Click: Go to the next level",
+			"A : Zombies move twice as fast",
+			"S : Zombies move normally",
+			"D : Zombies move half as fast",
+			"Z : Reset all the cooldowns for planting plants",
+			"X : Kill all zombies on screen and drop the note",
+			"C : Kill all zombies on screen",
+		};
+
+		void drawCheatSheet();
+
 		vector<Button> MenuButtons;
 	};
 }

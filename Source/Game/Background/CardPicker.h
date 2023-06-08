@@ -118,11 +118,11 @@ namespace game_framework
 					"Resources/Plants/Cards/BMP/card_scaredyshroom_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_scaredyshroom_cooldown3.bmp"} // scaredy-shroom
 			},
 
-			// {	{SEED_CARD_TYPE::ICE_SHROOM, Iceshroom::price, 50},
-			// 	{"Resources/Plants/Cards/BMP/card_iceshroom_alive.bmp", "Resources/Plants/Cards/BMP/card_iceshroom_unable.bmp",
-			// 		"Resources/Plants/Cards/BMP/card_iceshroom_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_iceshroom_cooldown1.bmp",
-			// 		"Resources/Plants/Cards/BMP/card_iceshroom_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_iceshroom_cooldown3.bmp"} // ice-shroom
-			// },
+			{	{SEED_CARD_TYPE::ICE_SHROOM, IceShroom::price, 50},
+				{"Resources/Plants/Cards/BMP/card_iceshroom_alive.bmp", "Resources/Plants/Cards/BMP/card_iceshroom_unable.bmp",
+					"Resources/Plants/Cards/BMP/card_iceshroom_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_iceshroom_cooldown1.bmp",
+					"Resources/Plants/Cards/BMP/card_iceshroom_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_iceshroom_cooldown3.bmp"} // ice-shroom
+			},
 
 			{	{SEED_CARD_TYPE::SQUASH, Squash::price, 30},
 				{"Resources/Plants/Cards/BMP/card_squash_alive.bmp", "Resources/Plants/Cards/BMP/card_squash_unable.bmp",
@@ -136,11 +136,11 @@ namespace game_framework
 					"Resources/Plants/Cards/BMP/card_threepeashooter_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_threepeashooter_cooldown3.bmp"} // Three-peater
 			},
 
-			// {	{SEED_CARD_TYPE::JALAPENO, Jalapeno::price, 50},
-			// 	{"Resources/Plants/Cards/BMP/card_jalapeno_alive.bmp", "Resources/Plants/Cards/BMP/card_jalapeno_unable.bmp",
-			// 		"Resources/Plants/Cards/BMP/card_jalapeno_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_jalapeno_cooldown1.bmp",
-			// 		"Resources/Plants/Cards/BMP/card_jalapeno_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_jalapeno_cooldown3.bmp"} // Jalapeno
-			// },
+			{	{SEED_CARD_TYPE::JALAPENO, Jalapeno::price, 50},
+			 	{"Resources/Plants/Cards/BMP/card_jalapeno_alive.bmp", "Resources/Plants/Cards/BMP/card_jalapeno_unable.bmp",
+			 		"Resources/Plants/Cards/BMP/card_jalapeno_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_jalapeno_cooldown1.bmp",
+			 		"Resources/Plants/Cards/BMP/card_jalapeno_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_jalapeno_cooldown3.bmp"} // Jalapeno
+			},
 
 			// {	{SEED_CARD_TYPE::SPIKE_WEED, Spikeweed::price, 10},
 			// 	{"Resources/Plants/Cards/BMP/card_spikeweed_alive.bmp", "Resources/Plants/Cards/BMP/card_spikeweed_unable.bmp",

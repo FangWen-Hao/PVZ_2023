@@ -10,6 +10,7 @@
 #include <algorithm>
 #include "../config.h"
 #include "../Utils/Soundboard.h"
+#include "../Utils/VK_Consts.h"
 
 namespace game_framework {
 
@@ -118,7 +119,7 @@ namespace game_framework {
 		bar.init(startingSunsAmmount);
 		shovelCursor.LoadBitmapByString({ SHOVEL_CURSOR_BITMAP }, RGB(255, 255, 255));
 		progress.init(countTotalZombies());
-		menu.init(getPreviousLevel(), getCurrentLevel(), getNextLevel());
+		menu.init(getCurrentLevel());
 		gameOver.init();
 	}
 
@@ -245,26 +246,38 @@ namespace game_framework {
 
 	void Map::OnKeyUp(UINT nChar)
 	{
-		const char KEY_D = 0x44;
-		const char KEY_L = 0x4C;
-		const char KEY_S = 0x53;
-		const char KEY_Z = 0x5A;
-
 		switch (nChar)
 		{
-		case KEY_D:
-			for (Zombie* zombie : zombies)
-				zombie->setHp(0);
+		case VK_Q:
+			cheatChangeLvl = getPreviousLevel();
 			break;
-		case KEY_L:
-			// TODO : jump to next level
-			break;
-		case KEY_S:
+		case VK_W:
 			bar.addSuns(500);
 			SoundBoard::playSfx(soundID::SFX_SUN_PICKED);
 			break;
-		case KEY_Z:
-			// TODO : add zombies moving speed
+		case VK_E:
+			cheatChangeLvl = getNextLevel();
+			break;
+		case VK_A:
+			for (Zombie* zombie : zombies)
+				zombie->setDoubleSpeed();
+			break;
+		case VK_S:
+			for (Zombie* zombie : zombies)
+				zombie->setNormalSpeed();
+			break;
+		case VK_D:
+			for (Zombie* zombie : zombies)
+				zombie->setHalfSpeed();
+			break;
+		case VK_Z:
+			bar.resetCardsCooldown();
+			break;
+		case VK_X:
+			spawnNoteCheat = true; // don't break here as we also want to kill all zombies on screen after dropping the note
+		case VK_C:
+			for (Zombie* zombie : zombies)
+				zombie->setHp(0);
 			break;
 		default:
 			break;
@@ -342,7 +355,7 @@ namespace game_framework {
 
 			if (zombie->isDead())
 			{
-				if (progress.getRemainingZombies() == 1)
+				if (progress.getRemainingZombies() == 1 || spawnNoteCheat)
 				{
 					note.SetTopLeft(zombie->left(), zombie->top());
 
@@ -421,6 +434,9 @@ namespace game_framework {
 
 	int Map::OnLClick(CPoint coords)
 	{
+		if (cheatChangeLvl != MENU_NO_BTN_ACTION_REJECTED)
+			return cheatChangeLvl;
+
 		// if the game was lost or won, then don't allow the user to access the menu.
 		if (noteWasClicked)
 		{

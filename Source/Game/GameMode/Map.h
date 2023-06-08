@@ -104,6 +104,10 @@ namespace game_framework {
 		Background endGameMsg;
 		bool noteWasClicked = false;
 
+		// cheats
+		int cheatChangeLvl = MENU_NO_BTN_ACTION_REJECTED;
+		bool spawnNoteCheat = false;
+
 		// UI Elements attributes
 		GameBar bar;
 		GameMenu menu;

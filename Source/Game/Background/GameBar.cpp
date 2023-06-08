@@ -207,6 +207,14 @@ namespace game_framework
 		return gameStartedTime;
 	}
 
+	void GameBar::resetCardsCooldown()
+	{
+		for (SeedCard card : cards)
+		{
+			card.overrideCooldown();
+		}
+	}
+
 	void GameBar::drawSun()
 	{
 		CDC *pDC = CDDraw::GetBackCDC();

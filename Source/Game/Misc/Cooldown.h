@@ -25,6 +25,7 @@ namespace game_framework
 		int getCoolDownProgressInPercentage();
 		bool isOnCooldown();
 		void startCooldown();
+		void overrideCooldown();
 
 	private:
 		static high_resolution_clock::time_point gameClock; // this clock is used so we can just call the current time once and then compare all the cooldowns with this one

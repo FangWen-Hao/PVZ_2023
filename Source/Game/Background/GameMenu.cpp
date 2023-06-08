@@ -7,7 +7,7 @@
 
 using namespace game_framework;
 
-void GameMenu::init(int previousLevel, int currentLevel, int nextLevel)
+void GameMenu::init(int currentLevel)
 {
 	background.LoadBitmapByString({ GAME_MENU_BACKGROUND_BITMAP }, RGB(255, 255, 255));
 	background.SetTopLeft((RESOLUTION_X - background.GetWidth()) / 2, (RESOLUTION_Y - background.GetHeight()) / 2);
@@ -15,9 +15,7 @@ void GameMenu::init(int previousLevel, int currentLevel, int nextLevel)
 	int backgroundX = background.GetLeft();
 	int backgroundY = background.GetTop();
 
-	this->previousLevel = previousLevel;
 	this->currentLevel = currentLevel;
-	this->nextLevel = nextLevel;
 
 	int btnsXAlignement = backgroundX + 112;
 	int btnsYAlignement = backgroundY + 325;
@@ -39,19 +37,6 @@ void GameMenu::init(int previousLevel, int currentLevel, int nextLevel)
 	restartLvlBtn.SetTopLeft(btnsXAlignement, btnsYAlignement);
 	btnsYAlignement -= GAME_MENU_BTNS_PADDING;
 
-	if (nextLevel != MENU_BTN)
-	{
-		nextLvlBtn.LoadBitmapByString(NEXT_LEVEL_BTN_BITMAPS, RGB(255, 255, 255));
-		nextLvlBtn.SetTopLeft(btnsXAlignement, btnsYAlignement);
-		btnsYAlignement -= GAME_MENU_BTNS_PADDING;
-	}
-
-	if (previousLevel != MENU_BTN)
-	{
-		previousLvlBtn.LoadBitmapByString(PREVIOUS_LEVEL_BTN_BITMAPS, RGB(255, 255, 255));
-		previousLvlBtn.SetTopLeft(btnsXAlignement, btnsYAlignement);
-	}
-
 	backToGameBtn.LoadBitmapByString(BACK_TO_GAME_BTN_BITMAPS, RGB(255, 255, 255));
 	backToGameBtn.SetTopLeft(backgroundX + 43, backgroundY + 375);
 
@@ -65,13 +50,6 @@ void GameMenu::show()
 		background.ShowBitmap();
 		musicChkBox.show();
 		soundFXChkBox.show();
-
-		if (previousLevel != MENU_BTN)
-			previousLvlBtn.show();
-
-		if (nextLevel != MENU_BTN)
-			nextLvlBtn.show();
-
 		restartLvlBtn.show();
 		mainMenuBtn.show();
 		backToGameBtn.show();
@@ -155,21 +133,6 @@ int GameMenu::onClick(CPoint coords, bool isDay, bool gameStarted)
 	}
 	else
 	{
-		if (previousLevel != MENU_BTN
-			&&coords.x < (previousLvlBtn.GetLeft() + previousLvlBtn.GetWidth()) && coords.x > previousLvlBtn.GetLeft()
-			&& coords.y < (previousLvlBtn.GetTop() + previousLvlBtn.GetHeight()) && coords.y > previousLvlBtn.GetTop())
-		{
-			return previousLevel;
-		}
-
-		if (nextLevel != MENU_BTN
-			&& coords.x < (nextLvlBtn.GetLeft() + nextLvlBtn.GetWidth()) && coords.x > nextLvlBtn.GetLeft()
-			&& coords.y < (nextLvlBtn.GetTop() + nextLvlBtn.GetHeight()) && coords.y > nextLvlBtn.GetTop())
-		
-		{
-			return nextLevel;
-		}
-
 		if (coords.x < (restartLvlBtn.GetLeft() + restartLvlBtn.GetWidth()) && coords.x > restartLvlBtn.GetLeft()
 			&& coords.y < (restartLvlBtn.GetTop() + restartLvlBtn.GetHeight()) && coords.y > restartLvlBtn.GetTop())
 		{
