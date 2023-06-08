@@ -29,9 +29,6 @@
     <Filter Include="MyGame\Zombies">
       <UniqueIdentifier>{943b5e67-37db-405e-9404-f55f9c39db77}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MyGame\Terrain">
-      <UniqueIdentifier>{1aebc53d-3561-46b7-86a4-cb0079c21ebd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MyGame\Misc">
       <UniqueIdentifier>{a69233cc-2992-41c9-86ee-09a24dd51446}</UniqueIdentifier>
     </Filter>
@@ -113,9 +110,6 @@
     </ClCompile>
     <ClCompile Include="Source\Game\Misc\Cooldown.cpp">
       <Filter>MyGame\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game\Terrain\Lane.cpp">
-      <Filter>MyGame\Terrain</Filter>
     </ClCompile>
     <ClCompile Include="Source\Game\Misc\Sun.cpp">
       <Filter>MyGame\Misc</Filter>
@@ -289,12 +283,6 @@
     </ClInclude>
     <ClInclude Include="Source\Game\Misc\Cooldown.h">
       <Filter>MyGame\Misc</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Terrain\Lane.h">
-      <Filter>MyGame\Terrain</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Game\Terrain\Tile.h">
-      <Filter>MyGame\Terrain</Filter>
     </ClInclude>
     <ClInclude Include="Source\Game\Misc\Sun.h">
       <Filter>MyGame\Misc</Filter>
