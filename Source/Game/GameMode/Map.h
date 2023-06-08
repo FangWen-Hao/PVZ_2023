@@ -103,6 +103,7 @@ namespace game_framework {
 		CMovingBitmap note;
 		Background endGameMsg;
 		bool noteWasClicked = false;
+		bool noteSpawned = false;
 
 		// cheats
 		int cheatChangeLvl = MENU_NO_BTN_ACTION_REJECTED;

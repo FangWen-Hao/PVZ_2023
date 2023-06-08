@@ -12,6 +12,7 @@
 #include <mmsystem.h>
 #include <ddraw.h>
 #include "../../Library/gamecore.h"
+#include "../config.h"
 
 using namespace game_framework;
 
@@ -103,18 +104,31 @@ void MainMenu::drawCheatSheet()
 {
 	CDC *pDC = CDDraw::GetBackCDC();
 
-	const int size = 14;
-	const int xPadding = 5;
-	int YPadding = 5;
+	const int size = 16;
+	const int xPos = 5;
+	const int yPadding = 20;
+	int yPos = 5;
+	double descriptionXpos;
 
-	for (string msg : CHEAT_MSGS)
+	for (unsigned int i = 0; i < CHEAT_MSGS.size(); i++)
 	{
-		// I have absolutely no clue at all, 0, nil, nada, on why I have to divide by 4
-		// but this makes it work so....
-		CTextDraw::ChangeFontLog(pDC, size, "微軟正黑體", RGB(0, 0, 0), 800);
-		CTextDraw::Print(pDC, xPadding, YPadding, msg);
+		vector<string> msg = CHEAT_MSGS.at(i);
+		string key = msg.at(0);
+		CTextDraw::ChangeFontLog(pDC, size, "微軟正黑體", RGB(255, 255, 255)); // text 
+		CTextDraw::Print(pDC, xPos, yPos, key);
 
-		YPadding += 10;
+		if (i == 0)
+		{
+			yPos += yPadding;
+			continue;
+		}
+
+		string description = "  : " + msg.at(1);
+		descriptionXpos = xPos + (key.length() * size / 2);
+		CTextDraw::ChangeFontLog(pDC, size, "微軟正黑體", RGB(0, 0, 0)); // text 
+		CTextDraw::Print(pDC, (int)descriptionXpos, yPos, description);
+
+		yPos += yPadding;
 	}
 
 	CDDraw::ReleaseBackCDC();

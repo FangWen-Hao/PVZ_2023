@@ -273,11 +273,14 @@ namespace game_framework {
 		case VK_Z:
 			bar.resetCardsCooldown();
 			break;
-		case VK_X:
-			spawnNoteCheat = true; // don't break here as we also want to kill all zombies on screen after dropping the note
 		case VK_C:
 			for (Zombie* zombie : zombies)
 				zombie->setHp(0);
+			break;
+		case VK_X:
+			for (Zombie* zombie : zombies)
+				zombie->setHp(0);
+			spawnNoteCheat = true; // don't break here as we also want to kill all zombies on screen after dropping the note
 			break;
 		default:
 			break;
@@ -365,6 +368,9 @@ namespace game_framework {
 						SoundBoard::stopSound(soundID::NIGHT_MAP);
 
 					SoundBoard::playMusic(soundID::ON_NOTE_UI, true);
+
+					noteSpawned = true;
+					spawnNoteCheat = false;
 				}
 
 				if (zombie->isDeadDone())
@@ -458,7 +464,7 @@ namespace game_framework {
 		menu.onClick(coords, isDay, bar.hasGameStarted());
 
 		// allow the user to click the menu if the game is over but the user hasn't picked up the note.
-		if (progress.isGameComplete())
+		if (noteSpawned)
 		{
 			if (coords.x < (note.GetLeft() + note.GetWidth()) && coords.x > note.GetLeft()
 				&& coords.y < (note.GetTop() + note.GetHeight()) && coords.y > note.GetTop())
