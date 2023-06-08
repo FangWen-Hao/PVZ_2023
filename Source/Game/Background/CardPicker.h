@@ -94,6 +94,12 @@ namespace game_framework
 					"Resources/Plants/Cards/BMP/card_repeaterpea_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_repeaterpea_cooldown3.bmp"}
 			},
 
+			{	{SEED_CARD_TYPE::SQUASH, Squash::price, 30},
+				{"Resources/Plants/Cards/BMP/card_squash_alive.bmp", "Resources/Plants/Cards/BMP/card_squash_unable.bmp",
+					"Resources/Plants/Cards/BMP/card_squash_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_squash_cooldown1.bmp",
+					"Resources/Plants/Cards/BMP/card_squash_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_squash_cooldown3.bmp"} // squasher
+			},
+
 			{	{SEED_CARD_TYPE::PUFF_SHROOM, PuffShroom::price, 10},
 				{"Resources/Plants/Cards/BMP/card_puffshroom_alive.bmp", "Resources/Plants/Cards/BMP/card_puffshroom_unable.bmp",
 					"Resources/Plants/Cards/BMP/card_puffshroom_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_puffshroom_cooldown1.bmp",
@@ -122,12 +128,6 @@ namespace game_framework
 				{"Resources/Plants/Cards/BMP/card_iceshroom_alive.bmp", "Resources/Plants/Cards/BMP/card_iceshroom_unable.bmp",
 					"Resources/Plants/Cards/BMP/card_iceshroom_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_iceshroom_cooldown1.bmp",
 					"Resources/Plants/Cards/BMP/card_iceshroom_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_iceshroom_cooldown3.bmp"} // ice-shroom
-			},
-
-			{	{SEED_CARD_TYPE::SQUASH, Squash::price, 30},
-				{"Resources/Plants/Cards/BMP/card_squash_alive.bmp", "Resources/Plants/Cards/BMP/card_squash_unable.bmp",
-					"Resources/Plants/Cards/BMP/card_squash_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_squash_cooldown1.bmp",
-					"Resources/Plants/Cards/BMP/card_squash_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_squash_cooldown3.bmp"} // squasher
 			},
 
 			{	{SEED_CARD_TYPE::THREE_PEATER, Threepeater::price, 10},

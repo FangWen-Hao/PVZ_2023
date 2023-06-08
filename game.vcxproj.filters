@@ -371,6 +371,9 @@
     <ClInclude Include="Source\Game\GameMode\Maps\Level_10.h">
       <Filter>MyGame\GameMode\Maps</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Game\Utils\VK_Consts.h">
+      <Filter>MyGame\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Source\Core\game.rc">

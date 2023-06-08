@@ -345,6 +345,7 @@
     <ClInclude Include="Source\Game\Utils\GameModeUtils.h" />
     <ClInclude Include="Source\Game\Utils\Soundboard.h" />
     <ClInclude Include="Source\Game\Utils\SoundInfo.h" />
+    <ClInclude Include="Source\Game\Utils\VK_Consts.h" />
     <ClInclude Include="Source\Game\Zombies\Zombie.h" />
     <ClInclude Include="Source\Library\audio.h" />
     <ClInclude Include="Source\Library\gamecore.h" />
