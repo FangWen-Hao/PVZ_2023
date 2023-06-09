@@ -107,6 +107,8 @@ namespace game_framework {
 
 		// cheats
 		int cheatChangeLvl = MENU_NO_BTN_ACTION_REJECTED;
+		Cooldown cheatChangeLvlTimer;
+		const double CHEAT_CHANGE_LVL_TIMER_DURATION = 3;
 		bool spawnNoteCheat = false;
 
 		// UI Elements attributes

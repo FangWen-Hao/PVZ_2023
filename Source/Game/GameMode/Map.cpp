@@ -95,6 +95,8 @@ namespace game_framework {
 
 		// Sun is obtained from [...] and falls from the sky approximately every 10 seconds when it is daytime. -> https://plantsvszombies.fandom.com/wiki/Sun
 		InitGameBoard();
+
+		cheatChangeLvlTimer.initCooldown(CHEAT_CHANGE_LVL_TIMER_DURATION);
 	}
 
 	void Map::InitGameBoard()
@@ -242,6 +244,9 @@ namespace game_framework {
 			UpdateBulletsState();
 			UpdateLawnmowers();
 		}
+
+		if (!cheatChangeLvlTimer.isOnCooldown())
+			cheatChangeLvl = MENU_NO_BTN_ACTION_REJECTED;
 	}
 
 	void Map::OnKeyUp(UINT nChar)
@@ -249,6 +254,7 @@ namespace game_framework {
 		switch (nChar)
 		{
 		case VK_Q:
+			cheatChangeLvlTimer.startCooldown();
 			cheatChangeLvl = getPreviousLevel();
 			break;
 		case VK_W:
@@ -256,6 +262,7 @@ namespace game_framework {
 			SoundBoard::playSfx(soundID::SFX_SUN_PICKED);
 			break;
 		case VK_E:
+			cheatChangeLvlTimer.startCooldown();
 			cheatChangeLvl = getNextLevel();
 			break;
 		case VK_A:
