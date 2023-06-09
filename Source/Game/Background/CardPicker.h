@@ -43,6 +43,7 @@ namespace game_framework
 			// for bitmaps
 			//		// {...Filepaths name} }
 			// {_alive, _unable, cooldown0, cooldown 1, cooldown 2, cooldown 3};
+
 			{	{SEED_CARD_TYPE::PEA_SHOOTER, PeaShooter::price, 10},
 
 				{"Resources/Plants/Cards/BMP/card_peashooter_alive.bmp", "Resources/Plants/Cards/BMP/card_peashooter_unable.bmp", // "94", "148",
@@ -82,12 +83,6 @@ namespace game_framework
 					"Resources/Plants/Cards/BMP/card_snowpea_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_snowpea_cooldown3.bmp"}
 			},
 
-			// {	{SEED_CARD_TYPE::CHOMPER, Chomper::price, 10},
-			// 	{"Resources/Plants/Cards/BMP/card_chomper_alive.bmp", "Resources/Plants/Cards/BMP/card_chomper_unable.bmp",
-			// 		"Resources/Plants/Cards/BMP/card_chomper_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_chomper_cooldown1.bmp",
-			// 		"Resources/Plants/Cards/BMP/card_chomper_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_chomper_cooldown3.bmp"}
-			// },
-
 			{	{SEED_CARD_TYPE::REPEATER_PEA, RepeaterPea::price, 10},
 				{"Resources/Plants/Cards/BMP/card_repeaterpea_alive.bmp", "Resources/Plants/Cards/BMP/card_repeaterpea_unable.bmp",
 					"Resources/Plants/Cards/BMP/card_repeaterpea_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_repeaterpea_cooldown1.bmp",
@@ -105,18 +100,6 @@ namespace game_framework
 					"Resources/Plants/Cards/BMP/card_puffshroom_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_puffshroom_cooldown1.bmp",
 					"Resources/Plants/Cards/BMP/card_puffshroom_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_puffshroom_cooldown3.bmp"}
 			},
-
-			// {	{SEED_CARD_TYPE::SUN_SHROOM, Sunshroom::price, 10},
-			// 	{"Resources/Plants/Cards/BMP/card_sunshroom_alive.bmp", "Resources/Plants/Cards/BMP/card_sunshroom_unable.bmp",
-			// 		"Resources/Plants/Cards/BMP/card_sunshroom_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_sunshroom_cooldown1.bmp",
-			// 		"Resources/Plants/Cards/BMP/card_sunshroom_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_sunshroom_cooldown3.bmp"} // sun_shroom
-			// },
-
-			// {	{SEED_CARD_TYPE::HYPNO_SHROOM, Hypnoshroom::price, 30},
-			// 	{"Resources/Plants/Cards/BMP/card_hypnoshroom_alive.bmp", "Resources/Plants/Cards/BMP/card_hypnoshroom_unable.bmp",
-			// 		"Resources/Plants/Cards/BMP/card_hypnoshroom_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_hypnoshroom_cooldown1.bmp",
-			// 		"Resources/Plants/Cards/BMP/card_hypnoshroom_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_hypnoshroom_cooldown3.bmp"} // hypno-shroom
-			// },
 
 			{	{SEED_CARD_TYPE::SCAREDY_SHROOM, ScaredyShroom::price, 10},
 				{"Resources/Plants/Cards/BMP/card_scaredyshroom_alive.bmp", "Resources/Plants/Cards/BMP/card_scaredyshroom_unable.bmp",
@@ -141,12 +124,6 @@ namespace game_framework
 			 		"Resources/Plants/Cards/BMP/card_jalapeno_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_jalapeno_cooldown1.bmp",
 			 		"Resources/Plants/Cards/BMP/card_jalapeno_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_jalapeno_cooldown3.bmp"} // Jalapeno
 			},
-
-			// {	{SEED_CARD_TYPE::SPIKE_WEED, Spikeweed::price, 10},
-			// 	{"Resources/Plants/Cards/BMP/card_spikeweed_alive.bmp", "Resources/Plants/Cards/BMP/card_spikeweed_unable.bmp",
-			// 		"Resources/Plants/Cards/BMP/card_spikeweed_cooldown0.bmp", "Resources/Plants/Cards/BMP/card_spikeweed_cooldown1.bmp",
-			// 		"Resources/Plants/Cards/BMP/card_spikeweed_cooldown2.bmp", "Resources/Plants/Cards/BMP/card_spikeweed_cooldown3.bmp"} // spike_weed
-			// },
 
 		};
 
