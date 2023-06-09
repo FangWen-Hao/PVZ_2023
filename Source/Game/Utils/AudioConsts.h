@@ -28,7 +28,4 @@ namespace game_framework {
 		VOICE_NEWSPAPER_1,
 		VOICE_NEWSPAPER_2,
 	};
-
-	
-
 }

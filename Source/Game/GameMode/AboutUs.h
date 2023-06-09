@@ -19,8 +19,5 @@ namespace game_framework {
 		void OnHover(CPoint);
 		int OnLClick(CPoint);
 		int OnRClick(CPoint);
-
-	private:
-		Background bg;
 	};
 }

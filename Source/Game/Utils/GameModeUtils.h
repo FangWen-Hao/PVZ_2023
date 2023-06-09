@@ -142,4 +142,3 @@ namespace game_framework {
 		return (rand() % max + min);
 	}
 }
-

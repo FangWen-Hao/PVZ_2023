@@ -280,7 +280,6 @@
     <ClCompile Include="Source\Game\Plants\SunFlower.cpp" />
     <ClCompile Include="Source\Game\Plants\Threepeater.cpp" />
     <ClCompile Include="Source\Game\Plants\WallNut.cpp" />
-    <ClCompile Include="Source\Game\Terrain\Lane.cpp" />
     <ClCompile Include="Source\Game\Utils\Soundboard.cpp" />
     <ClCompile Include="Source\Game\Utils\SoundInfo.cpp" />
     <ClCompile Include="Source\Game\Zombies\BucketheadZombie.cpp" />
@@ -337,8 +336,6 @@
     <ClInclude Include="Source\Game\Misc\Sun.h" />
     <ClInclude Include="Source\Game\mygame.h" />
     <ClInclude Include="Source\Game\Plants\Plant.h" />
-    <ClInclude Include="Source\Game\Terrain\Lane.h" />
-    <ClInclude Include="Source\Game\Terrain\Tile.h" />
     <ClInclude Include="Source\Game\Utils\AudioConsts.h" />
     <ClInclude Include="Source\Game\Utils\EntitiesUtil.h" />
     <ClInclude Include="Source\Game\Utils\GameModeConsts.h" />
