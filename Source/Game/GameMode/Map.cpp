@@ -225,7 +225,7 @@ namespace game_framework {
 
 		if (menu.getIsGamePaused())
 		{
-			// note that we need to have a counter for the time while the menu was open so the zombies dont just magically appear all at once.
+			// note that we have a counter for the time while the menu was open so the zombies dont just magically appear all at once.
 			return;
 		}
 
@@ -273,14 +273,11 @@ namespace game_framework {
 		case VK_Z:
 			bar.resetCardsCooldown();
 			break;
+		case VK_X:
+			spawnNoteCheat = true; // don't break here as we also want to kill all zombies on screen after dropping the note
 		case VK_C:
 			for (Zombie* zombie : zombies)
 				zombie->setHp(0);
-			break;
-		case VK_X:
-			for (Zombie* zombie : zombies)
-				zombie->setHp(0);
-			spawnNoteCheat = true; // don't break here as we also want to kill all zombies on screen after dropping the note
 			break;
 		default:
 			break;

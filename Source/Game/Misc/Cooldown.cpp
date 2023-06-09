@@ -74,9 +74,4 @@ namespace game_framework
 	{
 		_lastUse = high_resolution_clock::now() - std::chrono::duration_cast<std::chrono::steady_clock::duration>(std::chrono::duration<double>(gamePauseTime));
 	}
-
-	void Cooldown::overrideCooldown()
-	{
-		_lastUse = high_resolution_clock::now() - std::chrono::duration_cast<std::chrono::steady_clock::duration>(std::chrono::duration<double>(gamePauseTime)) + std::chrono::duration_cast<std::chrono::steady_clock::duration>(std::chrono::duration<double>(_cooldown));
-	}
 }

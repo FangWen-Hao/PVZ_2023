@@ -117,7 +117,7 @@ void MainMenu::drawCheatSheet()
 		CTextDraw::ChangeFontLog(pDC, size, "微軟正黑體", RGB(255, 255, 255)); // text 
 		CTextDraw::Print(pDC, xPos, yPos, key);
 
-		if (i == 0)
+		if (msg.at(1).length() == 0)
 		{
 			yPos += yPadding;
 			continue;

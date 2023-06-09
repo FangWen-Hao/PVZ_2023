@@ -209,9 +209,9 @@ namespace game_framework
 
 	void GameBar::resetCardsCooldown()
 	{
-		for (SeedCard card : cards)
+		for (unsigned int i = 0; i < cards.size(); i++)
 		{
-			card.overrideCooldown();
+			cards.at(i).overrideCooldown();
 		}
 	}
 

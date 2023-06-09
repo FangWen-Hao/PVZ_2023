@@ -32,9 +32,14 @@ namespace game_framework{
 		const vector<vector<string>> CHEAT_MSGS {
 			// Cheat instructions
 			// {cheat key, cheat description}
-			{ "List of cheat codes", ""},
+			{"How to play:", ""},
+			{"Mouse ", "Perform action"},
+			{"Left Click", "Interact with the game"},
+			{"Right Click", "Cancel planting or shovel"},
+
+			{ "List of cheat codes:", ""},
 			{ "Q + Left Click", "Go to the previous level"},
-			{ "W", "Add 500 suns"},
+			{ "W ", "Add 500 suns"},
 			{ "E + Left Click", "Go to the next level"},
 			{ "A", "Zombies move twice as fast"},
 			{ "S", "Zombies move normally"},

@@ -55,7 +55,7 @@ namespace game_framework {
 		SEED_CARD_TYPE getType();
 		int getPrice();
 		bool isOnCooldown();
-		void overrideCooldown() { _cooldown.overrideCooldown(); }
+		void overrideCooldown();
 
 	private:
 		SEED_CARD_TYPE _type;
@@ -63,6 +63,7 @@ namespace game_framework {
 		int _posY;
 		int _price;
 		Cooldown _cooldown;
+		bool overRidenCooldown = false;
 		vector<string> _filePath;
 
 	};

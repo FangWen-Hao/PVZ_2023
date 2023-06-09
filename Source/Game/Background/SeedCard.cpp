@@ -69,13 +69,20 @@ void SeedCard::resetCardPos()
 
 void SeedCard::used()
 {
+	overRidenCooldown = false;
 	_cooldown.startCooldown();
 	resetCardPos();
-	SetFrameIndexOfBitmap(SEED_CARD_STATE::COOLDOWN_0); // needed?
+	SetFrameIndexOfBitmap(SEED_CARD_STATE::COOLDOWN_0);
 }
 
 void SeedCard::updateCooldown()
 {
+	if (overRidenCooldown)
+	{
+		SetFrameIndexOfBitmap(SEED_CARD_STATE::ALIVE);
+		return;
+	}
+
 	int progress = _cooldown.getCoolDownProgressInPercentage();
 
 	if (progress <= 100 && progress > 75)
@@ -115,5 +122,13 @@ int SeedCard::getPrice()
 
 bool SeedCard::isOnCooldown()
 {
+	if (overRidenCooldown)
+		return false;
+
 	return _cooldown.isOnCooldown();
+}
+
+void SeedCard::overrideCooldown()
+{
+	overRidenCooldown = true;
 }
