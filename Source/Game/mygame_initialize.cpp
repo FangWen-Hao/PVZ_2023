@@ -35,6 +35,7 @@ void CGameStateInit::OnInit()
 	// I tried converting the JPG to BMP with Gimp but it doesnt work,
 	// regardless of the bit depth or bit depth type.
 	init_screen.init("Resources/Background/MAIN MENU/BMP/init_screen_v4.bmp");
+	SoundBoard::initSoundboard();
 
 	// 一開始的loading進度為0%
 	//
